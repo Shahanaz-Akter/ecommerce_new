@@ -28,12 +28,13 @@
       <div class="container">
         <div class="row flex-center min-vh-100 py-5">
           <div class="col-sm-10 col-md-8 col-lg-5 col-xl-5 col-xxl-3"><a class="d-flex flex-center text-decoration-none mb-4" href="../../../index.html">
-              <div class="d-flex align-items-center fw-bolder fs-3 d-inline-block"><img src="../../../assets/img/icons/logo.png" alt="phoenix" width="58" />
+              <div class="d-flex align-items-center fw-bolder fs-3 d-inline-block"><img src="{{ asset('assets/img/icons/logo.png') }}" alt="phoenix" width="58" />
+                {{-- ../../../assets/img/icons/logo.png --}} 
               </div>
             </a>
             <div class="text-center mb-7">
               <h3 class="text-body-highlight">Sign In</h3>
-              <p class="text-body-tertiary">Get access to your account</p>
+              <p class="text-body-tertiary">Get Access to Your Account</p>
             </div>
             <button class="btn btn-phoenix-secondary w-100 mb-3"><span class="fab fa-google text-danger me-2 fs-9"></span> <a href="{{ route('google.login') }}">Sign up with google</a></button>
             <button class="btn btn-phoenix-secondary w-100"><span class="fab fa-facebook text-primary me-2 fs-9"></span> <a href="{{ route('facebook.login') }}">Sign in with facebook</a> </button>
@@ -41,29 +42,37 @@
               <hr class="bg-body-secondary mt-5 mb-4" />
               <div class="divider-content-center">or use email</div>
             </div>
+
+            <form action="{{ route('post.login') }}" method="POST"> 
+              @csrf
+
             <div class="mb-3 text-start">
               <label class="form-label" for="email">Email address</label>
               <div class="form-icon-container">
-                <input class="form-control form-icon-input" id="email" type="email" placeholder="name@example.com" /><span class="fas fa-user text-body fs-9 form-icon"></span>
+                <input class="form-control form-icon-input" id="email" type="email" placeholder="name@example.com" name="email"/><span class="fas fa-user text-body fs-9 form-icon"></span>
               </div>
             </div>
             <div class="mb-3 text-start">
               <label class="form-label" for="password">Password</label>
               <div class="form-icon-container">
-                <input class="form-control form-icon-input" id="password" type="password" placeholder="Password" /><span class="fas fa-key text-body fs-9 form-icon"></span>
+                <input class="form-control form-icon-input" id="password" type="password" placeholder="Password" name="password"/><span class="fas fa-key text-body fs-9 form-icon"></span>
               </div>
             </div>
             <div class="row flex-between-center mb-7">
               <div class="col-auto">
                 <div class="form-check mb-0">
-                  <input class="form-check-input" id="basic-checkbox" type="checkbox" checked="checked" />
+                  <input class="form-check-input" id="basic-checkbox" type="checkbox" checked="checked" name="remember_me" />
                   <label class="form-check-label mb-0" for="basic-checkbox">Remember me</label>
                 </div>
               </div>
               <div class="col-auto"><a class="fs-9 fw-semibold" href="{{ route('forget') }}">Forgot Password?</a></div>
             </div>
-            <button class="btn btn-primary w-100 mb-3">Sign In</button>
+
+            <button type="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
             <div class="text-center"><a class="fs-9 fw-bold" href="{{ route('register') }}">Create an account</a></div>
+
+          </form>
+
           </div>
         </div>
       </div>

@@ -20,7 +20,11 @@ Route::get('/admin/dashboard', function () {
 
 
 Route::get('/admin/sign-up', [AuthController::class, 'register'])->name('register');
+Route::post('/admin/post-register', [AuthController::class, 'postRegister'])->name('post.register');
+
 Route::get('/admin/sign-in', [AuthController::class, 'login'])->name('login');
+Route::post('/admin/post-login', [AuthController::class, 'postLogin'])->name('post.login');
+
 Route::get('/admin/forget-password', [AuthController::class, 'forget'])->name('forget');
 
 Route::get('/admin/terms-condition', [AuthController::class, 'terms'])->name('terms');

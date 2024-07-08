@@ -29,12 +29,12 @@
       <div class="container">
         <div class="row flex-center min-vh-100 py-5">
           <div class="col-sm-10 col-md-8 col-lg-5 col-xl-5 col-xxl-3"><a class="d-flex flex-center text-decoration-none mb-4" href="../../../index.html">
-              <div class="d-flex align-items-center fw-bolder fs-3 d-inline-block"><img src="../../../assets/img/icons/logo.png" alt="phoenix" width="58" />
+              <div class="d-flex align-items-center fw-bolder fs-3 d-inline-block"><img src="{{ asset('assets/img/icons/logo.png') }}" alt="phoenix" width="58" />
               </div>
             </a>
             <div class="text-center mb-7">
               <h3 class="text-body-highlight">Sign Up</h3>
-              <p class="text-body-tertiary">Create your account today</p>
+              <p class="text-body-tertiary">Create Your Account Today</p>
             </div>
             <button class="btn btn-phoenix-secondary w-100 mb-3"><span class="fab fa-google text-danger me-2 fs-9"></span><a href="{{ route('google.login') }}">Sign up with google</a> </button>
             <button class="btn btn-phoenix-secondary w-100"><span class="fab fa-facebook text-primary me-2 fs-9"></span><a href="{{ route('facebook.login') }}">Sign up with facebook</a></button>
@@ -42,31 +42,37 @@
               <hr class="bg-body-secondary" />
               <div class="divider-content-center">or use email</div>
             </div>
-            <form>
+
+            <form action="{{ route('post.register') }}" method="POST">
+              
+             @csrf
+
               <div class="mb-3 text-start">
                 <label class="form-label" for="name">Name</label>
-                <input class="form-control" id="name" type="text" placeholder="Name" />
+                <input class="form-control" id="name" type="text" placeholder="Name" name="name"/>
               </div>
               <div class="mb-3 text-start">
                 <label class="form-label" for="email">Email address</label>
-                <input class="form-control" id="email" type="email" placeholder="name@example.com" />
+                <input class="form-control" id="email" type="email" placeholder="name@example.com" name="email" />
               </div>
               <div class="row g-3 mb-3">
                 <div class="col-sm-6">
                   <label class="form-label" for="password">Password</label>
-                  <input class="form-control form-icon-input" id="password" type="password" placeholder="Password" />
+                  <input class="form-control form-icon-input" id="password" type="password" placeholder="Password"  name="password"/>
                 </div>
                 <div class="col-sm-6">
                   <label class="form-label" for="confirmPassword">Confirm Password</label>
-                  <input class="form-control form-icon-input" id="confirmPassword" type="password" placeholder="Confirm Password" />
+                  <input class="form-control form-icon-input" id="confirmPassword" type="password" placeholder="Confirm Password"  name="confirm_password"/>
                 </div>
               </div>
               <div class="form-check mb-3">
                 <input class="form-check-input" id="termsService" type="checkbox" />
                 <label class="form-label fs-9 text-transform-none" for="termsService">I accept the <a href="{{ route('terms') }}">terms </a>and <a href="{{ route('privacy') }}">privacy policy</a></label>
               </div>
-              <button class="btn btn-primary w-100 mb-3">Sign up</button>
+
+              <button type="submit" class="btn btn-primary w-100 mb-3">Sign up</button>
               <div class="text-center"><a class="fs-9 fw-bold" href="{{ route('login')}}">Sign in to an existing account</a></div>
+
             </form>
           </div>
         </div>
