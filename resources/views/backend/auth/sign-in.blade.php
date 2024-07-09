@@ -46,6 +46,15 @@
             <form action="{{ route('post.login') }}" method="POST"> 
               @csrf
 
+             
+            @if ($errors->any())
+              <div class="alert alert-danger p-2">
+                      @foreach ($errors->all() as $error)
+                          {{ $error }}
+                      @endforeach
+              </div>
+          @endif
+
             <div class="mb-3 text-start">
               <label class="form-label" for="email">Email address</label>
               <div class="form-icon-container">
@@ -65,11 +74,11 @@
                   <label class="form-check-label mb-0" for="basic-checkbox">Remember me</label>
                 </div>
               </div>
-              <div class="col-auto"><a class="fs-9 fw-semibold" href="{{ route('forget') }}">Forgot Password?</a></div>
+              <div class="col-auto"><a class="fs-9 fw-semibold" href="{{ route('admin.forget') }}">Forgot Password?</a></div>
             </div>
 
             <button type="submit" class="btn btn-primary w-100 mb-3">Sign In</button>
-            <div class="text-center"><a class="fs-9 fw-bold" href="{{ route('register') }}">Create an account</a></div>
+            <div class="text-center"><a class="fs-9 fw-bold" href="{{ route('admin.register') }}">Create an account</a></div>
 
           </form>
 

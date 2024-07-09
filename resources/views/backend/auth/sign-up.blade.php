@@ -47,37 +47,47 @@
               
              @csrf
 
+            @if($errors->any())
+            
+                @foreach($errors->all() as $error)
+                <div class="alert alert-secondary p-2">{{ $error }}</div>
+                @endforeach
+
+            @endif
+
               <div class="mb-3 text-start">
                 <label class="form-label" for="name">Name</label>
-                <input class="form-control" id="name" type="text" placeholder="Name" name="name"/>
+                <input class="form-control" id="name" type="text" placeholder="Name" name="name" value="{{ old('name') }}"/>
               </div>
+
               <div class="mb-3 text-start">
                 <label class="form-label" for="email">Email address</label>
-                <input class="form-control" id="email" type="email" placeholder="name@example.com" name="email" />
+                <input class="form-control" id="email" type="email" placeholder="name@example.com" name="email" value="{{ old('email') }}" />
               </div>
+
               <div class="row g-3 mb-3">
                 <div class="col-sm-6">
                   <label class="form-label" for="password">Password</label>
-                  <input class="form-control form-icon-input" id="password" type="password" placeholder="Password"  name="password"/>
+                  <input class="form-control form-icon-input" id="password" type="password" placeholder="Password"  name="password" value="{{ old('password') }}"/>
                 </div>
                 <div class="col-sm-6">
-                  <label class="form-label" for="confirmPassword">Confirm Password</label>
-                  <input class="form-control form-icon-input" id="confirmPassword" type="password" placeholder="Confirm Password"  name="confirm_password"/>
+                  <label class="form-label" for="password_confirmation ">Confirm Password</label>
+                  <input class="form-control form-icon-input" id="password_confirmation " type="password" placeholder="Confirm Password"  name="password_confirmation"/>
                 </div>
               </div>
+
               <div class="form-check mb-3">
                 <input class="form-check-input" id="termsService" type="checkbox" />
-                <label class="form-label fs-9 text-transform-none" for="termsService">I accept the <a href="{{ route('terms') }}">terms </a>and <a href="{{ route('privacy') }}">privacy policy</a></label>
+                <label class="form-label fs-9 text-transform-none" for="termsService">I accept the <a href="{{ route('admin.terms') }}">terms </a>and <a href="{{ route('admin.privacy') }}">privacy policy</a></label>
               </div>
 
               <button type="submit" class="btn btn-primary w-100 mb-3">Sign up</button>
-              <div class="text-center"><a class="fs-9 fw-bold" href="{{ route('login')}}">Sign in to an existing account</a></div>
+              <div class="text-center"><a class="fs-9 fw-bold" href="{{ route('admin.login')}}">Sign in to an existing account</a></div>
 
             </form>
           </div>
         </div>
       </div>
-
 
       <script>
         var navbarTopStyle = window.config.config.phoenixNavbarTopStyle;
@@ -108,7 +118,8 @@
                 <div class="text-end mt-6"><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
                     <p class="mb-0 fw-semibold fs-9">I need help with something</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
                   </a><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
-                    <p class="mb-0 fw-semibold fs-9">I can’t reorder a product I previously ordered</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
+                    <p class="mb-0 fw-semibold fs-9">I can’t reorder a product I previously ordered</p>
+                    <span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
                   </a><a class="mb-2 d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">
                     <p class="mb-0 fw-semibold fs-9">How do I place an order?</p><span class="fa-solid fa-paper-plane text-primary fs-9 ms-3"></span>
                   </a><a class="false d-inline-flex align-items-center text-decoration-none text-body-emphasis bg-body-hover rounded-pill border border-primary py-2 ps-4 pe-3" href="#!">

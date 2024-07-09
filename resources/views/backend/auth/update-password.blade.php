@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Forget Password</title>
+    <title>UpdatePassword</title>
     {{-- Favicons --}}
     <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/favicons/apple-touch-icon.png') }}">
     <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicons/favicon-32x32.png') }}">
@@ -26,6 +26,8 @@
     <!-- ===============================================-->
     <!--    Main Content-->
     <!-- ===============================================-->
+ 
+
     <main class="main" id="top">
       <div class="container">
         <div class="row flex-center min-vh-100 py-5">
@@ -35,26 +37,39 @@
             </a>
             <div class="px-xxl-5">
               <div class="text-center mb-6">
-                <h4 class="text-body-highlight">Forgot your password?</h4>
-                <p class="text-body-tertiary mb-5">Enter your email below and we will send <br class="d-sm-none" />you a reset link</p>
-                <form  method="POST" action="{{ route('post.forget') }}">
+                <h4 class="text-body-highlight">Update your password.</h4>
+                <p class="text-body-tertiary mb-5">Enter your New Password below. <br class="d-sm-none" /></p>
+
+                <form method="POST" action="{{ route('post.update-password', $userId) }}">
+                 
                   @csrf
                   
                   @if($errors->any())
-                  
-                    @foreach($errors->all() as $error)
-                    <div class="alert alert-secondary p-2">{{ $error }}</div>
-                    @endforeach
-                 
+                  <div class="alert alert-danger p-2">
+                          @foreach ($errors->all() as $error)
+                              {{ $error }}
+                          @endforeach
+                  </div>
                   @endif
-                  
-                <div class="d-flex align-items-center mb-5">
-                  <input class="form-control flex-1" id="email" type="email" placeholder="Email" name="email" required/>
-                  <button class="btn btn-primary ms-2" type="submit">Send<span class="fas fa-chevron-right ms-2"></span></button>
-                </div>
 
-                </form>
-                <a class="fs-9 fw-bold">Still having problems?</a>
+            <div class="mb-3 text-start">
+                <label class="form-label" for="password">New Password</label>
+                <div class="form-icon-container">
+                  <input class="form-control form-icon-input" id="password" type="password" placeholder="Password" name="password" value="{{ old('password') }}"/><span class="fas fa-key text-body fs-9 form-icon"></span>
+                </div>
+            </div>
+
+            <div class="mb-3 text-start">
+              <label class="form-label" for="password">Confirm Password</label>
+              <div class="form-icon-container">
+                <input class="form-control form-icon-input" id="confirm_password" type="password" placeholder="confirm_password" name="password_confirmation"/><span class="fas fa-key text-body fs-9 form-icon"></span>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100 mb-3">Send</button>
+            
+            </form>
+               
               </div>
             </div>
           </div>
