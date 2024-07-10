@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Product\ProductController;
 
 Route::get('/', function () {
     // return view('welcome');
@@ -35,6 +36,10 @@ Route::get('/admin/privacy-policy', [AuthController::class, 'privacy'])->name('a
 Route::get('/admin/sign-in-google', [AuthController::class, 'google'])->name('google.login');
 Route::get('/admin/sign-in-facebook', [AuthController::class, 'facebook'])->name('facebook.login');
 
+
+Route::get('/product/add-product', [ProductController::class, 'addProduct'])->name('add.product');
+
+
 Route::get('/home/index', function () {
-    return view('frontend.index');
+    return view('frontend.home');
 });
