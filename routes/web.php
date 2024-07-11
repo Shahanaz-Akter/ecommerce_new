@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Product\ProductController;
 
 Route::get('/', function () {
@@ -33,13 +34,13 @@ Route::post('/admin/post-update-password/{userId}', [AuthController::class, 'pos
 Route::get('/admin/terms-condition', [AuthController::class, 'terms'])->name('admin.terms');
 Route::get('/admin/privacy-policy', [AuthController::class, 'privacy'])->name('admin.privacy');
 
-Route::get('/admin/sign-in-google', [AuthController::class, 'google'])->name('google.login');
-Route::get('/admin/sign-in-facebook', [AuthController::class, 'facebook'])->name('facebook.login');
-
-
 Route::get('/product/add-product', [ProductController::class, 'addProduct'])->name('add.product');
 
 
 Route::get('/home/index', function () {
     return view('frontend.home');
 });
+
+// Social Login Routes
+Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('google.login');
+Route::get('/auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);

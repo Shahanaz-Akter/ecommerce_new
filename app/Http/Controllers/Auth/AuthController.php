@@ -134,14 +134,5 @@ class AuthController extends Controller
         return view('backend.auth.privacy-policy');
     }
 
-    // socialite
-    public function google()
-    {
-        return "Google APi";
-    }
-
-    public function facebook()
-    {
-        return "Facebook APi";
-    }
+   
 }
