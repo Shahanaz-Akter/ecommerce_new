@@ -37,7 +37,7 @@
               <p class="text-body-tertiary">Create Your Account Today</p>
             </div>
             <button class="btn btn-phoenix-secondary w-100 mb-3"><span class="fab fa-google text-danger me-2 fs-9"></span><a href="{{ route('google.login') }}">Sign up with google</a> </button>
-            <button class="btn btn-phoenix-secondary w-100"><span class="fab fa-facebook text-primary me-2 fs-9"></span><a href="{{ route('facebook.login') }}">Sign up with facebook</a></button>
+            <button class="btn btn-phoenix-secondary w-100"><span class="fab fa-facebook text-primary me-2 fs-9"></span><a href="{{ route('google.login') }}">Sign up with facebook</a></button>
             <div class="position-relative mt-4">
               <hr class="bg-body-secondary" />
               <div class="divider-content-center">or use email</div>

@@ -11,7 +11,7 @@ use Laravel\Socialite\Facades\Socialite;
 
 class GoogleAuthController extends Controller
 {
-    public function redirect()
+    public function redirectGoogle()
     {
         return Socialite::driver('google')->redirect();
     }
@@ -23,13 +23,12 @@ class GoogleAuthController extends Controller
 
         try {
             $google_user = Socialite::driver('google')->user();
-
             // dd($google_user);
+            $exist_user = User::where('google_id',  $google_user->getId())->first();
+            // dd($exist_user);
 
-            $exist_user = User::where('google_id',  $google_user->getId)->first();
 
             if (!$exist_user) {
-
                 $new_user = User::create([
                     'name' => $google_user->getName(),
                     'email' => $google_user->getEmail(),
@@ -38,7 +37,6 @@ class GoogleAuthController extends Controller
                 ]);
 
                 Auth::login($new_user);
-
                 return redirect()->route('admin.dashboard');
             } else {
 
@@ -48,5 +46,19 @@ class GoogleAuthController extends Controller
         } catch (\Throwable $error) {
             dd('Something went wrong' . $error->getmessage());
         }
+    }
+
+
+    public function redirectFacebook()
+    {
+        return Socialite::driver('facebook')->redirect();
+        dd('redirectFacebook');
+    }
+
+    public function callbackFacebook()
+    {
+        $facebook_user = Socialite::driver('google')->user();
+
+        dd($facebook_user);
     }
 }

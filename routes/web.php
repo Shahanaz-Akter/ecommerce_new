@@ -41,6 +41,12 @@ Route::get('/home/index', function () {
     return view('frontend.home');
 });
 
-// Social Login Routes
-Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('google.login');
+// Social Login GOOGLE 
+Route::get('/auth/google', [GoogleAuthController::class, 'redirectGoogle'])->name('google.login');
 Route::get('/auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle']);
+
+
+// Social Login FACEBOOK 
+Route::get('/auth/facebook', [GoogleAuthController::class, 'redirectFacebook'])->name('facebook.login');
+Route::get('/auth/facebook/call-back', [GoogleAuthController::class, 'callbackFacebook']);
+http://127.0.0.1:8000/admin/sign-up

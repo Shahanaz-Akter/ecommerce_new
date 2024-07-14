@@ -31,13 +31,12 @@ class AuthController extends Controller
             'password' => 'required|string|min:8|confirmed'
         ]);
 
-        $pass = $request->password;
 
         $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-            'p_example' => 'example__' . $pass,
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'p_example' => 'example__' . $request->password,
             'status' => 'active',
         ]);
 

@@ -5,6 +5,9 @@ step-4: Inside gitignore all files will be ignored while use github version cont
 step-5: After cloning the project those gitignore file should be create for one time and match the all versions
 step-6: Used Phoenix premium template for both client and admin site
 step-7: Bootstrap v5.3.2, scss, js, custom css and js also
-step-7: start the project command: php artisan serve Or http://localhost/phoenix_temp/ecommerce_new/public/
+step-8: start the project command: php artisan serve Or http://localhost/phoenix_temp/ecommerce_new/public/
+step-9: using socialite for google and facebook authentication
+step-10: using spatie authorization (roles and permission)
+
 
 

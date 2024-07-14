@@ -24,6 +24,9 @@
 
   <body>
 
+
+  
+
     <main class="main" id="top">
       <div class="container">
         <div class="row flex-center min-vh-100 py-5">
@@ -36,7 +39,7 @@
               <h3 class="text-body-highlight">Sign In</h3>
               <p class="text-body-tertiary">Get Access to Your Account</p>
             </div>
-            <button class="btn btn-phoenix-secondary w-100 mb-3"><span class="fab fa-google text-danger me-2 fs-9"></span> <a href="{{ route('google.login') }}">Sign up with google</a></button>
+            <button class="btn btn-phoenix-secondary w-100 mb-3"><span class="fab fa-google text-danger me-2 fs-9"></span> <a href="{{ route('google.login') }}">Sign in with google</a></button>
             <button class="btn btn-phoenix-secondary w-100"><span class="fab fa-facebook text-primary me-2 fs-9"></span> <a href="{{ route('google.login') }}">Sign in with facebook</a> </button>
             <div class="position-relative">
               <hr class="bg-body-secondary mt-5 mb-4" />
@@ -48,12 +51,14 @@
 
              
             @if ($errors->any())
-              <div class="alert alert-danger p-2">
+              <div class="alert alert-primary p-2">
                       @foreach ($errors->all() as $error)
                           {{ $error }}
                       @endforeach
               </div>
           @endif
+
+          {{-- https://sweetalert2.github.io/#frameworks-integrations --}}
 
             <div class="mb-3 text-start">
               <label class="form-label" for="email">Email address</label>
@@ -263,6 +268,7 @@
         </div><small class="text-uppercase text-body-tertiary fw-bold py-2 pe-2 ps-1 rounded-end">customize</small>
       </div>
     </a>
+
 
     @include('backend.layouts.js_assets');
 
