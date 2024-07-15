@@ -1,21 +1,22 @@
 
- @extends('backend.layouts.master_page')
+{{-- content start --}}
+
+@extends('backend.layouts.master_page')
 
 @section('content')
 
 <div class="content">
-    
     <nav class="mb-2" aria-label="breadcrumb">
       <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item"><a href="#!">Page 1</a></li>
-        <li class="breadcrumb-item"><a href="#!">Page 2</a></li>
-        <li class="breadcrumb-item active">Default</li>
+        <li class="breadcrumb-item"><a href="#!">users</a></li>
+        <li class="breadcrumb-item"><a href="#!">user</a></li>
+        {{-- <li class="breadcrumb-item active">Default</li> --}}
       </ol>
     </nav>
     <form class="mb-9">
       <div class="row g-3 flex-between-end mb-5">
         <div class="col-auto">
-          <h2 class="mb-2">Add a product</h2>
+          <h2 class="mb-2">Add User</h2>
           <h5 class="text-body-tertiary fw-semibold">Orders placed across your store</h5>
         </div>
         <div class="col-auto">
@@ -75,6 +76,7 @@
                         <button class="btn btn-primary" type="button"><span class="fa-solid fa-check me-1 fs-10"></span>Confirm</button>
                       </div>
                     </div>
+                    
                     <table>
                       <thead>
                         <tr>
@@ -323,7 +325,7 @@
         </div>
       </div>
     </footer>
-
   </div>
 
-@endsection() 
+@endsection()
+{{-- content end --}}

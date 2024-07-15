@@ -1,11 +1,10 @@
 
-{{-- content start --}}
-
-@extends('backend.layouts.master_page')
+ @extends('backend.layouts.master_page')
 
 @section('content')
 
 <div class="content">
+    
     <nav class="mb-2" aria-label="breadcrumb">
       <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item"><a href="#!">Page 1</a></li>
@@ -324,7 +323,7 @@
         </div>
       </div>
     </footer>
+
   </div>
 
-@endsection()
-{{-- content end --}}
+@endsection() 
