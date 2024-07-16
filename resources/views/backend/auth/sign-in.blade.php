@@ -23,10 +23,6 @@
 
 
   <body>
-
-
-  
-
     <main class="main" id="top">
       <div class="container">
         <div class="row flex-center min-vh-100 py-5">

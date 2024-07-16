@@ -18,17 +18,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'google_id',
-        'p_example',
-        'status',
-        'pin',
+        'first_name', 'last_name', 'username', 'email', 'password', 'google_id', 'p_example', 'status', 'image_files_id', 'role_id', 'zip_code', 'city', 'state', 'contact_number'
     ];
 
     /**
-     * The attributes that should be hidden for serialization.
+     * The attributes that should be hidden for seria lization.
      *
      * @var array<int, string>
      */
@@ -46,4 +40,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function imagFiles(){
+        
+         return $this->hasOne(ImageFiles::class, 'id' ,'user_img_id');
+    }
+
 }

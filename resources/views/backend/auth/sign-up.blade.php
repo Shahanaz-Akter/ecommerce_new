@@ -45,24 +45,24 @@
 
             <form action="{{ route('post.register') }}" method="POST">
               
-             @csrf
+               @csrf
 
-            @if($errors->any())
-            
-                @foreach($errors->all() as $error)
-                <div class="alert alert-secondary p-2">{{ $error }}</div>
-                @endforeach
+                @if($errors->any())
+                
+                    @foreach($errors->all() as $error)
+                    <div class="alert alert-secondary p-2">{{ $error }}</div>
+                    @endforeach
 
-            @endif
+                 @endif
 
               <div class="mb-3 text-start">
-                <label class="form-label" for="name">Name</label>
-                <input class="form-control" id="name" type="text" placeholder="Name" name="name" value="{{ old('name') }}"/>
+                <label class="form-label" for="name">user Name</label>
+                <input class="form-control" id="name" type="text" placeholder="User Name" name="user_name" value="{{ old('username') }}"/>
               </div>
 
               <div class="mb-3 text-start">
                 <label class="form-label" for="email">Email address</label>
-                <input class="form-control" id="email" type="email" placeholder="name@example.com" name="email" value="{{ old('email') }}" />
+                <input class="form-control" id="email" type="email" placeholder="example@gmail.com" name="email" value="{{ old('email') }}" />
               </div>
 
               <div class="row g-3 mb-3">
@@ -70,6 +70,7 @@
                   <label class="form-label" for="password">Password</label>
                   <input class="form-control form-icon-input" id="password" type="password" placeholder="Password"  name="password" value="{{ old('password') }}"/>
                 </div>
+
                 <div class="col-sm-6">
                   <label class="form-label" for="password_confirmation ">Confirm Password</label>
                   <input class="form-control form-icon-input" id="password_confirmation " type="password" placeholder="Confirm Password"  name="password_confirmation"/>
@@ -78,7 +79,7 @@
 
               <div class="form-check mb-3">
                 <input class="form-check-input" id="termsService" type="checkbox" />
-                <label class="form-label fs-9 text-transform-none" for="termsService">I accept the <a href="{{ route('admin.terms') }}">terms </a>and <a href="{{ route('admin.privacy') }}">privacy policy</a></label>
+                <label class="form-label fs-9 text-transform-none" for="termsService">I accept the <a href="{{ route('admin.terms') }}">Terms </a>and <a href="{{ route('admin.privacy') }}">privacy policy</a></label>
               </div>
 
               <button type="submit" class="btn btn-primary w-100 mb-3">Sign up</button>

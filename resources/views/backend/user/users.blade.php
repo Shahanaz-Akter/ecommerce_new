@@ -1,15 +1,23 @@
 @extends('backend.layouts.master_page')
 
+@section('title')
+<title>Users</title>
+@endsection
+
 @section('content')
 
-
-
-
 <div class="content">
+
+        @if(session('success'))
+            <div class="alert alert-primary">
+              {{ session('success') }}
+            </div>
+        @endif
+
     <nav class="mb-2" aria-label="breadcrumb">
       <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item"><a href="#!">user</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('users') }}">users</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('users')}}">user</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('users')}}">users</a></li>
         {{-- <li class="breadcrumb-item active">Default</li> --}}
       </ol>
     </nav>
@@ -30,15 +38,18 @@
               <form class="position-relative">
                 <input class="form-control search-input search" type="search" placeholder="Search users" aria-label="Search" />
                 <span class="fas fa-search search-box-icon"></span>
-
               </form>
             </div>
 
-            
             <div class="ms-xxl-auto">
               <button class="btn btn-link text-body me-4 px-0"><span class="fa-solid fa-file-export fs-9 me-2"></span>Export</button>
-              <button class="btn btn-primary" id="addBtn"><span class="fas fa-plus me-2"></span>Add User</button>
+                 <a href="{{ route('add.user') }}"><button class="btn btn-primary" id="addBtn"><span class="fas fa-plus me-2"></span>Add User</button></a> 
+                 <a href="{{ route('add.role') }}"><button class="btn btn-primary" id="addBtn"><span class="fas fa-plus me-2"></span>Add Role</button></a> 
+
             </div>
+
+           
+
           </div>
         </div>
 
@@ -54,22 +65,17 @@
                     </div>
                   </th>
                   <th class="sort white-space-nowrap align-middle fs-10" scope="col" style="width:70px;"></th>
-                  {{-- <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">First Name</th>
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Last Name</th> --}}
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">User Name</th>
+                  
+                  <th class="sort align-middle ps-4" scope="col" data-sort="email" style="width:50px;">User Name</th>
                   <th class="sort align-middle ps-4" scope="col" data-sort="email" style="width:50px;">Email</th>
-                  <th class="sort align-middle ps-4" scope="col" data-sort="email" style="width:50px;">Status</th>
-
+                  <th class="sort align-middle ps-4" scope="col" data-sort="status" style="width:50px;">Status</th>
                   <th class="sort align-middle ps-4" scope="col" data-sort="role" style="width:50px;">Role</th>
-
-                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Date</th>
-
-                  <th class="sort text-end align-middle pe-0 ps-4" scope="col">Actions</th>
+                  <th class="sort align-middle ps-4" scope="col" data-sort="date" style="width:50px;">Date</th>
+                  <th class="sort align-middle ps-4" scope="col" data-sort="date" style="width:50px;">Actions</th>
                 </tr>
               </thead>
 
               <tbody class="list" id="products-table-body">
-
 
             @foreach ($users as $user)
                 <tr class="position-static">
@@ -81,46 +87,41 @@
                     </td>
   
                     <td class="align-middle white-space-nowrap py-0"><a class="d-block border border-translucent rounded-2" href="../../../apps/e-commerce/landing/product-details.html"><img src="../../../assets/img//products/2.png" alt="" width="53" /></a>
-                  </td>
-  
-                    {{-- <td class="product align-middle ps-4">
-                      <a class="fw-semibold line-clamp-3 mb-0" href="../../../apps/e-commerce/landing/product-details.html">
-                         {{ $user->first_name }}            
-                      </a>
-                  </td>
-                  <td class="product align-middle ps-4">
-                    <a class="fw-semibold line-clamp-3 mb-0" href="../../../apps/e-commerce/landing/product-details.html">
-                       {{ $user->last_name }}            
-                    </a>
-                </td> --}}
-                <td class="product align-middle ps-4">
-                    <a class="fw-semibold line-clamp-3 mb-0" href="../../../apps/e-commerce/landing/product-details.html">
-                       {{ $user->name }}            
-                    </a>
-                </td>
-                  <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                    {{ $user->email }} 
-                    </td>
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $user->status? $user->status : "inactive"  }}                
-                   </td>
-  
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                    Super Admin
                     </td>
   
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $user->created_at }} 
+                  
+                    <td class="product align-middle ps-4">
+                        <a class="fw-semibold line-clamp-3 mb-0" href="../../../apps/e-commerce/landing/product-details.html">
+                        {{ $user->name }}            
+                        </a>
+                    </td>
+
+                    <td class="product align-middle ps-4">
+                        {{ $user->email }} 
+                    </td>
+
+                    <td class="product align-middle ps-4">                  
+                        {{ $user->status ? $user->status : "inactive" }}                
                     </td>
   
-                    <td class="align-middle white-space-nowrap text-end pe-0 ps-4 btn-reveal-trigger">
+                   <td class="product align-middle ps-4">
+                    {{ $user->role ?  $user->role : ''}}
+                    </td>
+
+                    <td class="product align-middle ps-4">
+                        {{ $user->created_at}}
+                    </td>
+  
+                    {{-- <td class="align-middle white-space-nowrap text-end pe-0 ps-4 btn-reveal-trigger"> --}}
+                        <td class="product align-middle ps-4">
                       <div class="btn-reveal-trigger position-static">
                         <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs-10"></span></button>
   
                         <div class="dropdown-menu dropdown-menu-end py-2">
-                          <a class="dropdown-item" href="">View User</a>
-                          <a class="dropdown-item" href="">Assign Role</a>
+                          <a class="dropdown-item text-primary" href="">View User</a>
+                          <a class="dropdown-item text-primary" href="">Edit User</a>
                           <a class="dropdown-item text-danger" href="">Remove User</a>
+                          <a class="dropdown-item text-primary" href="">Assign Role</a>
                         </div>
                       </div>
                     </td>
@@ -153,7 +154,7 @@
         </div>
       </div>
     </footer>
-  </div>
+</div>
   
   <div class="modal fade" id="searchBoxModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="true" data-phoenix-modal="data-phoenix-modal" style="--phoenix-backdrop-opacity: 1;">
     <div class="modal-dialog">
@@ -297,5 +298,4 @@
   </div>
 
   
-
-@endsection
+  @endsection

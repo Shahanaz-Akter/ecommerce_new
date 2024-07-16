@@ -82,6 +82,12 @@
                               </a>
                               <!-- more inner pages-->
                             </li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('add.role') }}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text">RP Association</span>
+                                </div>
+                              </a>
+                              <!-- more inner pages-->
+                            </li>
                            
                           </ul>
 
@@ -206,7 +212,7 @@
                 
              {{-- logout --}}
                 <div class="nav-item-wrapper">
-                    <a class="nav-link label-1" href="../../../apps/calendar.html" role="button" data-bs-toggle="" aria-expanded="false">
+                    <a class="nav-link label-1" href="{{ route('logout') }}" role="button" data-bs-toggle="" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span data-feather="log-out"></span></span><span class="nav-link-text-wrapper"><span class="nav-link-text">Logout</span></span>
                     </div>
                   </a>

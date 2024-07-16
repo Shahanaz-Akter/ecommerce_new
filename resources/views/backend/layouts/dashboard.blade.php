@@ -3,6 +3,10 @@
 
 @extends('backend.layouts.master_page')
 
+@section('title')
+  <title>Dashboard</title>
+@endsection
+
 @section('content')
 
 <div class="content">

@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Role\RoleController;
@@ -10,65 +11,71 @@ use App\Http\Controllers\Product\ProductController;
 Route::get('/', function () {
     // return view('welcome');
     return view('backend.auth.sign-in');
-});
+})->name('logout');
 
 // Route::group(['namespace' => 'App\Http\Controllers\UserController'], function() {}); 
 //if use this line then dont need to import class direct can write the controller name with function like this "Route::post('login', 'LoginController@login');"
 
 
-    // Admin Authentication routes
-    Route::group(['prefix' => 'admin'], function () {
 
-        Route::get('master_page', function () {
-            return view('backend.layouts.master_page');
-        });
+// logout route
+Route::get('logout', function () {
+    Auth::logout();
+    return redirect(url(''));
+});
 
-        Route::get('dashboard', [AuthController::class, 'dashboard'])->name('admin.dashboard');
 
-        Route::get('sign-up', [AuthController::class, 'register'])->name('admin.register');
-        Route::post('/admin/post-register', [AuthController::class, 'postRegister'])->name('post.register');
+// Admin Authentication routes
+Route::group(['prefix' => 'admin'], function () {
 
-        Route::get('sign-in', [AuthController::class, 'login'])->name('admin.login');
-        Route::post('post-login', [AuthController::class, 'postLogin'])->name('post.login');
-
-        Route::get('forget-password', [AuthController::class, 'forget'])->name('admin.forget');
-        Route::post('/admin/post-forget', [AuthController::class, 'postForget'])->name('post.forget');
-
-        Route::get('update-password/{userId}', [AuthController::class, 'updatePassword'])->name('update.password');
-
-        Route::post('post-update-password/{userId}', [AuthController::class, 'postUpdatePassword'])->name('post.update-password');
-
-        // Terms and condition routes
-        Route::get('terms-condition', [AuthController::class, 'terms'])->name('admin.terms');
-        Route::get('privacy-policy', [AuthController::class, 'privacy'])->name('admin.privacy');
-
+    Route::get('master_page', function () {
+        return view('backend.layouts.master_page');
     });
 
+    Route::get('dashboard', [AuthController::class, 'dashboard'])->name('admin.dashboard');
 
-    // product routes
-    Route::group(['prefix' => 'product'], function () {
-        Route::get('add-product', [ProductController::class, 'addProduct'])->name('add.product');
-        Route::get('products', [ProductController::class, 'products'])->name('products');
-    });
+    Route::get('sign-up', [AuthController::class, 'register'])->name('admin.register');
+    Route::post('/admin/post-register', [AuthController::class, 'postRegister'])->name('post.register');
+
+    Route::get('sign-in', [AuthController::class, 'login'])->name('admin.login');
+    Route::post('post-login', [AuthController::class, 'postLogin'])->name('post.login');
+
+    Route::get('forget-password', [AuthController::class, 'forget'])->name('admin.forget');
+    Route::post('/admin/post-forget', [AuthController::class, 'postForget'])->name('post.forget');
+
+    Route::get('update-password/{userId}', [AuthController::class, 'updatePassword'])->name('update.password');
+
+    Route::post('post-update-password/{userId}', [AuthController::class, 'postUpdatePassword'])->name('post.update-password');
+
+    // Terms and condition routes
+    Route::get('terms-condition', [AuthController::class, 'terms'])->name('admin.terms');
+    Route::get('privacy-policy', [AuthController::class, 'privacy'])->name('admin.privacy');
+});
 
 
-    // user routes
-      Route::group(['prefix' => 'user'], function () {
+// product routes
+Route::group(['prefix' => 'product'], function () {
+    Route::get('add-product', [ProductController::class, 'addProduct'])->name('add.product');
+    Route::get('products', [ProductController::class, 'products'])->name('products');
+});
 
-        Route::get('users', [UserController::class, 'user'])->name('users');
-        Route::get('add-user', [UserController::class, 'addUser'])->name('add.user');
 
-    });
+// user routes
+Route::group(['prefix' => 'user'], function () {
 
-      // user routes
-      Route::group(['prefix' => 'role'], function () {
+    Route::get('users', [UserController::class, 'user'])->name('users');
+    Route::get('add-user', [UserController::class, 'addUser'])->name('add.user');
+    Route::post('post-add-user', [UserController::class, 'postAddUser'])->name('post.add.user');
+});
 
-        Route::get('roles', [RoleController::class, 'role'])->name('roles');
-        Route::get('add-role', [RoleController::class, 'addRole'])->name('add.role');
-        Route::post('post-role', [RoleController::class, 'postRole'])->name('post.role');
+// user routes
+Route::group(['prefix' => 'role'], function () {
 
-    });
-   
+    Route::get('roles', [RoleController::class, 'role'])->name('roles');
+    Route::get('add-role', [RoleController::class, 'addRole'])->name('add.role');
+    Route::post('post-role', [RoleController::class, 'postRole'])->name('post.role');
+});
+
 
 
 Route::get('/home/index', function () {

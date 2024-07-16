@@ -25,15 +25,16 @@ class AuthController extends Controller
     public function postRegister(Request $request)
     {
 
+        // dd($request->all());
+
         $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
+            'user_name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed'
         ]);
 
-
         $user = User::create([
-            'name' => $request->name,
+            'username' => $request->user_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'p_example' => 'example__' . $request->password,
@@ -43,6 +44,7 @@ class AuthController extends Controller
         if ($user) {
 
             return redirect()->route('admin.dashboard');
+
         } else {
 
             return redirect()->back();
@@ -61,7 +63,6 @@ class AuthController extends Controller
         $auth_user = Auth::attempt($credentials);
 
         if ($auth_user) {
-
             return redirect()->route('admin.dashboard');
         } else {
 
