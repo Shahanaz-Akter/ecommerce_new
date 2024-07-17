@@ -41,10 +41,12 @@ class AuthController extends Controller
             'status' => 'active',
         ]);
 
+
+        Auth::login($user);
+
         if ($user) {
 
             return redirect()->route('admin.dashboard');
-
         } else {
 
             return redirect()->back();
@@ -112,13 +114,12 @@ class AuthController extends Controller
         if ($valid_data) {
 
             $user = User::findOrFail($userId);
-           
+
             $user->password =  Hash::make($valid_data['password']);
             $user->p_example = 'example__' . $password;
             $user->save();
 
             return redirect()->route('admin.login');
-            
         } else {
             return back()->withErrors(['error' => "New Password and confirm Password did not Match!"]);
         }
@@ -133,6 +134,4 @@ class AuthController extends Controller
     {
         return view('backend.auth.privacy-policy');
     }
-
-   
 }

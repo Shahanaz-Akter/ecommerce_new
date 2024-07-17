@@ -22,11 +22,11 @@ return new class extends Migration
             $table->string('google_id')->nullable();
             $table->string('p_example')->nullable();
             $table->string('status')->nullable();
-            $table->longText('image_files_id')->nullable();
+            $table->unsignedBigInteger('image_files_id')->nullable();
 
-            $table->integer('role_id')->unsigned()->nullable();
+            $table->unsignedBigInteger('role_id')->nullable();
             // $table->foreign('role_id')->references('id')->on('roles'); 
-           
+        
             $table->string('zip_code')->nullable();
             $table->string('city')->nullable();
             $table->string('state')->nullable();

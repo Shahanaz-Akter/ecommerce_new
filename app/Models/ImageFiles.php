@@ -13,6 +13,8 @@ class ImageFiles extends Model
 
 
     public function user(){
-        return $this->belongsTo(ImageFiles::class, 'image_files_id');
+
+        return $this->hasOne(User::class);
+        
     }
 }

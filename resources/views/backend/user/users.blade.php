@@ -24,7 +24,9 @@
     <div class="mb-9">
       <div class="row g-3 mb-4">
         <div class="col-auto">
-          <h2 class="mb-0">Users</h2>
+          {{-- <h2 class="mb-0">Users</h2> --}}
+          <h5 class="text-body-tertiary fw-semibold">Users</h5>
+
         </div>
       </div>
       <ul class="nav nav-links mb-3 mb-lg-2 mx-n3">
@@ -48,8 +50,6 @@
 
             </div>
 
-           
-
           </div>
         </div>
 
@@ -64,7 +64,7 @@
                       <input class="form-check-input" id="checkbox-bulk-products-select" type="checkbox" data-bulk-select='{"body":"products-table-body"}' />
                     </div>
                   </th>
-                  <th class="sort white-space-nowrap align-middle fs-10" scope="col" style="width:70px;"></th>
+                  <th class="sort white-space-nowrap align-middle fs-10" scope="col" style="width:70px;">Image</th>
                   
                   <th class="sort align-middle ps-4" scope="col" data-sort="email" style="width:50px;">User Name</th>
                   <th class="sort align-middle ps-4" scope="col" data-sort="email" style="width:50px;">Email</th>
@@ -86,14 +86,24 @@
                       </div>
                     </td>
   
-                    <td class="align-middle white-space-nowrap py-0"><a class="d-block border border-translucent rounded-2" href="../../../apps/e-commerce/landing/product-details.html"><img src="../../../assets/img//products/2.png" alt="" width="53" /></a>
+                    <td class="align-middle white-space-nowrap py-0"><a class="d-block border border-translucent rounded-2" href="../../../apps/e-commerce/landing/product-details.html">
+                      
+                      @if($user->image_files_id)
+                      <img src="{{$user->imageFiles->absolute_path}}" alt="" width="53" />
+
+                        @else
+                        <img src="../../../assets/img//products/2.png" alt="" width="53" />
+
+                      @endif
+
+                    </a>
                     </td>
   
                   
                     <td class="product align-middle ps-4">
-                        <a class="fw-semibold line-clamp-3 mb-0" href="../../../apps/e-commerce/landing/product-details.html">
-                        {{ $user->name }}            
-                        </a>
+                        
+                        {{ $user->username }}            
+                       
                     </td>
 
                     <td class="product align-middle ps-4">
@@ -105,7 +115,21 @@
                     </td>
   
                    <td class="product align-middle ps-4">
-                    {{ $user->role ?  $user->role : ''}}
+
+                    @if($user->role_id != null)
+                    {{ $user->role ? $user->role->name : '' }}
+
+                    @else
+                    {{-- <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="role_id">
+                      <option selected>Select</option>
+                      @foreach($roles as $role)
+                      <option value="{{$role->id}}">{{$role->name}}</option>
+                      @endforeach
+                    </select> --}}
+                    
+                    @endif
+                        
+
                     </td>
 
                     <td class="product align-middle ps-4">
@@ -118,10 +142,10 @@
                         <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs-10"></span></button>
   
                         <div class="dropdown-menu dropdown-menu-end py-2">
-                          <a class="dropdown-item text-primary" href="">View User</a>
-                          <a class="dropdown-item text-primary" href="">Edit User</a>
-                          <a class="dropdown-item text-danger" href="">Remove User</a>
-                          <a class="dropdown-item text-primary" href="">Assign Role</a>
+                          <a class="dropdown-item text-primary" href="{{route('assign.user.role', $user->id)}}">Assign Role</a>
+                          <a class="dropdown-item text-primary" href="{{route('view.user', $user->id)}}">View User</a>
+                          <a class="dropdown-item text-primary" href="{{route('edit.user', $user->id)}}">Edit User</a>
+                          <a class="dropdown-item text-danger" href="{{route('remove.user', $user->id)}}">Remove User</a>
                         </div>
                       </div>
                     </td>
@@ -161,11 +185,15 @@
       <div class="modal-content mt-15 rounded-pill">
         <div class="modal-body p-0">
           <div class="search-box navbar-top-search-box" data-list='{"valueNames":["title"]}' style="width: auto;">
+
             <form class="position-relative" data-bs-toggle="search" data-bs-display="static">
               <input class="form-control search-input fuzzy-search rounded-pill form-control-lg" type="search" placeholder="Search..." aria-label="Search" />
               <span class="fas fa-search search-box-icon"></span>
 
             </form>
+
+
+
             <div class="btn-close position-absolute end-0 top-50 translate-middle cursor-pointer shadow-none" data-bs-dismiss="search">
               <button class="btn btn-link p-0" aria-label="Close"></button>
             </div>
@@ -297,5 +325,28 @@
     </div>
   </div>
 
-  
+
+  @section('custom_js')
+  {{-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.getElementById('role_id').addEventListener('change', function () {
+            const roleName = this.value;
+            console.log(roleName);
+            const userId = {{ $user->id }}; // Assuming you have the user ID available in your Blade template
+            
+            axios.post(`/role-assign/${userId}`, {role_name: roleName})
+
+            .then(response => {
+                console.log('Role assigned successfully:', response.data);
+            })
+            .catch(error => {
+                console.error('Error assigning role:', error);
+            });
+        });
+    });
+  </script> --}}
+  @endsection
+
+
+    
   @endsection

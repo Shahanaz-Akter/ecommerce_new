@@ -10,124 +10,92 @@
         {{-- <li class="breadcrumb-item active">Default</li> --}}
       </ol>
     </nav>
+
+    <form action="{{route('post.role.permission')}}" method="Post">  
+        @csrf
+
+     <div class="row g-3 flex-between-end mb-5">
+        <div class="col-auto">
+            {{-- <h2 class="mb-2"></h2> --}}
+            <h5 class="text-body-tertiary fw-semibold">List of Roles amd Permissions</h5>
+          </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-2 mb-sm-0" type="submit">Role Permission Associate </button>
+        </div>
+    </div>
+
     <div class="mb-9">
+
       <div class="row g-3 mb-4">
         <div class="col-auto">
-          <h2 class="mb-2"></h2>
-          <h5 class="text-body-tertiary fw-semibold">List of Roles</h5>
-        </div>
-        <div class="col-auto">
-          <h2 class="mb-0"></h2>
-          
+          {{-- <h2 class="mb-0">List of Roles amd Permissions</h2> --}}
         </div>
       </div>
-      <ul class="nav nav-links mb-3 mb-lg-2 mx-n3">
-        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#"><span>All </span><span class="text-body-tertiary fw-semibold">(68817)</span></a></li>
-       
-      </ul>
-      <div id="products" data-list='{"valueNames":["product","price","category","tags","vendor","time"],"page":10,"pagination":true}'>
-        <div class="mb-4">
-          <div class="d-flex flex-wrap gap-3">
-            <div class="search-box">
-              <form class="position-relative">
-                <input class="form-control search-input search" type="search" placeholder="Search users" aria-label="Search" />
-                <span class="fas fa-search search-box-icon"></span>
 
-              </form>
-            </div>
-
-            
-            <div class="ms-xxl-auto">
-              <button class="btn btn-link text-body me-4 px-0"><span class="fa-solid fa-file-export fs-9 me-2"></span>Export</button>
-              <a href="{{ route('add.role') }}"> <button class="btn btn-primary" id="addBtn"><span class="fas fa-plus me-2"></span>Add Role</button></a> 
-            </div>
-          </div>
-        </div>
+     
+        <div id="roles" data-list='{"valueNames":["product","price","category","tags","vendor","time"],"page":10,"pagination":true}'>
+                
 
         <div class="mx-n4 px-4 mx-lg-n6 px-lg-6 bg-body-emphasis border-top border-bottom border-translucent position-relative top-1">
-          <div class="table-responsive scrollbar mx-n1 px-1">
-            <table class="table fs-9 mb-0">
-
-              <thead>
-                <tr>
-                  <th class="white-space-nowrap fs-9 align-middle ps-0" style="max-width:20px; width:18px;">
-                    <div class="form-check mb-0 fs-8">
-                      <input class="form-check-input" id="checkbox-bulk-products-select" type="checkbox" data-bulk-select='{"body":"products-table-body"}' />
-                    </div>
-                  </th>
-                  <th class="sort white-space-nowrap align-middle fs-10" scope="col" style="width:70px;"></th>
-                  {{-- <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">First Name</th>
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Last Name</th> --}}
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Name</th>
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Description</th>
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Date</th>
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Actions</th>
-                </tr>
-              </thead>
-
-              <tbody class="list" id="products-table-body">
+    <div class="">
 
 
-            @foreach ($roles as $role)
-                <tr class="position-static">
 
-                    <td class="fs-9 align-middle">
-                      <div class="form-check mb-0 fs-8">
-                        <input class="form-check-input" type="checkbox" data-bulk-select-row='{"product":"iPhone 13 pro max-Pacific Blue-128GB storage","productImage":"/products/2.png","price":"$87","category":"Furniture","tags":["Class","Camera","Discipline","invincible","Pro","Swag"],"star":true,"vendor":"Beatrice Furnitures","publishedOn":"Nov 11, 7:36 PM"}' />
-                      </div>
-                    </td>
-  
-                    <td class="align-middle white-space-nowrap py-0"><a class="d-block border border-translucent rounded-2" href="../../../apps/e-commerce/landing/product-details.html"><img src="../../../assets/img//products/2.png" alt="" width="53" /></a>
-                  </td>
-
-                <td class="product align-middle ps-4">
-                    <a class="fw-semibold line-clamp-3 mb-0" href="../../../apps/e-commerce/landing/product-details.html">
-                       {{ $role->name }}            
-                    </a>
-                </td>
-
-              <td class="product align-middle ps-4">
-                <a class="fw-semibold line-clamp-3 mb-0" href="../../../apps/e-commerce/landing/product-details.html">
-                {!! $role->description !!}            
-                </a>
-            </td> 
             
-                <td class="product align-middle ps-4">
-                  <a class="fw-semibold line-clamp-3 mb-0" href="../../../apps/e-commerce/landing/product-details.html">
-                     {{ $role->created_at }}            
-                  </a>
-              </td>
+<div class="row p-4">
 
-                    <td class="align-middle white-space-nowrap  ps-4 btn-reveal-trigger">
-                      <div class="btn-reveal-trigger position-static">
-                        <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs-10"></span></button>
-  
-                        <div class="dropdown-menu dropdown-menu-end py-2">
-                         
-                          <a class="dropdown-item" href="">Edit</a>
-                          <a class="dropdown-item text-danger" href="">Remove</a>
-                        </div>
-                      </div>
-                    </td>
-              </tr>
-             @endforeach
+    <div class="col-12 col-md-6 col-lg-3 col-xl-3 mb-4">
 
-              </tbody>
-            </table>
-          </div>
-          <div class="row align-items-center justify-content-between py-2 pe-0 fs-9">
-            <div class="col-auto d-flex">
-              <p class="mb-0 d-none d-sm-block me-3 fw-semibold text-body" data-list-info="data-list-info"></p><a class="fw-semibold" href="#!" data-list-view="*">View all<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a><a class="fw-semibold d-none" href="#!" data-list-view="less">View Less<span class="fas fa-angle-right ms-1" data-fa-transform="down-1"></span></a>
-            </div>
-            <div class="col-auto d-flex">
-              <button class="page-link" data-list-pagination="prev"><span class="fas fa-chevron-left"></span></button>
-              <ul class="mb-0 pagination"></ul>
-              <button class="page-link pe-0" data-list-pagination="next"><span class="fas fa-chevron-right"></span></button>
-            </div>
-          </div>
+    <div class="col-12 mb-4 fw-bold">Role Name</div>
+
+    @foreach ($roles as $role)
+        <div class="col-6 mb-5">
+            <input type="radio" id="role_{{$role->id}}" name="role_id" value="{{$role->id}}">
+            <label for="role_{{$role->id}}"> {{$role->name}} </label>
         </div>
-      </div>
+    @endforeach
     </div>
+
+    <div class="col-12 col-md-6 col-lg-9 col-xl-9 mb-4 fw-bold">
+
+            <div class="row">
+                <div class="col-3 mb-4 fw-bold">Permission Name</div>
+                <div class="col-3 mb-4 fw-bold">Alias</div>
+                <div class="col-3 mb-4 fw-bold">Group Name</div>
+                <div class="col-3 mb-4 fw-bold">Description</div>
+             @foreach ($permissions as $permission)
+
+                <div class="col-3 mb-1">
+                <input type="checkbox" id="permission_{{$permission->id}}" name="permissions[]" value="{{$permission->id}}">
+                <label for="permission_{{$permission->id}}"> {{$permission->name}} </label>
+                </div>
+
+                <div class="col-3 mb-1">
+                <label for="permission_id"> {{$permission->alias}} </label>
+                </div>
+
+                <div class="col-3 mb-1">
+                <label for="permission_id"> {{$permission->permission_group}} </label>
+                </div>
+                <div class="col-3 mb-1">
+                <label for="permission_id"> {{$permission->description}} </label>
+                </div>
+               
+            @endforeach
+
+            </div>
+                    
+    </div>
+                        
+    </div>
+    </div>
+          
+    </div>
+    </div>
+    </div>
+
+    </form>
+
     <footer class="footer position-absolute">
       <div class="row g-0 justify-content-between align-items-center h-100">
         <div class="col-12 col-sm-auto text-center">

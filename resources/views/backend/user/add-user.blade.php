@@ -14,13 +14,16 @@
       </ol>
     </nav>
 
+    <form action="{{ route('post.add.user') }}" method="POST" enctype="multipart/form-data">
+              
+      @csrf
 
     <div class="mb-9">
 
       <div class="row g-3 flex-between-end mb-5">
         <div class="col-auto">
-          <h2 class="mb-2">Add User</h2>
-          <h5 class="text-body-tertiary fw-semibold">Users placed across your store</h5>
+          {{-- <h2 class="mb-2">Add User</h2> --}}
+          <h5 class="text-body-tertiary fw-semibold">Add User</h5>
         </div>
 
         <div class="col-auto">
@@ -30,9 +33,7 @@
         </div>
       </div>
 
-      <form action="{{ route('post.add.user') }}" method="POST" enctype="multipart/form-data">
-              
-       @csrf
+     
 
         @if($errors->any())
         
@@ -82,14 +83,6 @@
 
        </div>
 
-
-
-       
-       <button type="submit" class="btn btn-primary w-100 mb-3">User Register</button>
-
-     </form>
-
-
     <footer class="footer position-absolute">
       <div class="row g-0 justify-content-between align-items-center h-100">
         <div class="col-12 col-sm-auto text-center">
@@ -101,6 +94,9 @@
       </div>
     </footer>
   </div>
+  {{-- <button type="submit" class="btn btn-primary w-100 mb-3">User Register</button> --}}
+
+  </form>
 
 @endsection()
 {{-- content end --}}

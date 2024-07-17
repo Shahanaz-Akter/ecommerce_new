@@ -6,7 +6,7 @@
     <script src="{{ asset('vendors/is/is.min.js') }}"></script>
     <script src="{{ asset('vendors/fontawesome/all.min.js') }}"></script>
     <script src="{{ asset('vendors/lodash/lodash.min.js') }}"></script>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    {{-- <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script> --}}
     <script src="{{ asset('vendors/list.js/list.min.js') }}"></script>
 
     {{-- https://feathericons.com/ --}} 
@@ -32,3 +32,6 @@
 
     {{-- forntend js --}}
     <script src="{{ asset('vendors/swiper/swiper-bundle.min.js') }}"></script>
+    
+    {{-- axios cdn --}}
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

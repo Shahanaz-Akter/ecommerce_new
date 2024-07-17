@@ -14,15 +14,12 @@
               <li class="nav-item">
 
                 <!-- parent pages-->
-                
                   <div class="nav-item-wrapper">
                     <a class="nav-link label-1" href="{{ route('admin.dashboard') }}" role="button" data-bs-toggle="" aria-expanded="false">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span data-feather="grid"></span></span><span class="nav-link-text-wrapper"><span class="nav-link-text">Dashboard</span></span>
                     </div>
                   </a>
                 </div>
-
-              
               </li>
 
               <li class="nav-item">
@@ -82,8 +79,8 @@
                               </a>
                               <!-- more inner pages-->
                             </li>
-                            <li class="nav-item"><a class="nav-link" href="{{ route('add.role') }}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text">RP Association</span>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('role.permission') }}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text">RP Associate</span>
                                 </div>
                               </a>
                               <!-- more inner pages-->

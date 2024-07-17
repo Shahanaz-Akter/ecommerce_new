@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use Exception;
+use App\Models\Role;
 use App\Models\User;
 use App\Models\ImageFiles;
 use Illuminate\Http\Request;
@@ -17,7 +18,8 @@ class UserController extends Controller
     {
 
         $users =  User::get();
-        return view('backend.user.users', compact('users'));
+        $roles = Role::get();
+        return view('backend.user.users', compact('users', 'roles'));
     }
     public function addUser()
     {
@@ -29,9 +31,7 @@ class UserController extends Controller
     public function postAddUser(Request $request)
     {
 
-
         // dd($request->all());
-
         $validatedData = $request->validate([
             'user_name' => 'required|string|max:255',
             'date' => 'required',
@@ -48,7 +48,6 @@ class UserController extends Controller
 
             $imageFilesId = null;
 
-
             if ($user_img != null) {
 
                 $originalName = $user_img->getClientOriginalName();
@@ -59,14 +58,12 @@ class UserController extends Controller
                 $file_size = $this->humanReadableFileSize($fileSizeInBytes);
 
 
-                $relativePath = 'uploads/' . $uniqueName;
-                // dd( $relativePath );
+                $relativePath = '/uploads/' . $uniqueName;
 
                 $user_img->move(public_path('uploads'), $uniqueName);
 
                 $date = \Carbon\Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d H:i:s');
 
-                // Save the file information to the database
                 $image_files = new ImageFiles();
                 $image_files->original_name = $originalName;
                 $image_files->absolute_path = $relativePath;
@@ -88,11 +85,9 @@ class UserController extends Controller
 
             $user->image_files_id = $imageFilesId;
 
-
             $user->save();
 
             DB::commit();
-
 
             return redirect()->route('users')->with('success', 'Successfully Saved User!');
         } catch (Exception $ex) {
@@ -117,5 +112,52 @@ class UserController extends Controller
         }
 
         return round($size, $precision) . ' ' . $units[$unitIndex];
+    }
+
+    public function assignUserRole($user_id)
+    {
+        $roles = Role::get();
+
+        return view('backend.role.assign_roles', compact('user_id', 'roles'));
+    }
+    public function postRoleAssign(Request $request, $user_id)
+    {
+        $user = User::where('id', $user_id)->first();
+
+        if($user){
+            $user->role_id = $request->role_id;
+            $user->save();
+            return redirect()->route('users')->with('success', "Role Assigned Successfully");
+        }
+        else{
+            return redirect()->back();
+
+        }
+        
+    }
+
+
+
+
+
+    public function viewUser($user_id)
+    {
+
+        dd($user_id);
+    }
+    public function editUser($user_id)
+    {
+
+        dd($user_id);
+    }
+    public function removeUser($user_id)
+    {
+        $user = User::where('id', $user_id)->first();
+        if ($user) {
+            $user->delete();
+            return redirect()->back();
+        } else {
+            return redirect()->back();
+        }
     }
 }

@@ -18,6 +18,8 @@
     <meta name="msapplication-TileImage" content="{{ asset('assets/img/favicons/mstile-150x150.png') }}">
     <meta name="theme-color" content="#ffffff">
 
+     @yield('custom_css')
+
      @include('backend.layouts.css_assets');
 
 </head>
@@ -37,12 +39,9 @@
         {{-- Top Navbar end --}}
 
 
-
-
         {{-- main content start --}}
         @yield('content');
         {{-- main content end --}}
-
 
 
         <div class="modal fade" id="searchBoxModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="true"
@@ -569,6 +568,9 @@
     </a>
 
     @include('backend.layouts.js_assets');
+
+    @yield('custom_js')
+
 
 </body>
 

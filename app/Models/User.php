@@ -41,9 +41,13 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function imagFiles(){
+    public function imageFiles(){
         
-         return $this->hasOne(ImageFiles::class, 'id' ,'user_img_id');
+         return $this->belongsTo(ImageFiles::class);
+    }
+
+    public function role(){
+        return $this->belongsTo(Role::class);
     }
 
 }
