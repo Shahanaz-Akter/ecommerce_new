@@ -8,21 +8,28 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Product\ProductController;
 
-Route::get('/', function () {
-    // return view('welcome');
-    return view('backend.auth.sign-in');
-})->name('login');
 
 // Route::group(['namespace' => 'App\Http\Controllers\UserController'], function() {}); 
 //if use this line then dont need to import class direct can write the controller name with function like this "Route::post('login', 'LoginController@login');"
 
+    Route::get('/', function () {
+        // return view('welcome');
+        return view('backend.auth.sign-in');
+    })->name('login');
 
 
-// logout route
-Route::get('logout', function () {
-    Auth::logout();
-    return redirect(url(''));
-})->name('logout');
+    Route::get('sign-up', [AuthController::class, 'register'])->name('admin.register');
+    Route::post('/admin/post-register', [AuthController::class, 'postRegister'])->name('post.register');
+    
+    Route::get('sign-in', [AuthController::class, 'login'])->name('admin.login');
+    Route::post('post-login', [AuthController::class, 'postLogin'])->name('post.login');
+
+
+    // logout route
+    Route::get('logout', function () {
+        Auth::logout();
+        return redirect(url(''));
+    })->name('logout');
 
 
 
@@ -37,12 +44,6 @@ Route::middleware(['auth_user'])->group(function () {
         });
 
         Route::get('dashboard', [AuthController::class, 'dashboard'])->name('admin.dashboard');
-
-        Route::get('sign-up', [AuthController::class, 'register'])->name('admin.register');
-        Route::post('/admin/post-register', [AuthController::class, 'postRegister'])->name('post.register');
-
-        Route::get('sign-in', [AuthController::class, 'login'])->name('admin.login');
-        Route::post('post-login', [AuthController::class, 'postLogin'])->name('post.login');
 
         Route::get('forget-password', [AuthController::class, 'forget'])->name('admin.forget');
         Route::post('/admin/post-forget', [AuthController::class, 'postForget'])->name('post.forget');
@@ -75,7 +76,7 @@ Route::middleware(['auth_user'])->group(function () {
 
         Route::get('view-user/{user_id}', [UserController::class, 'viewUser'])->name('view.user');
         Route::get('edit-user/{user_id}', [UserController::class, 'editUser'])->name('edit.user');
-        Route::post('post-edit-user', [UserController::class, 'postEditUser'])->name('post.edit.user');
+        Route::post('post-edit-user/{user_id}/{image_id}', [UserController::class, 'postEditUser'])->name('post.edit.user');
         Route::get('remove-user/{user_id}', [UserController::class, 'removeUser'])->name('remove.user');
     });
 
@@ -88,6 +89,18 @@ Route::middleware(['auth_user'])->group(function () {
 
         Route::get('role-permission-index', [RoleController::class, 'rolePermissionIndex'])->name('role.permission');
         Route::post('post-role-permission-index', [RoleController::class, 'postRolePermissionIndex'])->name('post.role.permission');
+    });
+
+    Route::group(['prefix' => 'supplier'], function () {
+
+        Route::get('dashboard', [AuthController::class, 'supplierDashboard'])->name('supplier.dashboard');
+
+    });
+
+    Route::group(['prefix' => 'manager'], function () {
+
+        Route::get('dashboard', [AuthController::class, 'managerDashboard'])->name('manager.dashboard');
+
     });
 
 

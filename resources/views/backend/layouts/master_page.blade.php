@@ -40,7 +40,7 @@
 
 
         {{-- main content start --}}
-        @yield('content');
+        @yield('content')
         {{-- main content end --}}
 
 

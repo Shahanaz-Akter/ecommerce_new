@@ -11,6 +11,21 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
 
+
+
+    public function supplierDashboard()
+    {
+
+        return view('backend.layouts.supplier_dashboard');
+    }
+
+    public function managerDashboard()
+    {
+
+        return view('backend.layouts.manager_dashboard');
+    }
+
+
     public function dashboard()
     {
 
@@ -44,6 +59,8 @@ class AuthController extends Controller
 
         Auth::login($user);
 
+        // dd( $user_role);
+
         if ($user) {
 
             return redirect()->route('admin.dashboard');
@@ -61,13 +78,40 @@ class AuthController extends Controller
     public function postLogin(Request $request)
     {
 
-        $credentials = $request->only('email', 'password');
+        // $credentials = $request->only('email', 'password');
+        // $auth_user = Auth::attempt($credentials);
 
-        $auth_user = Auth::attempt($credentials);
+        $auth_user = Auth::attempt([
+            'email' => $request->email,
+            'password' => $request->password,
+        ]);
 
-        if ($auth_user) {
+        // $user_info = User::where('email', $request->email)->first();
+        $user = Auth::user();
+
+        $role =  $user->role;
+        // dd($role);
+
+        if ($auth_user && $role->name == "super admin") {
+
             return redirect()->route('admin.dashboard');
-        } else {
+        } 
+        
+        elseif ($auth_user && $role->name == "admin") {
+
+            return redirect()->route('admin.dashboard');
+        }
+        
+        elseif ($auth_user && $role->name == "supplier") {
+
+            return redirect()->route('supplier.dashboard');
+        }
+        elseif ($auth_user && $role->name == "manager") {
+
+            return redirect()->route('manager.dashboard');
+        }
+
+         else {
 
             return back()->withErrors([
                 'error' => "The provided credentials  did not Match!"
