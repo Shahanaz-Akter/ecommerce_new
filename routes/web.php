@@ -8,9 +8,6 @@ use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Product\ProductController;
 
-
-
-
 Route::get('/', function () {
     // return view('welcome');
     return view('backend.auth.sign-in');
@@ -78,6 +75,7 @@ Route::middleware(['auth_user'])->group(function () {
 
         Route::get('view-user/{user_id}', [UserController::class, 'viewUser'])->name('view.user');
         Route::get('edit-user/{user_id}', [UserController::class, 'editUser'])->name('edit.user');
+        Route::post('post-edit-user', [UserController::class, 'postEditUser'])->name('post.edit.user');
         Route::get('remove-user/{user_id}', [UserController::class, 'removeUser'])->name('remove.user');
     });
 
@@ -91,7 +89,10 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('role-permission-index', [RoleController::class, 'rolePermissionIndex'])->name('role.permission');
         Route::post('post-role-permission-index', [RoleController::class, 'postRolePermissionIndex'])->name('post.role.permission');
     });
+
+
 });
+
 // middleware end
 
 Route::get('/home/index', function () {

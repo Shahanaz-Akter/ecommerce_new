@@ -19,9 +19,11 @@ class AuthMiddleware
 
         if (Auth::check()) {
 
+            // dd('Logged in');
             return $next($request);
-            
         } else {
+            dd('Not Logged in');
+
             Auth::logout();
             return redirect()->route('login');
         }

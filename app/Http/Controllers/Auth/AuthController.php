@@ -62,6 +62,7 @@ class AuthController extends Controller
     {
 
         $credentials = $request->only('email', 'password');
+
         $auth_user = Auth::attempt($credentials);
 
         if ($auth_user) {
@@ -69,7 +70,7 @@ class AuthController extends Controller
         } else {
 
             return back()->withErrors([
-                'error' => "The provided credentials  did not match with user records"
+                'error' => "The provided credentials  did not Match!"
             ]);
         }
     }
