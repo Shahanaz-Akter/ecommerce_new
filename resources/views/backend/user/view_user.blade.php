@@ -43,7 +43,12 @@
                         {{-- previous image --}}
                         {{-- <img src="{{ $img->absolute_path }}" alt="Not available" height="100" width="100"> --}}
                     </div>
-        
+                  {{-- <style>
+                    .form-control{
+                      border: 1px solid red!important;
+                    }
+                  </style> --}}
+
                     <div class="col-sm-6">
                         <label class="form-label" for="email">First Name</label>
                         <input class="form-control" id="first name" type="text" placeholder="First Name" name="first_name" value="{{ $user->first_name }}"  />
@@ -81,7 +86,12 @@
         
                     <div class="col-sm-6">
                         <label class="form-label" for="contact">Contact</label>
-                        <input class="form-control" id="contact" type="text" placeholder="01*********" name="contact" value="{{ $user->contact }}" />
+                        <input class="form-control" id="contact" type="text" placeholder="01*********" name="contact" value="{{ $user->contact_number }}" />
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label class="form-label" for="role">Role</label>
+                        <input class="form-control" id="role" type="text" placeholder="" name="role" value="{{ $role->name }}" />
                     </div>
         
                    

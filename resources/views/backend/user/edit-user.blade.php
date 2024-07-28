@@ -76,18 +76,19 @@
    
          
 
-       <div class="row g-3 mb-3">
-         <div class="col-sm-6">
-           <label class="form-label" for="password">Password</label>
-           <input class="form-control form-icon-input" id="password" type="password" placeholder="Password"  name="password" value="{{ $user->password }}"/>
-         </div>
+          <div class="row g-3 mb-3">
+            
+            <div class="col-sm-6">
+              <label class="form-label" for="password">Password</label>
+              <input class="form-control form-icon-input" id="password" type="password" placeholder="Password"  name="password" value=""/>
+            </div>
 
-         <div class="col-sm-6">
-           <label class="form-label" for="password_confirmation ">Confirm Password</label>
-           <input class="form-control form-icon-input" id="password_confirmation " type="password" placeholder="Confirm Password"  name="password_confirmation" value="{{ $user->password }}"/>
-         </div>
+            <div class="col-sm-6">
+              <label class="form-label" for="password_confirmation ">Confirm Password</label>
+              <input class="form-control form-icon-input" id="password_confirmation " type="password" placeholder="Confirm Password"  name="password_confirmation" value=""/>
+            </div>
 
-       </div>
+          </div>
 
             <div class="col-sm-6">
                 <label class="form-label" for="city">City</label>
@@ -105,7 +106,7 @@
 
             <div class="col-sm-6">
                 <label class="form-label" for="contact">Contact</label>
-                <input class="form-control" id="contact" type="text" placeholder="01*********" name="contact" value="{{ $user->contact }}" />
+                <input class="form-control" id="contact" type="text" placeholder="01*********" name="contact" value="{{ $user->contact_number }}" />
             </div>
 
             <div class="col-sm-6">

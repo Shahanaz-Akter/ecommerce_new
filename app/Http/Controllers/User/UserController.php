@@ -134,94 +134,22 @@ class UserController extends Controller
         }
     }
 
-
     public function editUser($user_id)
     {
         $user = User::where('id', $user_id)->first();
         $image = $user->imageFiles;
-
         return view('backend.user.edit-user', compact('user', 'image'));
     }
 
-
-    public function ppAddUser(Request $request)
-    {
-
-        // dd($request->all());
-        $validatedData = $request->validate([
-            'user_name' => 'required|string|max:255',
-            'date' => 'required',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed'
-        ]);
-
-        try {
-
-            $user_img = $request->file('user_img');
-            // dd( $user_img);
-
-            DB::beginTransaction();
-
-            $imageFilesId = null;
-
-            if ($user_img != null) {
-
-                $originalName = $user_img->getClientOriginalName();
-                $extension = $user_img->getClientOriginalExtension();
-                $uniqueName = uniqid() . '.' . $extension;
-
-                $fileSizeInBytes = $user_img->getSize();
-                $file_size = $this->humanReadableFileSize($fileSizeInBytes);
-
-
-                $relativePath = '/uploads/' . $uniqueName;
-
-                $user_img->move(public_path('uploads'), $uniqueName);
-
-                $date = \Carbon\Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d H:i:s');
-
-                $image_files = new ImageFiles();
-                $image_files->original_name = $originalName;
-                $image_files->absolute_path = $relativePath;
-
-                $image_files->date = $date;
-                $image_files->extension = $extension;
-                $image_files->file_size = $file_size;
-
-                $image_files->save();
-
-                $imageFilesId = $image_files->id;
-            }
-
-            $user = new User();
-            $user->username = $request->user_name;
-            $user->email = $request->email;
-            $user->password = Hash::make($request->password);
-            $user->p_example = $request->password;
-
-            $user->image_files_id = $imageFilesId;
-
-            $user->save();
-
-            DB::commit();
-
-            return redirect()->route('users')->with('success', 'Successfully Saved User!');
-        } catch (Exception $ex) {
-
-            DB::rollBack();
-
-            return response([
-                'Failure' => 'Internal server Error',
-                'error' => $ex->getMessage(),
-            ], 500);
-        }
-    }
-
-
-
     public function postEditUser(Request $request, $user_id, $image_id)
     {
-        $rules = [];
+        $all = $request->all();
+         // Retrieve user and image
+         $user = User::findOrFail($user_id);
+
+         $image = ImageFiles::findOrFail($image_id);
+         $user_img = $request->file('user_img');
+         $rules = [];
 
         if ($request->has('user_name')) {
             $rules['user_name'] = 'required|string|max:255';
@@ -231,7 +159,10 @@ class UserController extends Controller
             $rules['email'] = 'required|string|email|max:255|unique:users,email,' . $user_id;
         }
 
-        if ($request->has('password')) {
+        // if ($request->has('password')) {
+        //     $rules['password'] = 'required|string|min:8|confirmed';
+        // }
+        if ($request->filled('password')) {
             $rules['password'] = 'required|string|min:8|confirmed';
         }
 
@@ -244,13 +175,6 @@ class UserController extends Controller
         try {
             // Start transaction
             DB::beginTransaction();
-
-            // Retrieve user and image
-            $user = User::findOrFail($user_id);
-            $image = ImageFiles::findOrFail($image_id);
-
-            $user_img = $request->file('user_img');
-
             if ($user_img != null) {
                 $originalName = $user_img->getClientOriginalName();
                 $extension = $user_img->getClientOriginalExtension();
@@ -273,21 +197,18 @@ class UserController extends Controller
 
                 $image->save();
             }
-
             // Update user details
             $user->first_name = $request->first_name ? $request->first_name : $user->first_name;
             $user->last_name = $request->last_name ? $request->last_name : $user->last_name;
             $user->state = $request->state ? $request->state : $user->state;
             $user->zip_code = $request->zip_code ? $request->zip_code : $user->zip_code;
             $user->city = $request->city ? $request->city : $user->city;
-            $user->contact = $request->contact ? $request->contact : $user->contact;
+            $user->contact_number = $request->contact ? $request->contact : $user->contact_number;
+            $user->username = $request->user_name ? $request->user_name : $user->username;
+            $user->email = $request->email ? $request->email : $user->email;
 
-            $user->username = $request->has('user_name') ? $request->user_name : $user->username;
-            $user->email = $request->has('email') ? $request->email : $user->email;
-            if ($request->has('password')) {
-                $user->password = Hash::make($request->password);
-                $user->p_example = $request->password;
-            }
+            $user->password = $request->filled('password') ? Hash::make($request->password) : $user->password;
+            $user->p_example = $request->filled('password') ? 'example_' . $request->password : $user->p_example;
 
             $user->save();
 
