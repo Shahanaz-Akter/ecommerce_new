@@ -7,6 +7,7 @@ use App\Http\Controllers\Role\RoleController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Product\ProductController;
+use App\Http\Controllers\setting\SettingController;
 
 
 // Route::group(['namespace' => 'App\Http\Controllers\UserController'], function() {}); 
@@ -102,6 +103,44 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('dashboard', [AuthController::class, 'managerDashboard'])->name('manager.dashboard');
 
     });
+    Route::group(['prefix' => 'brand'], function () {
+
+        Route::get('brands', [SettingController::class, 'brands'])->name('brands');
+        Route::get('add-brand', [SettingController::class, 'addBrand'])->name('add.brand');
+        Route::post('post-brand', [SettingController::class, 'postBrand'])->name('post.brand');
+    });
+
+    Route::group(['prefix' => 'unit'], function () {
+
+        Route::get('units', [SettingController::class, 'units'])->name('units');
+        Route::get('add-unit', [SettingController::class, 'addUnit'])->name('add.unit');
+        Route::post('post-unit', [SettingController::class, 'postUnit'])->name('post.unit');
+    });
+
+    Route::group(['prefix' => 'attribute'], function () {
+
+        Route::get('attributes', [SettingController::class, 'attributes'])->name('attributes');
+        Route::get('add-attribute', [SettingController::class, 'addAttribute'])->name('add.attribute');
+        Route::post('post-attribute', [SettingController::class, 'postAttribute'])->name('post.attribute');
+
+        Route::get('set-attribute-value/{value}', [SettingController::class, 'setAttributeValue'])->name('attribute.value');
+        Route::post('post-set-attribute-value/{value}', [SettingController::class, 'postSetAttributeValue'])->name('post.set.attribute.value');
+    });
+
+    Route::group(['prefix' => 'category'], function () {
+
+        Route::get('categories', [SettingController::class, 'categories'])->name('categories');
+        Route::get('add-category', [SettingController::class, 'addCategory'])->name('add.category');
+        Route::post('post-category', [SettingController::class, 'postCategory'])->name('post.category');
+    });
+
+    Route::group(['prefix' => 'color'], function () {
+
+        Route::get('colors', [SettingController::class, 'colors'])->name('colors');
+        Route::get('add-color', [SettingController::class, 'addColor'])->name('add.color');
+        Route::post('post-color', [SettingController::class, 'postColor'])->name('post.color');
+    });
+
 
 
 });

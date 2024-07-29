@@ -122,6 +122,89 @@
                         </div>
                       </li>
 
+                      <li class="nav-item"><a class="nav-link dropdown-indicator" href="#nv-setting" data-bs-toggle="collapse" aria-expanded="true" aria-controls="nv-setting">
+                        <div class="d-flex align-items-center">
+                          <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-text">Setting</span>
+                        </div>
+                      </a>
+                      <!-- more inner pages-->
+                      <div class="parent-wrapper">
+                        <ul class="nav collapse parent show" data-bs-parent="#e-commerce" id="nv-setting">
+                          <li class="nav-item"><a class="nav-link" href="{{ route('brands') }}">
+                              <div class="d-flex align-items-center"><span class="nav-link-text"> Brands</span>
+                              </div>
+                            </a>
+                            <!-- more inner pages-->
+                          </li>
+                          <li class="nav-item"><a class="nav-link" href="{{ route('add.brand') }}">
+                              <div class="d-flex align-items-center"><span class="nav-link-text"> Add Brand</span>
+                              </div>
+                            </a>
+                            <!-- more inner pages-->
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ route('categories') }}"> 
+                              <div class="d-flex align-items-center"><span class="nav-link-text">Categories</span>
+                              </div>
+                            </a>
+                            <!-- more inner pages-->
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ route('add.category') }}">
+                              <div class="d-flex align-items-center"><span class="nav-link-text">Add Category</span>
+                              </div>
+                            </a>
+                            <!-- more inner pages-->
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ route('units')}}">
+                              <div class="d-flex align-items-center"><span class="nav-link-text">Unit</span>
+                              </div>
+                            </a>
+                            <!-- more inner pages-->
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{'add.unit' }}">
+                              <div class="d-flex align-items-center"><span class="nav-link-text">Add Unit</span>
+                              </div>
+                            </a>
+                            <!-- more inner pages-->
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ route('colors') }}">
+                              <div class="d-flex align-items-center"><span class="nav-link-text">Colors</span>
+                              </div>
+                            </a>
+                            <!-- more inner pages-->
+                          </li>
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ route('add.color')  }}">
+                              <div class="d-flex align-items-center"><span class="nav-link-text">Add Color</span>
+                              </div>
+                            </a>
+                            <!-- more inner pages-->
+                          </li>
+
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{ route('attributes') }}">
+                            <div class="d-flex align-items-center"><span class="nav-link-text">Attributes</span>
+                            </div>
+                          </a>
+                          <!-- more inner pages-->
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('add.attribute') }}">
+                            <div class="d-flex align-items-center"><span class="nav-link-text">Add Attribute</span>
+                            </div>
+                          </a>
+                          <!-- more inner pages-->
+                        </li>
+                        
+                        </ul>
+                      </div>
+                    </li>
+
                       <li class="nav-item"><a class="nav-link dropdown-indicator" href="#nv-customer" data-bs-toggle="collapse" aria-expanded="true" aria-controls="nv-customer">
                           <div class="d-flex align-items-center">
                             <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-text">Customer</span>
