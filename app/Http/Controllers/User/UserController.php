@@ -141,15 +141,14 @@ class UserController extends Controller
         return view('backend.user.edit-user', compact('user', 'image'));
     }
 
-    public function postEditUser(Request $request, $user_id, $image_id)
+    public function postEditUser(Request $request, $user_id)
     {
         $all = $request->all();
-         // Retrieve user and image
-         $user = User::findOrFail($user_id);
+        // Retrieve user and image
+        $user = User::findOrFail($user_id);
 
-         $image = ImageFiles::findOrFail($image_id);
-         $user_img = $request->file('user_img');
-         $rules = [];
+        $user_img = $request->file('user_img');
+        $rules = [];
 
         if ($request->has('user_name')) {
             $rules['user_name'] = 'required|string|max:255';
@@ -186,12 +185,12 @@ class UserController extends Controller
                 // Move the uploaded file to the uploads directory
                 $user_img->move(public_path('uploads'), $uniqueName);
 
-                $date = $request->has('date') ? \Carbon\Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d H:i:s') : $image->date;
+                // $date = $request->has('date') ? \Carbon\Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d H:i:s') : $image->date;
 
                 // Update the image file record
+                $image =  new ImageFiles();
                 $image->original_name = $originalName;
                 $image->absolute_path = $relativePath;
-                $image->date = $date;
                 $image->extension = $extension;
                 $image->file_size = $file_size;
 
@@ -206,6 +205,7 @@ class UserController extends Controller
             $user->contact_number = $request->contact ? $request->contact : $user->contact_number;
             $user->username = $request->user_name ? $request->user_name : $user->username;
             $user->email = $request->email ? $request->email : $user->email;
+            $user->image_files_id = $request->user_img ? $image->id : $user->image_files_id;
 
             $user->password = $request->filled('password') ? Hash::make($request->password) : $user->password;
             $user->p_example = $request->filled('password') ? 'example_' . $request->password : $user->p_example;

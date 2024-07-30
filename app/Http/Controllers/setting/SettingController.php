@@ -7,11 +7,14 @@ use Carbon\Carbon;
 use App\Models\Unit;
 use App\Models\Brand;
 use App\Models\Color;
+use App\Models\Category;
 use App\Models\Attribute;
 use App\Models\ImageFiles;
 use Illuminate\Http\Request;
+use App\Models\AttributeValue;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Validation\Rules\ImageFile;
 
 class SettingController extends Controller
 {
@@ -223,17 +226,115 @@ class SettingController extends Controller
         }
     }
 
-    public function setAttributeValue($value)
+    public function setAttributeValue($id)
     {
-
-        return view('backend.attribute.set-attribute', compact('value'));
+        $attr = Attribute::findOrFail($id);
+        return view('backend.attribute.set-attribute', compact('id', 'attr'));
     }
 
-    public function postSetAttributeValue(Request $request, $value)
+    public function postSetAttributeValue(Request $request, $id)
     {
 
-        $value = $request->all();
-        dd($value);
-        return view('backend.attribute.set-attribute', compact('value'));
+        $attr_value = $request->attribute;
+
+        $arr = explode(' ', trim($attr_value));
+        // dd( $arr);
+
+        foreach ($arr as $value) {
+
+            $attribute_val = new AttributeValue();
+            $attribute_val->value = $value;
+            $attribute_val->attribute_id = $id;
+            $attribute_val->save();
+        }
+
+        return redirect()->route('attributes');
+    }
+
+    public function categories()
+    {
+        // return $categories = Category::with('childrenRecursive')->where('parent_category_id', 0)->get();
+        $categories = Category::where('parent_category_id', 0)
+        ->with('childrenRecursive')
+        ->get();
+
+    return view('backend.category.categories', compact('categories'));
+
+    }
+
+
+    public function addCategory($parentId = 0)
+    {
+        $tree_cate = Category::select('id', 'name')->get();
+        // dd($tree_cate);
+        return view('backend.category.add-category', compact('tree_cate'));
+    }
+
+    // protected $fillable =['name' ,'parent_category_id','category_level', 'category_image_id'];
+
+    public function postCategory(Request $request)
+    {
+
+        $all = $request->all();
+
+        try {
+
+            // dd($all );
+            $image_id = null;
+            $category_image = $request->file('category_image');
+
+            // Start transaction
+            DB::beginTransaction();
+
+            if ($category_image != null) {
+
+                $originalName = $category_image->getClientOriginalName();
+                $extension = $category_image->getClientOriginalExtension();
+                $uniqueName = uniqid() . '.' . $extension;
+                $fileSizeInBytes = $category_image->getSize();
+                $file_size = $this->humanReadableFileSize($fileSizeInBytes);
+                $relativePath = '/uploads/' . $uniqueName;
+                // Move the uploaded file to the uploads directory
+                $category_image->move(public_path('uploads'), $uniqueName);
+
+                $date = Carbon::now()->format('Y-m-d H:i:s');
+
+                $image_model =  new ImageFiles();
+                $image_model->original_name = $originalName;
+                $image_model->absolute_path = $relativePath;
+                $image_model->date = $date;
+                $image_model->extension = $extension;
+                $image_model->file_size = $file_size;
+                $image_model->save();
+
+                $image_id = $image_model->id;
+              
+            }
+
+            $category = new Category();
+            $category->name = $request->category;
+            $category->parent_category_id = $request->parent_category;
+            $category->category_level = rand(0,100);
+            $category->category_image_id = $image_id;
+            $category->save();
+
+            // dd( $category );
+            // Commit transaction
+            DB::commit();
+
+            //  return redirect()->route('categories')->with('success', 'Successfully Saved Category!');
+            return redirect()->back();
+
+        } catch (Exception $ex) {
+            // Rollback transaction in case of an error
+            DB::rollBack();
+
+            return response([
+                'Failure' => 'Internal server Error',
+                'error' => $ex->getMessage(),
+            ], 500);
+        }
+
+        $category = new Category();
     }
 }

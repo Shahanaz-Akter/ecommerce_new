@@ -77,7 +77,7 @@ Route::middleware(['auth_user'])->group(function () {
 
         Route::get('view-user/{user_id}', [UserController::class, 'viewUser'])->name('view.user');
         Route::get('edit-user/{user_id}', [UserController::class, 'editUser'])->name('edit.user');
-        Route::post('post-edit-user/{user_id}/{image_id}', [UserController::class, 'postEditUser'])->name('post.edit.user');
+        Route::post('post-edit-user/{user_id}', [UserController::class, 'postEditUser'])->name('post.edit.user');
         Route::get('remove-user/{user_id}', [UserController::class, 'removeUser'])->name('remove.user');
     });
 

@@ -1,6 +1,6 @@
 @extends('backend.layouts.master_page')
 @section('title')
-<title>Brands</title>
+<title>Categories</title>
 @endsection
 @section('content')
 
@@ -15,8 +15,8 @@
 
     <nav class="mb-2" aria-label="breadcrumb">
       <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item"><a href="#!">Brand</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('brands') }}">Brands</a></li>
+        <li class="breadcrumb-item"><a href="#!">Category</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('categories') }}">Categories</a></li>
         {{-- <li class="breadcrumb-item active">Default</li> --}}
       </ol>
     </nav>
@@ -24,7 +24,7 @@
       <div class="row g-3 mb-4">
         <div class="col-auto">
           <h2 class="mb-2"></h2>
-          <h5 class="text-body-tertiary fw-semibold">List of Brands</h5>
+          <h5 class="text-body-tertiary fw-semibold">List of Categories</h5>
         </div>
         <div class="col-auto">
           <h2 class="mb-0"></h2>
@@ -49,7 +49,7 @@
             
             <div class="ms-xxl-auto">
               <button class="btn btn-link text-body me-4 px-0"><span class="fa-solid fa-file-export fs-9 me-2"></span>Export</button>
-              <a href="{{ route('add.brand') }}"> <button class="btn btn-primary" id="addBtn"><span class="fas fa-plus me-2"></span>Add Brand</button></a> 
+              <a href="{{ route('add.category') }}"> <button class="btn btn-primary" id="addBtn"><span class="fas fa-plus me-2"></span>Add Category</button></a> 
             </div>
           </div>
         </div>
@@ -60,73 +60,64 @@
 
               <thead>
                 <tr>
-                  <th class="white-space-nowrap fs-9 align-middle ps-0" style="max-width:20px; width:18px;">
-                    <div class="form-check mb-0 fs-8">
-                      <input class="form-check-input" id="checkbox-bulk-products-select" type="checkbox" data-bulk-select='{"body":"products-table-body"}' />
-                    </div>
-                  </th>
-                  <th class="sort white-space-nowrap align-middle fs-10" scope="col" style="width:70px;"></th>
-                  {{-- <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">First Name</th>
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Last Name</th> --}}
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Name</th>
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Description</th>
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Date</th>
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Actions</th>
-                </tr>
+                    <th class="white-space-nowrap fs-9 align-middle ps-0" style="max-width:20px; width:18px;">
+                      <div class="form-check mb-0 fs-8">
+                        <input class="form-check-input" id="checkbox-bulk-products-select" type="checkbox" data-bulk-select='{"body":"products-table-body"}' />
+                      </div>
+                    </th>
+                    <th class="sort white-space-nowrap align-middle fs-10" scope="col" style="width:70px;"></th>
+                    <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Name</th>
+                    <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Date</th>
+                    <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Actions</th>
+                  </tr>
               </thead>
 
               <tbody class="list" id="products-table-body">
 
 
-            @foreach ($brands as $brand)
+            @foreach ($categories as $category)
                 <tr class="position-static">
 
                     <td class="fs-9 align-middle">
-                      <div class="form-check mb-0 fs-8">
-                        <input class="form-check-input" type="checkbox" data-bulk-select-row='{"product":"iPhone 13 pro max-Pacific Blue-128GB storage","productImage":"/products/2.png","price":"$87","category":"Furniture","tags":["Class","Camera","Discipline","invincible","Pro","Swag"],"star":true,"vendor":"Beatrice Furnitures","publishedOn":"Nov 11, 7:36 PM"}' />
-                      </div>
+                        <div class="form-check mb-0 fs-8">
+                          <input class="form-check-input" type="checkbox" data-bulk-select-row='{"product":"iPhone 13 pro max-Pacific Blue-128GB storage","productImage":"/products/2.png","price":"$87","category":"Furniture","tags":["Class","Camera","Discipline","invincible","Pro","Swag"],"star":true,"vendor":"Beatrice Furnitures","publishedOn":"Nov 11, 7:36 PM"}' />
+                        </div>
+                      </td>
+    
+                      <td class="align-middle white-space-nowrap py-0">
+                          {{-- {{ $brand->brand_image_id }} --}}
+                          @if($category->category_image_id!=null)
+                          <a class="d-block border border-translucent rounded-2" href="../../../apps/e-commerce/landing/product-details.html">
+                              <img src="{{$category->imagefile->absolute_path}}" alt="" width="53" />
+                          </a>
+                          @else
+                          <img src="../../../assets/img//products/2.png" alt="" width="53" />
+                        @endif
                     </td>
-  
-                    <td class="align-middle white-space-nowrap py-0">
-                        {{-- {{ $brand->brand_image_id }} --}}
-                        @if($brand->brand_image_id!=null)
-                        <a class="d-block border border-translucent rounded-2" href="../../../apps/e-commerce/landing/product-details.html">
-                            <img src="{{$brand->brandImage->absolute_path}}" alt="" width="53" />
-                        </a>
-                        @else
-                        <img src="../../../assets/img//products/2.png" alt="" width="53" />
-                      @endif
-                  </td>
 
                 <td class="product align-middle ps-4">
                     <a class="fw-semibold line-clamp-3 mb-0" href="../../../apps/e-commerce/landing/product-details.html">
-                       {{ $brand->name }}            
+                       {{ $category->name }}            
                     </a>
                 </td>
 
-              <td class="product align-middle ps-4">
-                <a class="fw-semibold line-clamp-3 mb-0" href="../../../apps/e-commerce/landing/product-details.html">
-                {!! $brand->description !!}            
-                </a>
-            </td> 
-            
                 <td class="product align-middle ps-4">
                   <a class="fw-semibold line-clamp-3 mb-0" href="../../../apps/e-commerce/landing/product-details.html">
-                     {{ $brand->created_at }}            
+                     {{ $category->created_at }}            
                   </a>
                </td>
 
-                    <td class="align-middle white-space-nowrap  ps-4 btn-reveal-trigger">
-                      <div class="btn-reveal-trigger position-static">
-                        <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs-10"></span></button>
-  
-                        <div class="dropdown-menu dropdown-menu-end py-2">
-                         
-                          <a class="dropdown-item" href="">Edit</a>
-                          <a class="dropdown-item text-danger" href="">Remove</a>
-                        </div>
-                      </div>
-                    </td>
+                <td class="align-middle white-space-nowrap  ps-4 btn-reveal-trigger">
+                    <div class="btn-reveal-trigger position-static">
+                    <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs-10"></span></button>
+
+                    <div class="dropdown-menu dropdown-menu-end py-2">
+                        
+                        <a class="dropdown-item" href="">Edit</a>
+                        <a class="dropdown-item text-danger" href="">Remove</a>
+                    </div>
+                    </div>
+                </td>
               </tr>
              @endforeach
 

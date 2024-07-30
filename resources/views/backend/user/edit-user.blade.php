@@ -17,7 +17,7 @@
       </ol>
     </nav>
 
-    <form action="{{ route('post.edit.user', ['user_id'=>$user->id, 'image_id'=>$image->id]) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('post.edit.user', ['user_id'=>$user->id]) }}" method="POST" enctype="multipart/form-data">
               
       @csrf
 
@@ -48,10 +48,15 @@
 
             <div class="col-sm-12">
                 <label class="form-label" for="user_img">User Image</label>
-                <input class="form-control" id="user_img" type="file"  name="user_img" value="{{ $image->absolute_path }}"/>
-
-                {{-- previous image --}}
+                <input class="form-control" id="user_img" type="file"  name="user_img" value=""/>
+                @if($user->image_files_id!=null)
                 <img src="{{ $image->absolute_path }}" alt="Not available" height="100" width="100">
+                @else  
+                {{-- previous image --}}
+                <img src="" alt="Not available" height="100" width="100">
+                @endif
+               
+
             </div>
 
             <div class="col-sm-6">
@@ -109,10 +114,10 @@
                 <input class="form-control" id="contact" type="text" placeholder="01*********" name="contact" value="{{ $user->contact_number }}" />
             </div>
 
-            <div class="col-sm-6">
+            {{-- <div class="col-sm-6">
                 <label class="form-label" for="datepicker"> Date</label>
-                <input class="form-control datetimepicker flatpickr-input" id="datepicker" name="date" type="text" placeholder="dd/mm/yyyy" data-options="{&quot;disableMobile&quot;:true,&quot;dateFormat&quot;:&quot;d/m/Y&quot;}" readonly="readonly" value="{{ $image->date }}">
-            </div>
+                <input class="form-control datetimepicker flatpickr-input" id="datepicker" name="date" type="text" placeholder="dd/mm/yyyy" data-options="{&quot;disableMobile&quot;:true,&quot;dateFormat&quot;:&quot;d/m/Y&quot;}" readonly="readonly" value="{{ $user->created_at }}">
+            </div> --}}
    
           </div>
 

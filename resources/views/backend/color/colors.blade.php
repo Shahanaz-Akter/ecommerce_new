@@ -70,7 +70,8 @@
                   {{-- <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">First Name</th>
                   <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Last Name</th> --}}
                   <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Name</th>
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Description</th>
+                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Name</th>
+                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Color Code</th>
                   <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Date</th>
                   <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Actions</th>
                 </tr>
@@ -98,6 +99,12 @@
                 <td class="product align-middle ps-4">
                     <a class="fw-semibold line-clamp-3 mb-0" href="../../../apps/e-commerce/landing/product-details.html">
                        {{ $color->name }}            
+                    </a>
+                </td>
+
+                <td class="product align-middle ps-4">
+                    <a class="fw-semibold line-clamp-3 mb-0" href="../../../apps/e-commerce/landing/product-details.html">
+                       {{ $color->color_code }}            
                     </a>
                 </td>
 

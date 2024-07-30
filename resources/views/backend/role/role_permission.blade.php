@@ -3,6 +3,13 @@
 @section('content')
 
 <div class="content">
+
+    @if(session('success'))
+    <div class="alert alert-primary">
+      {{ session('success') }}
+    </div>
+    @endif
+
     <nav class="mb-2" aria-label="breadcrumb">
       <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item"><a href="#!">Role</a></li>

@@ -23,4 +23,10 @@ class ImageFiles extends Model
         return $this->hasOne(Brand::class, 'brand_image_id');
         
     }
+
+    public function category()
+    {
+        return $this->hasOne(Category::class);
+
+    }
 }

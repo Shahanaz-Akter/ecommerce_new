@@ -45,7 +45,7 @@ class RoleController extends Controller
         try {
 
             $role = new Role();
-            $role->name = $request->role;
+            $role->name = strtolower($request->role);
             $role->description = $request->description;
             $role->save();
 
@@ -87,7 +87,9 @@ class RoleController extends Controller
             $role_permission->save();
         }
         if ($permissions) {
-            return redirect()->route('users')->with('success', 'Successfully Associated Role and User User!');
+            // return redirect()->route('users')->with('success', 'Successfully Associated Role and User User!');
+            return redirect()->route('role.permission')->with('success', 'Successfully Associated Role and User User!');
+
 
         }
         // dd($permissions);

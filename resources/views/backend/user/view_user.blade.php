@@ -13,8 +13,12 @@
     <div class="pb-9">
       <div class="card mb-5">
         <div class="card-header hover-actions-trigger d-flex justify-content-center align-items-end position-relative mb-7 mb-xxl-0" style="min-height: 214px; ">
-          <div class="bg-holder rounded-top" style="background-image:url({{ $img->absolute_path }});">
-          </div>
+          
+            @if($img!=null)
+            <div class="bg-holder rounded-top" style="background-image:url({{ $img->absolute_path }});"> </div>
+            @else
+            <div class="bg-holder rounded-top" style="background-image:url('');"> </div>
+            @endif
           <input class="d-none" id="upload-cover-image" type="file" />
           <label class="cover-image-file-input" for="upload-cover-image"></label>
           <div class="hover-actions end-0 bottom-0 pe-1 pb-2 text-white dark__text-gray-1100"><span class="fa-solid fa-camera me-2 overlay-icon"></span></div>
@@ -24,7 +28,11 @@
           <div class="hoverbox feed-profile" style="width: 150px; height: 150px">
             <div class="hoverbox-content rounded-circle d-flex flex-center z-1" style="--phoenix-bg-opacity: .56;"><span class="fa-solid fa-camera fs-1 text-body-quaternary" data-bs-theme="light"></span></div>
             <div class="position-relative bg-body-quaternary rounded-circle cursor-pointer d-flex flex-center mb-xxl-7">
+                @if($img!=null)
               <div class="avatar avatar-5xl"><img class="rounded-circle rounded-circle img-thumbnail shadow-sm border-0" src="{{ $img->absolute_path }}" alt="" /></div>
+              @else
+              <div class="avatar avatar-5xl"><img class="rounded-circle rounded-circle rounded-circle img-thumbnail shadow-sm border-0" src="" alt="Not available" /></div>
+              @endif
               <label class="w-100 h-100 position-absolute z-1" for="upload-porfile-picture"></label>
             </div>
           </div>

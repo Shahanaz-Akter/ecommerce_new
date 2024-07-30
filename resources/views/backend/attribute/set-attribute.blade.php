@@ -18,7 +18,7 @@
       </ol>
     </nav>
 
-    <form class="mb-9" method="post" action="{{ route('post.set.attribute.value', $value) }}" enctype="multipart/form-data">
+    <form class="mb-9" method="post" action="{{ route('post.set.attribute.value', $id) }}" enctype="multipart/form-data">
 
         @csrf
 
@@ -34,16 +34,13 @@
         </div>
       </div>
 
-                <div class="row g-5">
+            <div class="row g-5">
 
-                        <div class="col-12 col-xl-8">
-                            <h4 class="mb-2">Attribute Value</h4>
-                            <input class="form-control mb-5" type="text"  name="attribute" placeholder="You can type one or more than one value. such as  value1, value2, ...." required/>
-                        </div>
-
-                      
-                        
-                </div>
+                    <div class="col-12 col-xl-8">
+                        <h4 class="mb-2"><span class="text-danger">{{ $attr->attribute_name }}</span> Attribute Value </h4>
+                        <input class="form-control mb-5" type="text"  name="attribute" placeholder="You can type one or more than one value. such as  value1 value2 ...." required/>
+                    </div>
+            </div>
         </form>
 
    
