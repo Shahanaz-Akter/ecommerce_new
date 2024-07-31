@@ -13,24 +13,30 @@ use App\Http\Controllers\setting\SettingController;
 // Route::group(['namespace' => 'App\Http\Controllers\UserController'], function() {}); 
 //if use this line then dont need to import class direct can write the controller name with function like this "Route::post('login', 'LoginController@login');"
 
-    Route::get('/', function () {
-        // return view('welcome');
-        return view('backend.auth.sign-in');
-    })->name('login');
+Route::get('/', function () {
+    // return view('welcome');
+    return view('backend.auth.sign-in');
+})->name('login');
 
 
-    Route::get('sign-up', [AuthController::class, 'register'])->name('admin.register');
-    Route::post('/admin/post-register', [AuthController::class, 'postRegister'])->name('post.register');
-    
-    Route::get('sign-in', [AuthController::class, 'login'])->name('admin.login');
-    Route::post('post-login', [AuthController::class, 'postLogin'])->name('post.login');
+Route::get('/missing_page', function () {
+    // return view('welcome');
+    return view('backend.missing_page');
+})->name('miss.page');
 
 
-    // logout route
-    Route::get('logout', function () {
-        Auth::logout();
-        return redirect(url(''));
-    })->name('logout');
+Route::get('sign-up', [AuthController::class, 'register'])->name('admin.register');
+Route::post('/admin/post-register', [AuthController::class, 'postRegister'])->name('post.register');
+
+Route::get('sign-in', [AuthController::class, 'login'])->name('admin.login');
+Route::post('post-login', [AuthController::class, 'postLogin'])->name('post.login');
+
+
+// logout route
+Route::get('logout', function () {
+    Auth::logout();
+    return redirect(url(''));
+})->name('logout');
 
 
 
@@ -58,12 +64,6 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('privacy-policy', [AuthController::class, 'privacy'])->name('admin.privacy');
     });
 
-    // product routes
-    Route::group(['prefix' => 'product'], function () {
-        Route::get('add-product', [ProductController::class, 'addProduct'])->name('add.product');
-        Route::get('products', [ProductController::class, 'products'])->name('products');
-    });
-
     // user routes
     Route::group(['prefix' => 'user'], function () {
 
@@ -81,7 +81,7 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('remove-user/{user_id}', [UserController::class, 'removeUser'])->name('remove.user');
     });
 
-    // user routes
+    // role routes
     Route::group(['prefix' => 'role'], function () {
 
         Route::get('roles', [RoleController::class, 'role'])->name('roles');
@@ -92,17 +92,18 @@ Route::middleware(['auth_user'])->group(function () {
         Route::post('post-role-permission-index', [RoleController::class, 'postRolePermissionIndex'])->name('post.role.permission');
     });
 
+    // supplier routes
     Route::group(['prefix' => 'supplier'], function () {
-
         Route::get('dashboard', [AuthController::class, 'supplierDashboard'])->name('supplier.dashboard');
-
     });
 
+    // manager routes
     Route::group(['prefix' => 'manager'], function () {
 
         Route::get('dashboard', [AuthController::class, 'managerDashboard'])->name('manager.dashboard');
-
     });
+
+    // brand routes
     Route::group(['prefix' => 'brand'], function () {
 
         Route::get('brands', [SettingController::class, 'brands'])->name('brands');
@@ -110,6 +111,7 @@ Route::middleware(['auth_user'])->group(function () {
         Route::post('post-brand', [SettingController::class, 'postBrand'])->name('post.brand');
     });
 
+    // unit routes
     Route::group(['prefix' => 'unit'], function () {
 
         Route::get('units', [SettingController::class, 'units'])->name('units');
@@ -117,6 +119,7 @@ Route::middleware(['auth_user'])->group(function () {
         Route::post('post-unit', [SettingController::class, 'postUnit'])->name('post.unit');
     });
 
+    // attribute routes
     Route::group(['prefix' => 'attribute'], function () {
 
         Route::get('attributes', [SettingController::class, 'attributes'])->name('attributes');
@@ -127,6 +130,7 @@ Route::middleware(['auth_user'])->group(function () {
         Route::post('post-set-attribute-value/{value}', [SettingController::class, 'postSetAttributeValue'])->name('post.set.attribute.value');
     });
 
+    // category routes
     Route::group(['prefix' => 'category'], function () {
 
         Route::get('categories', [SettingController::class, 'categories'])->name('categories');
@@ -134,15 +138,24 @@ Route::middleware(['auth_user'])->group(function () {
         Route::post('post-category', [SettingController::class, 'postCategory'])->name('post.category');
     });
 
+    // color routes
     Route::group(['prefix' => 'color'], function () {
-
         Route::get('colors', [SettingController::class, 'colors'])->name('colors');
         Route::get('add-color', [SettingController::class, 'addColor'])->name('add.color');
         Route::post('post-color', [SettingController::class, 'postColor'])->name('post.color');
     });
 
+    // product routes
+    Route::group(['prefix' => 'product'], function () {
+        Route::get('products', [ProductController::class, 'products'])->name('products');
+        Route::get('add-product', [ProductController::class, 'addProduct'])->name('add.product');
+        Route::post('post-add-product', [ProductController::class, 'postProducts'])->name('post.product');
+    });
 
-
+    // product routes
+    Route::group(['prefix' => 'vendor'], function () {
+        Route::post('post-add-vendor', [SettingController::class, 'postVendor'])->name('post.vendor');
+    });
 });
 
 // middleware end

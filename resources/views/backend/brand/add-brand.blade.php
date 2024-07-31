@@ -34,7 +34,7 @@
         </div>
       </div>
 
-      <div class="row g-5">
+     <div class="row g-5">
 
             {{-- @if ($errors->any())
             <div class="alert alert-primary text-center p-2">

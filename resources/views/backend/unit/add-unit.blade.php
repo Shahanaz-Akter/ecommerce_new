@@ -44,8 +44,6 @@
             @endif
         </div>
 
-      
-
          <div class="col-12 col-xl-6">
             <h4 class="mb-3">Unit Type </h4>
             <input class="form-control mb-5" type="text"  name="unit_type" placeholder="Unit Type"/>

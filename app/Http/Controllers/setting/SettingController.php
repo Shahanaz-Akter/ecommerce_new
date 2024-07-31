@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use App\Models\Unit;
 use App\Models\Brand;
 use App\Models\Color;
+use App\Models\Vendor;
 use App\Models\Category;
 use App\Models\Attribute;
 use App\Models\ImageFiles;
@@ -251,14 +252,23 @@ class SettingController extends Controller
         return redirect()->route('attributes');
     }
 
+
+
+    public function postVendor(Request $request)
+    {
+        $vendor = new Vendor();
+        $vendor->name = $request->vendor;
+        $vendor->description = $request->description;
+        $vendor->save();
+
+        return redirect()->back();
+    }
+
     public function categories()
     {
-        // return $categories = Category::with('childrenRecursive')->where('parent_category_id', 0)->get();
-        $categories = Category::where('parent_category_id', 0)
-        ->with('childrenRecursive')
-        ->get();
-
-    return view('backend.category.categories', compact('categories'));
+        
+         $categories = Category::get();
+         return view('backend.category.categories', compact('categories'));
 
     }
 
@@ -266,17 +276,13 @@ class SettingController extends Controller
     public function addCategory($parentId = 0)
     {
         $tree_cate = Category::select('id', 'name')->get();
-        // dd($tree_cate);
         return view('backend.category.add-category', compact('tree_cate'));
     }
-
-    // protected $fillable =['name' ,'parent_category_id','category_level', 'category_image_id'];
 
     public function postCategory(Request $request)
     {
 
         $all = $request->all();
-
         try {
 
             // dd($all );
@@ -337,4 +343,8 @@ class SettingController extends Controller
 
         $category = new Category();
     }
+
+
+
+
 }

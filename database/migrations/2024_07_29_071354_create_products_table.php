@@ -39,11 +39,11 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->unsignedBigInteger('review_id')->nullable();
-            $table->string('vendor_name')->nullable();
+            $table->unsignedBigInteger('vendor_id')->nullable();
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->string('image_link')->nullable();
-            $table->string('shipping_type')->nullable();
+            $table->boolean('shipping_type')->nullable();
             $table->string('shipping_cost')->nullable();
             $table->string('product_type')->nullable();
 

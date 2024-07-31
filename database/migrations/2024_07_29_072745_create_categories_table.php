@@ -17,6 +17,10 @@ return new class extends Migration
             $table->unsignedBigInteger('parent_category_id')->nullable();
             $table->unsignedBigInteger('category_level')->nullable();
             $table->unsignedBigInteger('category_image_id')->nullable();
+
+             // Foreign key constraint (assuming ImageFiles table exists)
+            //  $table->foreign('category_image_id')->references('id')->on('image_files')->onDelete('set null');
+
             $table->timestamps();
         });
     }

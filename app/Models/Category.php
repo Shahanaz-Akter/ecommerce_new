@@ -16,15 +16,17 @@ class Category extends Model
         return $this->belongsTo(ImageFiles::class, 'category_image_id', 'id');
     }
 
-    public function childerns()
+    // one to many main relation
+    public function children()
     {
         return $this->hasMany(Category::class, 'parent_category_id');
     }
 
-   
-
-    public function childrenRecursive()
+    // Recursive relationship
+    public function allChildren()
     {
-        return $this->children()->with('childrenRecursive');
+        return $this->children()->with('allChildren');
     }
+
+
 }

@@ -103,7 +103,7 @@
                         <div class="parent-wrapper">
                             
                           <ul class="nav collapse parent show" data-bs-parent="#e-ecommerce" id="nv-product">
-                            <li class="nav-item"><a class="nav-link active" href="{{ route('add.product') }}">
+                            <li class="nav-item"><a class="nav-link active" href="{{ route('products') }}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text">Products</span>
                                 </div>
                               </a>
@@ -115,8 +115,6 @@
                               </a>
                               <!-- more inner pages-->
                             </li>
-                           
-                           
                           </ul>
 
                         </div>
