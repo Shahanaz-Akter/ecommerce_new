@@ -27,12 +27,19 @@ class ProductController extends Controller
     {
         // $cate = Category::with('childrens')->where('parent_category_id', 0)->get();
 
+        // $all_cates = Category::where('parent_category_id', 0)
+        // ->with('allChildren')
+        // ->orderBy('name') 
+        // ->get();
+
+        // inside Men i have clothes 
+
+
         $all_cates = Category::where('parent_category_id', 0)
-        ->with('allChildren')
-        ->orderBy('name') 
-        ->get();
-        
-        return $all_cates;
+            ->with('allChildren')
+            ->orderBy('name')
+            ->get();
+        // return $all_cates;
 
         $brands = Brand::get();
         $categories = Category::get();
@@ -46,4 +53,23 @@ class ProductController extends Controller
         return view('backend.products.add-product', compact('brands', 'categories', 'colors', 'attributes', 'units', 'vendors', 'parent_cate', 'all_cates'));
     }
 
+
+    public function postProduct(Request $request)
+    {
+
+        $all = $request->all();
+
+        dd($all);
+        
+        $uploadedImages = $request->file('images');
+
+        $imagePaths = [];
+        if ($uploadedImages) {
+            foreach ($uploadedImages as $image) {
+
+                echo $image;
+            }
+        }
+
+    }
 }

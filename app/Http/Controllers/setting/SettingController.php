@@ -253,6 +253,23 @@ class SettingController extends Controller
     }
 
 
+    public function getAttributeValues($id)
+    {
+        // $attribute_val = AttributeValue::where('id',$id)->get();
+
+       $val = Attribute::find($id)->values;
+       $values =  $val->toArray();
+    //    dd($val);
+
+        if ($val) {
+
+            return response()->json($values);
+        }
+
+        return response()->json([], 404); // Not found
+
+    }
+
 
     public function postVendor(Request $request)
     {
@@ -266,10 +283,9 @@ class SettingController extends Controller
 
     public function categories()
     {
-        
-         $categories = Category::get();
-         return view('backend.category.categories', compact('categories'));
 
+        $categories = Category::get();
+        return view('backend.category.categories', compact('categories'));
     }
 
 
@@ -314,13 +330,12 @@ class SettingController extends Controller
                 $image_model->save();
 
                 $image_id = $image_model->id;
-              
             }
 
             $category = new Category();
             $category->name = $request->category;
             $category->parent_category_id = $request->parent_category;
-            $category->category_level = rand(0,100);
+            $category->category_level = rand(0, 100);
             $category->category_image_id = $image_id;
             $category->save();
 
@@ -330,7 +345,6 @@ class SettingController extends Controller
 
             //  return redirect()->route('categories')->with('success', 'Successfully Saved Category!');
             return redirect()->back();
-
         } catch (Exception $ex) {
             // Rollback transaction in case of an error
             DB::rollBack();
@@ -343,8 +357,4 @@ class SettingController extends Controller
 
         $category = new Category();
     }
-
-
-
-
 }

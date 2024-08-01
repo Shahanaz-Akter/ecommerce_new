@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
 <link href="{{ asset('assets/css/theme-rtl.min.css') }}" type="text/css" rel="stylesheet" id="style-rtl">
 <link href="{{ asset('assets/css/theme.min.css') }}" type="text/css" rel="stylesheet" id="style-default">
-<link href="{{ asset('assets/css/user-rtl.min.css') }}" type="text/css" rel="stylesheet" id="user-style-rtl">
+<link href="{{ asset('assets/css/user-rtl.min.css')}}" type="text/css" rel="stylesheet" id="user-style-rtl">
 <link href="{{ asset('assets/css/user.min.css') }}" type="text/css" rel="stylesheet" id="user-style-default">
 
 <script>
@@ -39,7 +39,10 @@
 {{-- Add product page additional css --}}
 <link href="{{ asset('vendors/dropzone/dropzone.min.css') }}" rel="stylesheet">
 <link href="{{ asset('vendors/choices/choices.min.css') }}" rel="stylesheet">
-<link href="{{ asset('vendors/flatpickr/flatpickr.min.css') }}" rel="stylesheet">
+<link href="{{ asset('vendors/flatpickr/flatpickr.min.css')}}" rel="stylesheet">
 
 {{-- home page additional css --}}
-<link href="{{ asset('vendors/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
+<link href="{{ asset('vendors/swiper/swiper-bundle.min.css')}}" rel="stylesheet">
+
+{{-- jquery cdn --}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

@@ -128,6 +128,9 @@ Route::middleware(['auth_user'])->group(function () {
 
         Route::get('set-attribute-value/{value}', [SettingController::class, 'setAttributeValue'])->name('attribute.value');
         Route::post('post-set-attribute-value/{value}', [SettingController::class, 'postSetAttributeValue'])->name('post.set.attribute.value');
+
+        Route::get('/attribute-values/{id}', [SettingController::class, 'getAttributeValues'])->name('attribute.value');
+
     });
 
     // category routes
@@ -149,7 +152,7 @@ Route::middleware(['auth_user'])->group(function () {
     Route::group(['prefix' => 'product'], function () {
         Route::get('products', [ProductController::class, 'products'])->name('products');
         Route::get('add-product', [ProductController::class, 'addProduct'])->name('add.product');
-        Route::post('post-add-product', [ProductController::class, 'postProducts'])->name('post.product');
+        Route::post('post-add-product', [ProductController::class, 'postProduct'])->name('post.product');
     });
 
     // product routes

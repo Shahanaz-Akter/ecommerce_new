@@ -33,5 +33,8 @@
     {{-- forntend js --}}
     <script src="{{ asset('vendors/swiper/swiper-bundle.min.js') }}"></script>
     
-    {{-- axios cdn --}}
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+   
+
+   
+      

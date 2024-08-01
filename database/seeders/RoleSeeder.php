@@ -52,7 +52,18 @@ class RoleSeeder extends Seeder
 
             $role = new Role();
             $role->name = "supplier";
-            $role->description = "This role has authority to maange supplier related activities";
+            $role->description = "This role has authority to manage supplier related activities";
+
+            $role->save();
+        }
+
+        $customer_role_seed = Role::where('name', '=', 'customer')->first();
+
+        if ($customer_role_seed == null) {
+
+            $role = new Role();
+            $role->name = "customer";
+            $role->description = "This role has authority to manage customer related activities";
 
             $role->save();
         }
