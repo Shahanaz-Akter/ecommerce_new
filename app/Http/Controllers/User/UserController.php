@@ -81,7 +81,7 @@ class UserController extends Controller
             $user->username = $request->user_name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
-            $user->p_example = $request->password;
+            $user->p_example ='exapmple_'. $request->password;
 
             $user->image_files_id = $imageFilesId;
 

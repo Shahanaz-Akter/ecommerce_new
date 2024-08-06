@@ -5,6 +5,7 @@ namespace App\Http\Controllers\setting;
 use Exception;
 use Carbon\Carbon;
 use App\Models\Unit;
+use App\Models\User;
 use App\Models\Brand;
 use App\Models\Color;
 use App\Models\Vendor;
@@ -144,6 +145,11 @@ class SettingController extends Controller
         }
     }
 
+    public function customers()
+    {
+        $customers = User::where('role_id', null)->get();
+        return view('backend.customer.customers', compact('customers'));
+    }
 
     public function units()
     {
@@ -167,7 +173,7 @@ class SettingController extends Controller
 
             $unit = new Unit();
             $unit->unit_type = $request->unit_type;
-            $unit->base_unit_name = $request->base_unit_name;
+            $unit->base_unit_name = strtolower($request->base_unit_name); 
             $unit->symbol = $request->symbol;
             $unit->unit_conversion = $request->unit_conversion;
             $unit->save();
@@ -230,6 +236,7 @@ class SettingController extends Controller
     public function setAttributeValue($id)
     {
         $attr = Attribute::findOrFail($id);
+
         return view('backend.attribute.set-attribute', compact('id', 'attr'));
     }
 
@@ -239,7 +246,7 @@ class SettingController extends Controller
         $attr_value = $request->attribute;
 
         $arr = explode(' ', trim($attr_value));
-        // dd( $arr);
+
 
         foreach ($arr as $value) {
 
@@ -255,11 +262,11 @@ class SettingController extends Controller
 
     public function getAttributeValues($id)
     {
-        // $attribute_val = AttributeValue::where('id',$id)->get();
+        $attributeval = AttributeValue::where('id', $id)->get();
+        // dd($attributeval);
 
-       $val = Attribute::find($id)->values;
-       $values =  $val->toArray();
-    //    dd($val);
+        $val = Attribute::find($id)->values;
+        $values =  $val->toArray();
 
         if ($val) {
 

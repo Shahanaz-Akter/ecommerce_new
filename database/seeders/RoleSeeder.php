@@ -19,7 +19,7 @@ class RoleSeeder extends Seeder
         if ($super_admin_role_seed == null) {
 
             $role = new Role();
-            $role->name = "super Admin";
+            $role->name = "super admin";
             $role->description = "This role has the highest authority with all the permissions and no restrictions";
 
             $role->save();

@@ -126,7 +126,8 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('add-attribute', [SettingController::class, 'addAttribute'])->name('add.attribute');
         Route::post('post-attribute', [SettingController::class, 'postAttribute'])->name('post.attribute');
 
-        Route::get('set-attribute-value/{value}', [SettingController::class, 'setAttributeValue'])->name('attribute.value');
+        Route::get('set-attribute-value/{value}', [SettingController::class, 'setAttributeValue'])->name('set.attribute.value');
+
         Route::post('post-set-attribute-value/{value}', [SettingController::class, 'postSetAttributeValue'])->name('post.set.attribute.value');
 
         Route::get('/attribute-values/{id}', [SettingController::class, 'getAttributeValues'])->name('attribute.value');
@@ -146,6 +147,17 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('colors', [SettingController::class, 'colors'])->name('colors');
         Route::get('add-color', [SettingController::class, 'addColor'])->name('add.color');
         Route::post('post-color', [SettingController::class, 'postColor'])->name('post.color');
+    });
+
+    // color routes
+    Route::group(['prefix' => 'color'], function () {
+        Route::get('colors', [SettingController::class, 'colors'])->name('colors');
+        Route::get('add-color', [SettingController::class, 'addColor'])->name('add.color');
+        Route::post('post-color', [SettingController::class, 'postColor'])->name('post.color');
+    });
+        // customer routes
+    Route::group(['prefix' => 'customer'], function () {
+            Route::get('customers', [SettingController::class, 'customers'])->name('customers');
     });
 
     // product routes

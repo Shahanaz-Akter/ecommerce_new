@@ -32,13 +32,10 @@ class ProductController extends Controller
         // ->orderBy('name') 
         // ->get();
 
-        // inside Men i have clothes 
-
-
         $all_cates = Category::where('parent_category_id', 0)
             ->with('allChildren')
-            ->orderBy('name')
             ->get();
+
         // return $all_cates;
 
         $brands = Brand::get();
@@ -48,7 +45,7 @@ class ProductController extends Controller
         $units = Unit::get();
         $vendors = Vendor::get();
 
-        $parent_cate = Category::select('id', 'name')->get();
+        $parent_cate = Category::get();
 
         return view('backend.products.add-product', compact('brands', 'categories', 'colors', 'attributes', 'units', 'vendors', 'parent_cate', 'all_cates'));
     }
@@ -58,9 +55,55 @@ class ProductController extends Controller
     {
 
         $all = $request->all();
-
         dd($all);
-        
+        // product_name
+        // total_qty
+        // brand_id
+        // unit_id
+        //  discount_type
+        //   stock_status
+        //    product_rating
+        //     status
+        //      start_date 
+        //      end_date
+        //       min_qty 
+        //       product_images
+        //        product_description
+        // p_regular_price 
+        //  p_sale_price
+        //   p_purchase_price 
+        //   p_quantity
+
+        // shipping_type
+        //  product_type
+        //   product_type_number
+        // sub_category 
+        // parent_category 
+        // added_by 
+        // vendor_id 
+        // collection 
+        // slug 
+        // tags
+
+        //  review_name[] 
+        //  rating[] 
+        //   heart[] 
+        //   status[] 
+        //   thumbs_up[] 
+        //   review_img 
+        //   comments[] 
+        // attribute_ids[] 
+        // attribute_values[]
+        //   variant_images[] 
+        //   buying_prices[]  
+        //   sale_prices[] 
+        //   Purchase_prices[] 
+        //   quantity[]
+        // meta_title 
+        // meta_image_link
+        //  meta_description
+
+
         $uploadedImages = $request->file('images');
 
         $imagePaths = [];
@@ -70,6 +113,5 @@ class ProductController extends Controller
                 echo $image;
             }
         }
-
     }
 }

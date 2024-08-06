@@ -211,14 +211,14 @@
                         <!-- more inner pages-->
                         <div class="parent-wrapper">
                           <ul class="nav collapse parent show" data-bs-parent="#e-commerce" id="nv-customer">
-                            <li class="nav-item"><a class="nav-link" href="{{ route('add.product') }}">
+                            <li class="nav-item"><a class="nav-link" href="{{ route('customers') }}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text"> Customers</span>
                                 </div>
                               </a>
                               <!-- more inner pages-->
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="../../../apps/e-commerce/landing/product-details.html">
+                                <a class="nav-link" href="{{ route('add.user') }}">
                                 <div class="d-flex align-items-center"><span class="nav-link-text">Add Customer</span>
                                 </div>
                               </a>

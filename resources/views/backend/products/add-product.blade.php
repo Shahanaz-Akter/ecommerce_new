@@ -33,12 +33,12 @@
 
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                 <div class="mb-2">Name</div>
-                <input class="form-control" type="text" placeholder="stock out" name="product_name" />
+                <input class="form-control" type="text" placeholder="Name" name="product_name" />
             </div>
-
+           
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                 <div class="mb-2">Total Qty</div>
-                <input class="form-control" type="text" placeholder="Write title" name="total_qty" />
+                <input class="form-control" type="text" placeholder="200" name="total_qty" />
             </div>
          
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
@@ -68,7 +68,8 @@
                 </div>  
                    </div>        
                 </div>
-               
+                
+
                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-2">
                     <div class="mb-3">Discount Type</div>
                     <input class="form-control mb-5" type="text" placeholder="Discount Type" name="discount_type" />
@@ -80,14 +81,14 @@
                 </div>
                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                     <div class="mb-3">Rating</div>
-                    <input class="form-control" type="integer" placeholder="6" name="rating" />
+                    <input class="form-control" type="integer" placeholder="6" name="product_rating" />
                 </div>
-            
+               
                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                     <div class="mb-3">Status</div>
                     <input class="form-control" type="integer" placeholder="" name="status" />
                 </div>
-
+               
                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                     <label class="form-label" for="datepicker"> Discount Starting Date</label>
                 <input class="form-control datetimepicker flatpickr-input" id="datepicker" name="start_date" type="text" placeholder="dd/mm/yyyy" data-options="{&quot;disableMobile&quot;:true,&quot;dateFormat&quot;:&quot;d/m/Y&quot;}" readonly="readonly">
@@ -102,7 +103,7 @@
                 <div class="mb-2">Min Qty</div>
                 <input class="form-control" type="integer" placeholder="6" name="min_qty" />
             </div>
-
+          
             {{-- <div class="col-12 mb-4 d-none">
                 <div class="mb-3">Select Images</div>
                 <div class="dropzone dropzone-multiple p-0 mb-5" id="my-awesome-dropzone" data-dropzone="data-dropzone">
@@ -127,9 +128,9 @@
     
             <div class="col-12 mb-4">
                 <div class="mb-3">Select Images</div>
-                <input class="form-control" type="file" placeholder="6" name="images[]" multiple />
+                <input class="form-control" type="file" placeholder="6" name="product_images[]" multiple />
             </div>
-
+           
             {{-- <div class="col-12 mb-4 d-none">
                 <div class="dropzone dropzone-multiple p-0" id="dropzone-multiple" data-dropzone="data-dropzone" action="#!">
                     <div class="fallback">
@@ -159,9 +160,9 @@
            
             <div class="mb-1 mt-4">
                 <div class="mb-2"> Description</div>
-                <textarea class="tinymce" name="description" data-tinymce='{"height":"15rem","placeholder":"Write a description here..."}'></textarea>
+                <textarea class="tinymce" name="product_description" data-tinymce='{"height":"15rem","placeholder":"Write a description here..."}'></textarea>
             </div>
-
+            
         </div>
         
         <div class="mb-4 mt-3">
@@ -178,7 +179,9 @@
                 <a class="nav-link border-end border-end-sm-0 border-bottom-sm text-center text-sm-start cursor-pointer outline-none d-sm-flex align-items-sm-center" id="shippingTab" data-bs-toggle="tab" data-bs-target="#shippingTabContent" role="tab" aria-controls="shippingTabContent" aria-selected="false"> <span class="me-sm-2 fs-4 nav-icons" data-feather="truck"></span><span class="d-none d-sm-inline">Shipping</span></a>
               
 
-                <a class="nav-link border-end border-end-sm-0 border-bottom-sm text-center text-sm-start cursor-pointer outline-none d-sm-flex align-items-sm-center" id="attributesTab" data-bs-toggle="tab" data-bs-target="#attributesTabContent" role="tab" aria-controls="attributesTabContent" aria-selected="false"> <span class="me-sm-2 fs-4 nav-icons" data-feather="sliders"></span><span class="d-none d-sm-inline">Attributes</span></a><a class="nav-link text-center text-sm-start cursor-pointer outline-none d-sm-flex align-items-sm-center" id="advancedTab" data-bs-toggle="tab" data-bs-target="#advancedTabContent" role="tab" aria-controls="advancedTabContent" aria-selected="false"> <span class="me-sm-2 fs-4 nav-icons" data-feather="lock"></span><span class="d-none d-sm-inline">Advanced</span></a>
+                {{-- <a class="nav-link border-end border-end-sm-0 border-bottom-sm text-center text-sm-start cursor-pointer outline-none d-sm-flex align-items-sm-center" id="attributesTab" data-bs-toggle="tab" data-bs-target="#attributesTabContent" role="tab" aria-controls="attributesTabContent" aria-selected="false"> <span class="me-sm-2 fs-4 nav-icons" data-feather="sliders"></span><span class="d-none d-sm-inline">Attributes</span></a> --}}
+                
+                <a class="nav-link text-center text-sm-start cursor-pointer outline-none d-sm-flex align-items-sm-center" id="advancedTab" data-bs-toggle="tab" data-bs-target="#advancedTabContent" role="tab" aria-controls="advancedTabContent" aria-selected="false"> <span class="me-sm-2 fs-4 nav-icons" data-feather="lock"></span><span class="d-none d-sm-inline">Advanced</span></a>
 
                 <a class="nav-link border-end border-end-sm-0 border-bottom-sm text-center text-sm-start cursor-pointer outline-none d-sm-flex align-items-sm-center" id="reviewsTab" data-bs-toggle="tab" data-bs-target="#reviewsTabContent" role="tab" aria-controls="reviewsTabContent" aria-selected="false"> <span class="me-sm-2 fs-4 nav-icons" data-feather="star"></span><span class="d-none d-sm-inline">Reviews</span></a>
 
@@ -194,22 +197,23 @@
 
                 <div class="tab-pane fade show active" id="pricingTabContent" role="tabpanel">
                   <h4 class="mb-3 d-sm-none">Pricing</h4>
-
+                  
                   <div class="row g-3">
                     <div class="col-12 col-lg-6">
                       <h5 class="mb-2 text-body-highlight">Regular price</h5>
-                      <input class="form-control" type="text" placeholder="$500"  name="regular_price"/>
+                      <input class="form-control" type="text" placeholder="$500"  name="p_regular_price"/>
                     </div>
-
-                    <div class="col-12 col-lg-6">
-                        <h5 class="mb-2 text-body-highlight">Purchase price</h5>
-                        <input class="form-control" type="text" placeholder="$200" name="purchase_price"/>
-                      </div>
 
                     <div class="col-12 col-lg-6">
                       <h5 class="mb-2 text-body-highlight">Sale price</h5>
-                      <input class="form-control" type="text" placeholder="$400" name="sale_price"/>
+                      <input class="form-control" type="text" placeholder="$400" name="p_sale_price"/>
                     </div>
+
+                    <div class="col-12 col-lg-6">
+                      <h5 class="mb-2 text-body-highlight">Purchase price</h5>
+                      <input class="form-control" type="text" placeholder="$200" name="p_purchase_price" disabled/>
+                    </div>
+
                   </div>
 
                 </div>
@@ -282,38 +286,40 @@
                     <p class="fs-9 fw-semibold mb-0">See our <a class="fw-bold" href="#!">Delivery terms and conditions </a>for details.</p>
                   </div>
                 </div>
-               
-
+                
                 <div class="tab-pane fade" id="attributesTabContent" role="tabpanel" aria-labelledby="attributesTab">
-                  <h5 class="mb-3 text-body-highlight">Attributes</h5>
-                  <div class="form-check">
-                    <input class="form-check-input" id="fragileCheck" type="checkbox" />
-                    <label class="form-check-label text-body fs-8" for="fragileCheck">Fragile Product</label>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" id="biodegradableCheck" type="checkbox" />
-                    <label class="form-check-label text-body fs-8" for="biodegradableCheck">Biodegradable</label>
-                  </div>
-                  <div class="mb-3">
-                    <div class="form-check">
-                      <input class="form-check-input" id="frozenCheck" type="checkbox" checked="checked" />
-                      <label class="form-check-label text-body fs-8" for="frozenCheck">Frozen Product</label>
-                      <input class="form-control" type="text" placeholder="Max. allowed Temperature" style="max-width: 350px;" />
-                    </div>
-                  </div>
-                  <div class="form-check">
-                    <input class="form-check-input" id="productCheck" type="checkbox" checked="checked" />
-                    <label class="form-check-label text-body fs-8" for="productCheck">Expiry Date of Product</label>
-                    <input class="form-control inventory-attributes datetimepicker" id="inventory" type="text" style="max-width: 350px;" placeholder="d/m/y" data-options='{"disableMobile":true}' />
-                  </div>
-                </div>
+                  <div class="mb-3 text-body-highlight">Attributes</div>
+                  <div class="text-body-tertiary fw-semibold">Add Attribute</div>
+                  <form class="mb-9" method="post" action="{{route('post.attribute')}}">
 
+                    @csrf
+                            <div class="row g-5">
+            
+                                    <div class="col-12 col-xl-8">
+                                        <h4 class="mb-2">Name</h4>
+                                        <input class="form-control mb-5" type="text"  name="attribute_name" placeholder="Attribute Name"/>
+                                    </div>
+            
+                                    <div class="col-12 col-xl-8">
+                                        <h4 class="mb-2">Slug</h4>
+                                        <input class="form-control mb-5" type="text"  name="slug_name" placeholder="Slug Name..."/>
+                                    </div>
+                                    
+                            </div>
+                    </form>
+
+                 
+
+                 
+
+                </div>
+               
                 <div class="tab-pane fade" id="advancedTabContent" role="tabpanel" aria-labelledby="advancedTab">
                   <h5 class="mb-3 text-body-highlight">Advanced</h5>
                   <div class="row g-3">
                     <div class="col-12 col-lg-6">
                       <h5 class="mb-2 text-body-highlight">Product ID Type</h5>
-                      <select class="form-select" aria-label="form-select-lg example" name="product_id_type">
+                      <select class="form-select" aria-label="form-select-lg example" name="product_type">
                         <option selected="selected" value="ISBN">ISBN</option>
                         <option value="UPC">UPC</option>
                         <option value="EAN">EAN</option>
@@ -322,49 +328,11 @@
                     </div>
                     <div class="col-12 col-lg-6">
                       <h5 class="mb-2 text-body-highlight">Product ID</h5>
-                      <input class="form-control" type="text" placeholder="ISBN Number" name="product_id"/>
+                      <input class="form-control" type="text" placeholder="ISBN Number" name="product_type_number"/>
                     </div>
                   </div>
                 </div>
-
-                <div class="tab-pane fade" id="reviewsTabContent" role="tabpanel" aria-labelledby="reviewsTab">
-                    <h5 class="mb-3 text-body-highlight">Reviews</h5>
-
-                    <div class="row g-3">
-                        
-                        <div class="col-12 col-lg-6">
-                            <h5 class="mb-2 text-body-highlight">Name</h5>
-                            <input class="form-control" type="text" placeholder=""  name="name"/>
-                          </div>
-
-                        <div class="col-12 col-lg-6">
-                          <h5 class="mb-2 text-body-highlight">Rating</h5>
-                          <input class="form-control" type="integer" placeholder=""  name="rating"/>
-                        </div>
-                        <div class="col-12 col-lg-6">
-                            <h5 class="mb-2 text-body-highlight">Heart</h5>
-                            <input class="form-control" type="integer" placeholder=""  name="heart"/>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <h5 class="mb-2 text-body-highlight">Status</h5>
-                            <input class="form-control" type="integer" placeholder=""  name="status"/>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <h5 class="mb-2 text-body-highlight">Thumbps Up</h5>
-                            <input class="form-control" type="integer" placeholder=""  name="thumbs_up"/>
-                          </div>
-                          <div class="col-12 col-lg-6">
-                            <h5 class="mb-2 text-body-highlight">Image</h5>
-                            <input class="form-control" type="file" name="review_img"/>
-                          </div>
-
-                          <div class="col-12 col-lg-12">
-                            <h5 class="mb-2 text-body-highlight">Comments</h5>
-                            <textarea class="form-control"   name="comments"> </textarea>
-                          </div>
-                      </div>
-                </div>
-
+                
                 <div class="tab-pane fade" id="metaTabContent" role="tabpanel" aria-labelledby="metaTab">
                     <h5 class="mb-3 text-body-highlight">Meta Information</h5>
 
@@ -374,6 +342,8 @@
                             <h5 class="mb-2 text-body-highlight">Title</h5>
                             <input class="form-control" type="text" placeholder=""  name="meta_title"/>
                           </div>
+
+                          
                           <div class="col-12 col-lg-6">
                             <h5 class="mb-2 text-body-highlight">Image Link</h5>
                             <input class="form-control" type="text" placeholder=""  name="meta_image_link"/>
@@ -386,37 +356,141 @@
                       </div>
                 </div>
 
+                  <div class="tab-pane fade" id="reviewsTabContent" role="tabpanel" aria-labelledby="reviewsTab">
+                    <span class="mb-3 text-body-highlight">Reviews</span> 
+                    <span></span>
+                    <span class="btn btn-primary btn-sm" onclick="addReview()">+ Add New</span> 
+                    <div class="container-review-wrapper">
+                      
+                      {{-- first child  --}}
+                      <div class="row g-3 container-review">
+                        
+                        <div class="col-12 col-lg-4">
+                            <h5 class="mb-2 text-body-highlight">Name</h5>
+                            <input class="form-control" type="text" placeholder=""  name="review_name[]"/>
+                          </div>
+
+                          <div class="col-12 col-lg-4">
+                            <h5 class="mb-2 text-body-highlight">Rating</h5>
+                          <input class="form-control" type="integer" placeholder=""  name="rating[]"/>
+                        </div>
+                        <div class="col-12 col-lg-4">
+                          <h5 class="mb-2 text-body-highlight">Heart</h5>
+                            <input class="form-control" type="integer" placeholder=""  name="heart[]"/>
+                          </div>
+                          <div class="col-12 col-lg-4">
+                            <h5 class="mb-2 text-body-highlight">Status</h5>
+                            <input class="form-control" type="integer" placeholder=""  name="status[]"/>
+                          </div>
+                      
+                          <div class="col-12 col-lg-4">
+                            <h5 class="mb-2 text-body-highlight">Thumbps Up</h5>
+                            <input class="form-control" type="integer" placeholder=""  name="thumbs_up[]"/>
+                          </div>
+                          <div class="col-12 col-lg-4">
+                            <h5 class="mb-2 text-body-highlight">Image</h5>
+                            <input class="form-control" type="file" name="review_img[]"/>
+                          </div>
+
+                          <div class="col-12 col-lg-6">
+                            <h5 class="mb-2 text-body-highlight">Comments</h5>
+                            <textarea class="form-control" name="comments[]"> </textarea>
+                          </div>
+
+                          <div class="col-12 col-lg-1">
+                            <div class="mb-3"></div>
+                              <div class="btn btn-danger mt-4 remove_review">Delete</div>
+                            </div>
+                            <br><br>
+                      </div>
+
+                    </div>
+
+                </div>
+
                 <div class="tab-pane fade" id="variationsTabContent" role="tabpanel" aria-labelledby="variationsTab">
-                    <h5 class="mb-3 text-body-highlight">Variants</h5>
+                    <h5 class="mb-3 text-body-highlight">Variants</h5> 
+                    <br>
+                    <div class="btn btn-primary btn-sm fw-bold fs-9" data-bs-target="#attribute" data-bs-toggle="modal">+Add Attribute</div>
+                    
+                    <div class="btn btn-primary btn-sm" onclick="addVariant()">Add Variants</div> 
+                    <br><br>
 
                     <div class="row g-3">
-                        
 
-                         <div class="col-12">
+                    <div class="col-12">
 
-                            <div class="border-bottom border-translucent border-dashed border-sm-0 border-bottom-xl pb-4">
+                      <div class="border-bottom border-translucent border-dashed border-sm-0 border-bottom-xl pb-4">
 
-                              <div class="d-flex flex-wrap mb-2">
-                                <div class="text-body-highlight me-2" onclick="fetchAttributeValues1()">Select Attribute</div><a class="fw-bold fs-9" href="#!">Remove</a>
-                              </div>
-                             
-                              <select class="form-select mb-3" id="attribute_value" name="attribute_id" onchange="fetchAttributeValues(this)">
-                                <option value="" select>Select Attribute</option>
+                         <div class="d-flex flex-wrap mb-2 d-none">
+                            <div class="text-body-highlight me-2">Select Attribute</div>
+                          </div>
+                      <div class="container-variant-wrapper">
+                        {{-- first child  start--}}
+                        <div class="container-variant row mb-3">
+                          
+
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                              <select class="form-select mb-3 attribute_value" name="attribute_ids[]" onchange="fetchAttributeValues(this)">
+                                <option value="" selected>Attribute</option>
                                 @foreach($attributes as $attribute) 
                                     <option value="{{ $attribute->id }}">{{ $attribute->attribute_name }}</option>
                                 @endforeach
-                            </select>
-                            
+                              </select>
+                            </div>
 
-
-                            {{-- Append attribute values --}}
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                                {{-- Append attribute values --}}
                               <div class="product-variant-select-menu">
-                                <select class="form-select mb-3" id="attribute-values-select">
+                                <select class="form-select mb-3 attribute-values-select" name="attribute_values[]">
+                                  <option value="" selected>Values</option>
                                 </select>
                               </div>
-
                             </div>
-                          </div>
+                            
+  
+                           
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-2">
+                              <div class="mb-3">Select Images</div>
+                              <input class="form-control" type="file" placeholder="" name="variant_images[]" multiple />
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                              <div class="mb-3">Buying Price</div>
+                              <input class="form-control" type="number" placeholder="200" name="buying_prices[]" />
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                              <div class="mb-3">Sale Price</div>
+                              <input class="form-control" type="number" placeholder="200" name="sale_prices[]" />
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                              <div class="mb-3">Purchase Price</div>
+                              <input class="form-control" type="number" placeholder="100" name="Purchase_prices[]" disabled/>
+                            </div>
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-6">
+                              <div class="mb-3">Quantity</div>
+                              <input class="form-control" type="number" placeholder="10" name="quantity[]"/>
+                            </div>
+
+                            <div class="col-12 col-md-1 col-lg-1 col-xl-1">
+                              <div class="mb-3"></div>
+                              <div class="btn btn-danger mt-4 remove_variant">Remove</div>
+                            </div>
+                        </div>
+                        {{-- first child end--}}
+
+                        {{-- append child here --}}
+                          {{-- second child  start--}}
+
+                            {{-- second child  start--}}
+                    
+                      </div>
+                      
+                      </div>
+
+
+                    </div>
                       </div>
                 </div>
 
@@ -425,7 +499,7 @@
           </div>
         </div>
 
-    </div>
+       </div>
         <div class="col-12 col-xl-4">
           <div class="row g-2">
             <div class="col-12 col-xl-12">
@@ -433,19 +507,48 @@
                 <div class="card-body">
                   <h4 class="card-title mb-4">Organize</h4>
                   <div class="row gx-3">
-
-
-
+                    
                     <div class="col-12 col-sm-6 col-xl-12">
                         <div class="mb-4">
-                            <select class="form-select mb-3" aria-label="category" name="category_id">
+                          <div class="d-flex flex-wrap mb-2">
+                            <div class="mb-2 text-body-highlight me-2">Category</div>
+                          <a class="fw-bold fs-9" href="#!" data-bs-toggle="modal" data-bs-target="#category">Add Category</a>
+                          </div>
+                          <div class="col-12">
+                            <div class="mb-3">Sub Category</div>
+                            <input class="form-control mb-0" type="text"  name="sub_category" placeholder="Category Name" required/>
+                        </div>
+                        
+                        <div class="col-12">
+                            <div class="mb-3">Parent</div>
+                              <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="parent_category">
+                                <option selected value="0">Select Parent</option>
+                                @foreach ($parent_cate as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                              </select>
+                        </div>
+                            {{-- <select class="form-select mb-3" aria-label="category" name="category_id">
                                 <option value="">Select</option>
 
                                     @foreach($all_cates as $category)
                                         <option value="{{ $category->id }}">{{ $category->name }}</option>
                                     @endforeach
                                
-                            </select>
+                            </select> --}}
+                            {{-- <ul style="list-style: none; border:1px solid transparent;height: 100px; overflow-y: auto;">
+                              @foreach($categories as $category)
+
+                                  <li class="list-decoration-none">
+                                      --{{ $category['name'] }}
+                                      @if(!empty($category['all_children']))
+                                          @include('categories.partials.category', ['children' => $category['all_children']])
+                                      @endif
+                                  </li>
+                              @endforeach
+                          </ul> --}}
+
+
                         </div>
                     </div>
 
@@ -487,7 +590,8 @@
                     <div class="col-12 col-sm-6 col-xl-12">
                       <div class="mb-4">
                         <div class="d-flex flex-wrap mb-2">
-                          <div class="mb-0 text-body-highlight me-2">Vendor</div><a class="fw-bold fs-9" href="#!" data-bs-toggle="modal" data-bs-target="#vendor">Add new vendor</a>
+                          <div class="mb-0 text-body-highlight me-2">Vendor</div>
+                          <a class="fw-bold fs-9" href="#!" data-bs-toggle="modal" data-bs-target="#vendor">Add new vendor</a>
                         </div>
                         <select class="form-select mb-3" aria-label="attribute" name="vendor_id">
                             <option value=" ">Select Vendor</option>
@@ -504,7 +608,6 @@
                     <input class="form-control mb-xl-3" type="text" placeholder="Collection" name="collection"/>
                     </div>
                 </div>
-
                 <div class="col-12 col-sm-6 col-xl-12">
                     <div class="mb-4">
                     <div class="mb-2 text-body-highlight">Slug</div>
@@ -537,64 +640,8 @@
            
           </div>
         </div>
-
-        <div class="col-12 col-xl-12">
-            <div class="card">
-              <div class="card-body">
-                <div class="card-title mb-4">Variants</div>
-                <div class="row g-3">
-                  <div class="col-12 col-sm-6 col-xl-6">
-                    <div class="border-bottom border-translucent border-dashed border-sm-0 border-bottom-xl pb-4">
-                      <div class="d-flex flex-wrap mb-2">
-                        <div class="text-body-highlight me-2">Option 1</div>
-                      </div>
-                     
-                      <select class="form-select mb-3"  name="attribute_id" onchange="fetchAttributeValues(this)">
-                        <option value="" selected>Select Attribute</option>
-                        @foreach($attributes as $attribute) 
-                            <option value="{{ $attribute->id }}">{{ $attribute->attribute_name }}</option>
-                        @endforeach
-                    </select>
-                    
-                    <div class="product-variant-select-menu">
-
-                        <select class="form-select mb-3" id="attribute-values">
-                                
-                        </select>
-
-                    </div>
-                    
-
-                    </div>
-                  </div>
-                  <div class="col-12 col-sm-6 col-xl-6">
-                    <div class="d-flex flex-wrap mb-2">
-                      <div class="text-body-highlight me-2">Option 2</div><a class="fw-bold fs-9" href="#!">Remove</a>
-                    </div>
-                     <select class="form-select mb-3" name="">
-                          <option value=" ">Select Attribute</option>
-                          @foreach($attributes as $attribute) 
-                          <option value="{{ $attribute->id }}">{{ $attribute->attribute_name }}</option>
-                          @endforeach
-                      </select>
-                    <div class="product-variant-select-menu mb-3">
-                      <select class="form-select mb-3" data-choices="data-choices" multiple="multiple" data-options='{"removeItemButton":true,"placeholder":true}'>
-                        <option value="size">4x6 in</option>
-                        <option value="color">9x6 in</option>
-                        <option value="weight">11x8 in</option>
-                      </select>
-                    </div>
-                  </div>
-                </div>
-                <button class="btn btn-phoenix-primary w-100" type="button">Add another option</button>
-              </div>
-            </div>
-          </div>
-
-
       </div>
     </form>
-
 
     <footer class="footer position-absolute">
       <div class="row g-0 justify-content-between align-items-center h-100">
@@ -607,8 +654,8 @@
       </div>
     </footer>
 
-
     @include('backend.modals')
+
   </div>
 
 @endsection() 
@@ -617,46 +664,88 @@
 @section('custom_js')
 
  <script>
+  console.log('Script section');
 
-    // function fetchAttributeValues1() {
-    //     console.log(100);
-    // }
+  function fetchAttributeValues(tag) {
+    // console.log(tag.value);
+  $.ajax({
+    url: "/attribute/attribute-values/" + tag.value,
+    type: 'GET',
+    dataType: 'json', 
 
-    console.log('Mimi');
+    success: function(res) {
+      // `tag` is the select element that triggered the fetch
+      let $containerVariant = $(tag).closest('.container-variant');
 
-    function fetchAttributeValues(tag) {
+      let $attributeValuesSelect = $containerVariant.find('.attribute-values-select');
 
-            console.log(tag.value);
-            $.ajax({
-            url: "/attribute/attribute-values/" + tag.value,
+      $attributeValuesSelect.empty();
+      $attributeValuesSelect.append('<option value="" selected>Select Values</option>');
 
-            type: 'GET',
-            dataType: 'json', 
-            success: function(res) {
-            console.log('Response: ', res);
-            
-            let $select = $('#attribute-values-select');
-            
-            console.log($select);
+      $.each(res, function(index, value) {
+        $attributeValuesSelect.append('<option value="' + value.id + '">' + value.value + '</option>');
+      });
+    }
+  });
+}
 
-            $select.empty();
-            
-            $select.append('<option value=""></option>');
-            
+    function addVariant() {
+    let wrapper = document.querySelector('.container-variant-wrapper');
+    let firstChild = document.querySelector('.container-variant');
+    let newVariant = firstChild.cloneNode(true);
+    
+    // Reset form values in the cloned variant
+    newVariant.querySelectorAll('input, select, textarea').forEach(input => {
+        if (input.type ==='file') {
+          input.value = '';
+        } else {
+          input.value = '';
+        }
+      });
 
+    wrapper.appendChild(newVariant);
+    let remove_variants= document.querySelectorAll('.remove_variant'); 
+    console.log(remove_variants);
 
-            $.each(res, function(index, value) {
-                $select.append('<option value="' + value.id + '">' + value.value + '</option>');
-            });
-        
+    remove_variants.forEach(button=>{
 
-            }
+          button.addEventListener('click', function() {
+            let tag= this.closest('.container-variant');
+            tag.style.display = 'none'; // Hide the specific variant set
+          });
+      });
 
-        });
+    }
 
-     }
+    function addReview() {
+    let wrapper = document.querySelector('.container-review-wrapper');
+    let firstChild = document.querySelector('.container-review');
+    let newReview = firstChild.cloneNode(true);
 
-     </script>  
+    newReview.querySelectorAll('input, textarea').forEach(input=>{
+      if (input.type ==='file') {
+          input.value = '';
+        } else {
+          input.value = '';
+        }
+    });
+
+    wrapper.appendChild(newReview);
+    let remove_reviews= document.querySelectorAll('.remove_review'); 
+    // console.log(remove_reviews);
+
+    remove_reviews.forEach(delete_btn=>{
+
+      delete_btn.addEventListener('click', function() {
+            let tag= this.closest('.container-review');
+            tag.style.display = 'none'; // Hide the specific variant set
+          });
+      });
+
+    }
+    
+  </script>  
+
 
 @endsection
 

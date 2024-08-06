@@ -118,7 +118,7 @@
                         <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs-10"></span></button>
   
                         <div class="dropdown-menu dropdown-menu-end py-2">
-                            <a class="dropdown-item" href="{{ route('attribute.value', $attribute->id)}}">Set Attr Values</a>
+                            <a class="dropdown-item" href="{{ route('set.attribute.value', $attribute->id)}}">Set Attr Values</a>
                           <a class="dropdown-item" href="">Edit</a>
                           <a class="dropdown-item text-danger" href="">Remove</a>
                         </div>

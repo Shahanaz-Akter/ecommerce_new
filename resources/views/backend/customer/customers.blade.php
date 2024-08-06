@@ -1,7 +1,7 @@
 @extends('backend.layouts.master_page')
 
 @section('title')
-<title>Users</title>
+<title>Customers</title>
 @endsection
 
 @section('content')
@@ -16,8 +16,8 @@
 
     <nav class="mb-2" aria-label="breadcrumb">
       <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item"><a href="{{ route('users')}}">user</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('users')}}">users</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('customers')}}">Customer</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('customers')}}">Customers</a></li>
         {{-- <li class="breadcrumb-item active">Default</li> --}}
       </ol>
     </nav>
@@ -25,7 +25,7 @@
       <div class="row g-3 mb-4">
         <div class="col-auto">
           {{-- <h2 class="mb-0">Users</h2> --}}
-          <h5 class="text-body-tertiary fw-semibold">Users</h5>
+          <h5 class="text-body-tertiary fw-semibold">Customers</h5>
 
         </div>
       </div>
@@ -45,18 +45,14 @@
 
             <div class="ms-xxl-auto">
               <button class="btn btn-link text-body me-4 px-0"><span class="fa-solid fa-file-export fs-9 me-2"></span>Export</button>
-                 <a href="{{ route('add.user') }}"><button class="btn btn-primary" id="addBtn"><span class="fas fa-plus me-2"></span>Add User</button></a> 
-                 <a href="{{ route('add.role') }}"><button class="btn btn-primary" id="addBtn"><span class="fas fa-plus me-2"></span>Add Role</button></a> 
-
+                 <a href="{{ route('add.user') }}"><button class="btn btn-primary" id="addBtn"><span class="fas fa-plus me-2"></span>Add Customer</button></a> 
             </div>
-
           </div>
         </div>
 
         <div class="mx-n4 px-4 mx-lg-n6 px-lg-6 bg-body-emphasis border-top border-bottom border-translucent position-relative top-1">
           <div class="table-responsive scrollbar mx-n1 px-1">
             <table class="table fs-9 mb-0">
-
               <thead>
                 <tr>
                   <th class="white-space-nowrap fs-9 align-middle ps-0" style="max-width:20px; width:18px;">
@@ -65,95 +61,105 @@
                     </div>
                   </th>
                   <th class="sort white-space-nowrap align-middle fs-10" scope="col" style="width:70px;">Image</th>
-                  
-                  <th class="sort align-middle ps-4" scope="col" data-sort="email" style="width:50px;">User Name</th>
+                  <th class="sort align-middle ps-4" scope="col" data-sort="email" style="width:50px;">First Name</th>
+                  <th class="sort align-middle ps-4" scope="col" data-sort="email" style="width:50px;">Last Name</th>
                   <th class="sort align-middle ps-4" scope="col" data-sort="email" style="width:50px;">Email</th>
                   <th class="sort align-middle ps-4" scope="col" data-sort="status" style="width:50px;">Status</th>
-                  <th class="sort align-middle ps-4" scope="col" data-sort="role" style="width:50px;">Role</th>
+                  <th class="sort align-middle ps-4" scope="col" data-sort="zip_code" style="width:50px;">Zip Code</th>
+                  <th class="sort align-middle ps-4" scope="col" data-sort="state" style="width:50px;">State</th>
+                  <th class="sort align-middle ps-4" scope="col" data-sort="city" style="width:50px;">City</th>
+                  <th class="sort align-middle ps-4" scope="col" data-sort="number" style="width:50px;">Number</th>
                   <th class="sort align-middle ps-4" scope="col" data-sort="date" style="width:50px;">Date</th>
                   <th class="sort align-middle ps-4" scope="col" data-sort="date" style="width:50px;">Actions</th>
                 </tr>
               </thead>
 
-              <tbody class="list" id="products-table-body">
+                <tbody class="list" id="products-table-body">
 
-            @foreach ($users as $user)
-                <tr class="position-static">
+                    @if($customers)
+                        @foreach ($customers as $customer)
+                        <tr class="position-static">
 
-                    <td class="fs-9 align-middle">
-                      <div class="form-check mb-0 fs-8">
-                        <input class="form-check-input" type="checkbox" data-bulk-select-row='{"product":"iPhone 13 pro max-Pacific Blue-128GB storage","productImage":"/products/2.png","price":"$87","category":"Furniture","tags":["Class","Camera","Discipline","invincible","Pro","Swag"],"star":true,"vendor":"Beatrice Furnitures","publishedOn":"Nov 11, 7:36 PM"}' />
-                      </div>
-                    </td>
-  
-                    <td class="align-middle white-space-nowrap py-0"><a class="d-block border border-translucent rounded-2" href="../../../apps/e-commerce/landing/product-details.html">
-                      
-                      @if($user->image_files_id)
-                      <img src="{{$user->imageFiles->absolute_path}}" alt="" width="53" />
+                                <td class="fs-9 align-middle">
+                                <div class="form-check mb-0 fs-8">
+                                    <input class="form-check-input" type="checkbox" data-bulk-select-row='{"product":"iPhone 13 pro max-Pacific Blue-128GB storage","productImage":"/products/2.png","price":"$87","category":"Furniture","tags":["Class","Camera","Discipline","invincible","Pro","Swag"],"star":true,"vendor":"Beatrice Furnitures","publishedOn":"Nov 11, 7:36 PM"}' />
+                                </div>
+                                </td>
+            
+                                <td class="align-middle white-space-nowrap py-0"><a class="d-block border border-translucent rounded-2" href="../../../apps/e-commerce/landing/product-details.html">
+                                
+                                @if($customer->image_files_id)
+                                <img src="{{$customer->imageFiles->absolute_path}}" alt="" width="53" />
 
-                        @else
-                        <img src="../../../assets/img//products/2.png" alt="" width="53" />
+                                    @else
+                                    <img src="../../../assets/img//products/2.png" alt="" width="53" />
 
-                      @endif
+                                @endif
 
-                    </a>
-                    </td>
-  
-                  
-                    <td class="product align-middle ps-4">
-                        
-                        {{ $user->username }}            
-                       
-                    </td>
-
-                    <td class="product align-middle ps-4">
-                        {{ $user->email }} 
-                    </td>
-
-                    <td class="product align-middle ps-4">                  
-                        {{ $user->status ? $user->status : "inactive" }}                
-                    </td>
-  
-                   <td class="product align-middle ps-4">
-
-                    @if($user->role_id != null)
-                    {{ $user->role ? $user->role->name : '' }}
-
+                                </a>
+                                </td>
+            
+                            
+                                <td class="product align-middle ps-4">
+                                    {{ $customer->first_name }}            
+                                </td>
+                                <td class="product align-middle ps-4">
+                                    {{ $customer->last_name }}            
+                                </td>
+                                <td class="product align-middle ps-4">
+                                    {{ $customer->email }} 
+                                </td>
+                                <td class="product align-middle ps-4">                  
+                                    {{ $customer->status ? $customer->status : "inactive" }}                
+                                </td>
+                                <td class="product align-middle ps-4">
+                                    {{ $customer->state }}            
+                                </td>
+                                <td class="product align-middle ps-4">
+                                    {{ $customer->zip_code }}            
+                                </td>
+                                <td class="product align-middle ps-4">
+                                    {{ $customer->city }}            
+                                </td>
+                                <td class="product align-middle ps-4">
+                                    {{ $customer->contact_number }}            
+                                </td>
+                                <td class="product align-middle ps-4">
+                                    {{ $customer->created_at}}
+                                </td>
+            
+                                {{-- <td class="align-middle white-space-nowrap text-end pe-0 ps-4 btn-reveal-trigger"> --}}
+                                    <td class="product align-middle ps-4">
+                                <div class="btn-reveal-trigger position-static">
+                                    <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs-10"></span></button>
+            
+                                    <div class="dropdown-menu dropdown-menu-end py-2">
+                                    <a class="dropdown-item text-primary" href="{{route('view.user', $customer->id)}}">View Customer</a>
+                                    <a class="dropdown-item text-primary" href="{{route('edit.user', $customer->id)}}">Edit</a>
+                                    <a class="dropdown-item text-danger" href="{{route('remove.user', $customer->id)}}">Remove</a>
+                                    </div>
+                                </div>
+                                </td>
+                        </tr>
+                        @endforeach
                     @else
-                    {{-- <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="role_id">
-                      <option selected>Select</option>
-                      @foreach($roles as $role)
-                      <option value="{{$role->id}}">{{$role->name}}</option>
-                      @endforeach
-                    </select> --}}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                 <td class="text-center">
+                  <p data-feather="frown" class="" style="width: 60px; height: 60px;"></p>
+                </td>
+
+                </tr>
                     
-                    
+
                     @endif
-                        
+                </tbody>
 
-                    </td>
-
-                    <td class="product align-middle ps-4">
-                        {{ $user->created_at}}
-                    </td>
-  
-                    {{-- <td class="align-middle white-space-nowrap text-end pe-0 ps-4 btn-reveal-trigger"> --}}
-                        <td class="product align-middle ps-4">
-                      <div class="btn-reveal-trigger position-static">
-                        <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs-10"></span></button>
-  
-                        <div class="dropdown-menu dropdown-menu-end py-2">
-                          <a class="dropdown-item text-primary" href="{{route('assign.user.role', $user->id)}}">Assign Role</a>
-                          <a class="dropdown-item text-primary" href="{{route('view.user', $user->id)}}">View User</a>
-                          <a class="dropdown-item text-primary" href="{{route('edit.user', $user->id)}}">Edit User</a>
-                          <a class="dropdown-item text-danger" href="{{route('remove.user', $user->id)}}">Remove User</a>
-                        </div>
-                      </div>
-                    </td>
-              </tr>
-             @endforeach
-
-              </tbody>
             </table>
           </div>
           <div class="row align-items-center justify-content-between py-2 pe-0 fs-9">

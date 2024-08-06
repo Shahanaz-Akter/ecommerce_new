@@ -1,13 +1,10 @@
-<!-- resources/views/backend/products/partials/category.blade.php -->
-
-<li>
-    <span style="background-color: #f0f0f0; padding: 5px; border-radius: 3px;">{{ $category->name }} (ID: {{ $category->id }})</span>
-    
-    @if($category->children->isNotEmpty())
-        <ul>
-            @foreach($category->children as $child)
-                @include('backend.products.partials.category-item', ['category' => $child])
-            @endforeach
-        </ul>
-    @endif
-</li>
+<ul>
+    @foreach($children as $child)
+        <li>
+            {{ $child['name'] }}
+            @if(!empty($child['all_children']))
+                @include('categories.partials.category', ['children' => $child['all_children']])
+            @endif
+        </li>
+    @endforeach
+</ul>
