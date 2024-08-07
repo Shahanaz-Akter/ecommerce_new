@@ -186,7 +186,7 @@
     </div>
 </div>
 
-{{-- attribute moda; --}}
+{{-- attribute modal --}}
 <div class="modal fade" id="attribute" tabindex="-1" aria-labelledby="scrollingLongModalLabel2" style="display: none;" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
      <div class="modal-content">
@@ -225,4 +225,6 @@
     </div>
     </div>
 </div>
+
+
 

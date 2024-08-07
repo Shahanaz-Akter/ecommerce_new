@@ -87,6 +87,8 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('roles', [RoleController::class, 'role'])->name('roles');
         Route::get('add-role', [RoleController::class, 'addRole'])->name('add.role');
         Route::post('post-role', [RoleController::class, 'postRole'])->name('post.role');
+        Route::get('permission-list/{id}', [RoleController::class, 'permissionList'])->name('permission.list');
+
 
         Route::get('role-permission-index', [RoleController::class, 'rolePermissionIndex'])->name('role.permission');
         Route::post('post-role-permission-index', [RoleController::class, 'postRolePermissionIndex'])->name('post.role.permission');

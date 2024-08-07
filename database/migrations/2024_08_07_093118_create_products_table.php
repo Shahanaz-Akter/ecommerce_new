@@ -9,26 +9,24 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-
-    
     public function up(): void
     {
+
+
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
             $table->string('added_by')->nullable();
             $table->text('description')->nullable();
-            $table->integer('total_qty');
+            $table->integer('total_qty')->nullable();
             $table->string('discount_type')->nullable();
+            $table->integer('discount')->nullable();
             $table->string('slug')->nullable();
-            $table->string('collection')->nullable();
-            $table->unsignedBigInteger('product_id');
-            $table->string('product_id_type')->nullable();
-            $table->string('stock_status')->nullable(); 
-            $table->string('rating')->nullable();
+            $table->string('stock_status')->nullable();
+            $table->string('status')->nullable();
             $table->dateTime('discount_start_date')->nullable();
             $table->dateTime('discount_end_date')->nullable();
-            $table->string('tags')->nullable();
+            $table->string('tags')->nullable()->nullable();
             $table->integer('min_qty')->nullable();
             $table->string('featured')->nullable();
             $table->string('trendy')->nullable();
@@ -42,7 +40,6 @@ return new class extends Migration
             $table->unsignedBigInteger('vendor_id')->nullable();
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
-            $table->string('image_link')->nullable();
             $table->boolean('shipping_type')->nullable();
             $table->string('shipping_cost')->nullable();
             $table->string('product_type')->nullable();

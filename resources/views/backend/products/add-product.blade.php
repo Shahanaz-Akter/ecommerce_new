@@ -33,7 +33,7 @@
 
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                 <div class="mb-2">Name</div>
-                <input class="form-control" type="text" placeholder="Name" name="product_name" />
+                <input class="form-control" type="text" placeholder="Saree" name="product_name" />
             </div>
            
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
@@ -45,7 +45,7 @@
                 <div class="mb-2"> Brand <span> <a class="fw-bold fs-9 text-end" data-bs-toggle="modal" data-bs-target="#brand">Add new brand</a></span></div> 
                 <div class="mb-0">
                  
-                  <select class="form-select" aria-label="brand" name="brand_id">
+                  <select class="form-select" aria-label="brand" name="brand_id" >
                       <option value=" ">Select Brand</option>
                       @foreach($brands as $brand) 
                       <option value="{{ $brand->id }}">{{ $brand->name }}</option>
@@ -59,10 +59,10 @@
                   <div class="mb-0">
                     
                     <div class="mb-0">
-                    <select class="form-select" aria-label="brand" name="unit_id">
+                    <select class="form-select" aria-label="brand" name="unit_id" >
                         <option value=" ">Select unit</option>
                         @foreach($units as $unit) 
-                        <option value="{{ $unit->id }}">{{ $unit->base_unit_name }}</option>
+                        <option value="{{ $unit->id }}">{{ $unit->symbol }}</option>
                         @endforeach
                     </select>
                 </div>  
@@ -72,21 +72,26 @@
 
                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-2">
                     <div class="mb-3">Discount Type</div>
-                    <input class="form-control mb-5" type="text" placeholder="Discount Type" name="discount_type" />
+                    <input class="form-control mb-5" type="text" placeholder="Old dress" name="discount_type" />
+                </div>
+                <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-2">
+                    <div class="mb-3">Discount(%)</div>
+                    <input class="form-control mb-5" type="number" placeholder="10%" name="discount" />
                 </div>
                
                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                     <div class="mb-3">Stock Status</div>
-                    <input class="form-control" type="text" placeholder="stock out" name="stock_status" />
+                    <select class="form-select" aria-label="brand" name="stock_status" >
+                        <option value="">Select</option>
+                        <option value="stock-in">Stock-in</option>
+                        <option value="stock-out">Stock-out</option>
+                      
+                    </select>
                 </div>
+                
                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
-                    <div class="mb-3">Rating</div>
-                    <input class="form-control" type="integer" placeholder="6" name="product_rating" />
-                </div>
-               
-                <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
-                    <div class="mb-3">Status</div>
-                    <input class="form-control" type="integer" placeholder="" name="status" />
+                    <div class="mb-2">Min Qty</div>
+                    <input class="form-control" type="integer" placeholder="6" name="min_qty" />
                 </div>
                
                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
@@ -99,9 +104,17 @@
                 <input class="form-control datetimepicker flatpickr-input" id="datepicker" name="end_date" type="text" placeholder="dd/mm/yyyy" data-options="{&quot;disableMobile&quot;:true,&quot;dateFormat&quot;:&quot;d/m/Y&quot;}" readonly="readonly">
             </div>
 
+           
+
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
-                <div class="mb-2">Min Qty</div>
-                <input class="form-control" type="integer" placeholder="6" name="min_qty" />
+                <div class="mb-3">Status</div>
+                <select class="form-select" aria-label="brand" name="status" >
+                    <option value=" ">Select</option>
+                    
+                    <option value="draft">Draft</option>
+                    <option value="published">Published</option>
+                  
+                </select>
             </div>
           
             {{-- <div class="col-12 mb-4 d-none">
@@ -127,8 +140,8 @@
             </div> --}}
     
             <div class="col-12 mb-4">
-                <div class="mb-3">Select Images</div>
-                <input class="form-control" type="file" placeholder="6" name="product_images[]" multiple />
+                <div class="mb-3">(First image will be displayed image left will be gallery images)</div>
+                <input class="form-control" type="file" placeholder="6" name="product_images[]" multiple  />
             </div>
            
             {{-- <div class="col-12 mb-4 d-none">
@@ -181,7 +194,7 @@
 
                 {{-- <a class="nav-link border-end border-end-sm-0 border-bottom-sm text-center text-sm-start cursor-pointer outline-none d-sm-flex align-items-sm-center" id="attributesTab" data-bs-toggle="tab" data-bs-target="#attributesTabContent" role="tab" aria-controls="attributesTabContent" aria-selected="false"> <span class="me-sm-2 fs-4 nav-icons" data-feather="sliders"></span><span class="d-none d-sm-inline">Attributes</span></a> --}}
                 
-                <a class="nav-link text-center text-sm-start cursor-pointer outline-none d-sm-flex align-items-sm-center" id="advancedTab" data-bs-toggle="tab" data-bs-target="#advancedTabContent" role="tab" aria-controls="advancedTabContent" aria-selected="false"> <span class="me-sm-2 fs-4 nav-icons" data-feather="lock"></span><span class="d-none d-sm-inline">Advanced</span></a>
+                
 
                 <a class="nav-link border-end border-end-sm-0 border-bottom-sm text-center text-sm-start cursor-pointer outline-none d-sm-flex align-items-sm-center" id="reviewsTab" data-bs-toggle="tab" data-bs-target="#reviewsTabContent" role="tab" aria-controls="reviewsTabContent" aria-selected="false"> <span class="me-sm-2 fs-4 nav-icons" data-feather="star"></span><span class="d-none d-sm-inline">Reviews</span></a>
 
@@ -211,7 +224,7 @@
 
                     <div class="col-12 col-lg-6">
                       <h5 class="mb-2 text-body-highlight">Purchase price</h5>
-                      <input class="form-control" type="text" placeholder="$200" name="p_purchase_price" disabled/>
+                      <input class="form-control" type="text" placeholder="$200" name="p_purchase_price"/>
                     </div>
 
                   </div>
@@ -223,7 +236,7 @@
                     <h5 class="mb-3 text-body-highlight">Add to Stock</h5>
                     <div class="row g-3 flex-1 mb-4">
                       <div class="col-sm-7">
-                        <input class="form-control" type="number" placeholder="Quantity" name="total_qty" />
+                        <input class="form-control" type="number" placeholder="300" name="restock_value" />
                       </div>
                       <div class="col-sm">
                         <button class="btn btn-primary" type="button"><span class="fa-solid fa-check me-1 fs-10"></span>Confirm</button>
@@ -264,30 +277,26 @@
                   <div class="d-flex flex-column h-100">
                     <h5 class="mb-3 text-body-highlight">Shipping Type</h5>
                     <div class="flex-1">
+                        
                       <div class="mb-4">
-                        <div class="form-check mb-1">
-                          <input class="form-check-input" type="radio" name="shipping_type" id="fullfilledBySeller" />
-                          <label class="form-check-label fs-8 text-body" for="fullfilledBySeller">Fullfilled by Seller</label>
-                        </div>
-                        <div class="ps-4">
-                          <p class="text-body-secondary fs-9 mb-0">You’ll be responsible for product delivery. <br />Any damage or delay during shipping may cost you a Damage fee.</p>
-                        </div>
+                        <select class="form-select" aria-label="brand" name="shipping_type" >
+                            <option value="">Select</option>
+                            <option value="free">Free</option>
+                            <option value="with pay">With Pay</option>
+                        </select>
                       </div>
+                     
                       <div class="mb-4">
-                        <div class="form-check mb-1">
-                          <input class="form-check-input" type="radio" name="shipping_type" id="fullfilledByPhoenix" checked="checked" />
-                          <label class="form-check-label fs-8 text-body d-flex align-items-center" for="fullfilledByPhoenix">Fullfilled by Phoenix <span class="badge badge-phoenix badge-phoenix-warning fs-10 ms-2">Recommended</span></label>
-                        </div>
-                        <div class="ps-4">
-                          <p class="text-body-secondary fs-9 mb-0">Your product, Our responsibility.<br />For a measly fee, we will handle the delivery process for you.</p>
-                        </div>
+                        <h5 class="mb-2 text-body-highlight">Shipping Cost</h5>
+                        <input class="form-control" type="text" placeholder="$200" name="shipping_cost"/>
                       </div>
+
                     </div>
                     <p class="fs-9 fw-semibold mb-0">See our <a class="fw-bold" href="#!">Delivery terms and conditions </a>for details.</p>
                   </div>
                 </div>
                 
-                <div class="tab-pane fade" id="attributesTabContent" role="tabpanel" aria-labelledby="attributesTab">
+                <div class="tab-pane fade d-none" id="attributesTabContent" role="tabpanel" aria-labelledby="attributesTab">
                   <div class="mb-3 text-body-highlight">Attributes</div>
                   <div class="text-body-tertiary fw-semibold">Add Attribute</div>
                   <form class="mb-9" method="post" action="{{route('post.attribute')}}">
@@ -297,41 +306,20 @@
             
                                     <div class="col-12 col-xl-8">
                                         <h4 class="mb-2">Name</h4>
-                                        <input class="form-control mb-5" type="text"  name="attribute_name" placeholder="Attribute Name"/>
+                                        <input class="form-control mb-5" type="text"  name="" placeholder="Attribute Name"/>
                                     </div>
             
                                     <div class="col-12 col-xl-8">
                                         <h4 class="mb-2">Slug</h4>
-                                        <input class="form-control mb-5" type="text"  name="slug_name" placeholder="Slug Name..."/>
+                                        <input class="form-control mb-5" type="text"  name="" placeholder="Slug Name..."/>
                                     </div>
                                     
                             </div>
                     </form>
 
-                 
-
-                 
-
                 </div>
                
-                <div class="tab-pane fade" id="advancedTabContent" role="tabpanel" aria-labelledby="advancedTab">
-                  <h5 class="mb-3 text-body-highlight">Advanced</h5>
-                  <div class="row g-3">
-                    <div class="col-12 col-lg-6">
-                      <h5 class="mb-2 text-body-highlight">Product ID Type</h5>
-                      <select class="form-select" aria-label="form-select-lg example" name="product_type">
-                        <option selected="selected" value="ISBN">ISBN</option>
-                        <option value="UPC">UPC</option>
-                        <option value="EAN">EAN</option>
-                        <option value="JAN">JAN</option>
-                      </select>
-                    </div>
-                    <div class="col-12 col-lg-6">
-                      <h5 class="mb-2 text-body-highlight">Product ID</h5>
-                      <input class="form-control" type="text" placeholder="ISBN Number" name="product_type_number"/>
-                    </div>
-                  </div>
-                </div>
+               
                 
                 <div class="tab-pane fade" id="metaTabContent" role="tabpanel" aria-labelledby="metaTab">
                     <h5 class="mb-3 text-body-highlight">Meta Information</h5>
@@ -344,10 +332,7 @@
                           </div>
 
                           
-                          <div class="col-12 col-lg-6">
-                            <h5 class="mb-2 text-body-highlight">Image Link</h5>
-                            <input class="form-control" type="text" placeholder=""  name="meta_image_link"/>
-                          </div>
+                          
                           <div class="col-12 col-lg-12">
                             <h5 class="mb-2 text-body-highlight">Description</h5>
                             <textarea class="form-control"  name="meta_description"> </textarea>
@@ -385,7 +370,7 @@
                       
                           <div class="col-12 col-lg-4">
                             <h5 class="mb-2 text-body-highlight">Thumbps Up</h5>
-                            <input class="form-control" type="integer" placeholder=""  name="thumbs_up[]"/>
+                            <input class="form-control" type="integer" placeholder=""  name="thumps_up[]"/>
                           </div>
                           <div class="col-12 col-lg-4">
                             <h5 class="mb-2 text-body-highlight">Image</h5>
@@ -466,11 +451,11 @@
 
                             <div class="col-12 col-md-6 col-lg-6 col-xl-6">
                               <div class="mb-3">Purchase Price</div>
-                              <input class="form-control" type="number" placeholder="100" name="Purchase_prices[]" disabled/>
+                              <input class="form-control" type="number" placeholder="100" name="Purchase_prices[]"/>
                             </div>
                             <div class="col-12 col-md-6 col-lg-6 col-xl-6">
                               <div class="mb-3">Quantity</div>
-                              <input class="form-control" type="number" placeholder="10" name="quantity[]"/>
+                              <input class="form-control" type="number" placeholder="10" name="quantities[]"/>
                             </div>
 
                             <div class="col-12 col-md-1 col-lg-1 col-xl-1">
@@ -514,14 +499,14 @@
                             <div class="mb-2 text-body-highlight me-2">Category</div>
                           <a class="fw-bold fs-9" href="#!" data-bs-toggle="modal" data-bs-target="#category">Add Category</a>
                           </div>
-                          <div class="col-12">
+                          {{-- <div class="col-12">
                             <div class="mb-3">Sub Category</div>
-                            <input class="form-control mb-0" type="text"  name="sub_category" placeholder="Category Name" required/>
-                        </div>
+                            <input class="form-control mb-0" type="text"  name="sub_category" placeholder="Category Name" />
+                        </div> --}}
                         
                         <div class="col-12">
                             <div class="mb-3">Parent</div>
-                              <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="parent_category">
+                              <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="parent_category_id" >
                                 <option selected value="0">Select Parent</option>
                                 @foreach ($parent_cate as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -580,12 +565,7 @@
                       </div>
                     </div> --}}
 
-                    <div class="col-12 col-sm-6 col-xl-12">
-                        <div class="mb-4">
-                        <div class="mb-2 text-body-highlight">Added By</div>
-                        <input class="form-control mb-xl-3" type="text" placeholder="Added By" name="added_by"/>
-                        </div>
-                    </div>
+                    
 
                     <div class="col-12 col-sm-6 col-xl-12">
                       <div class="mb-4">
@@ -602,12 +582,7 @@
                       </div>
                     </div>
 
-                <div class="col-12 col-sm-6 col-xl-12">
-                    <div class="mb-4">
-                    <div class="mb-2 text-body-highlight">Collection</div>
-                    <input class="form-control mb-xl-3" type="text" placeholder="Collection" name="collection"/>
-                    </div>
-                </div>
+                
                 <div class="col-12 col-sm-6 col-xl-12">
                     <div class="mb-4">
                     <div class="mb-2 text-body-highlight">Slug</div>

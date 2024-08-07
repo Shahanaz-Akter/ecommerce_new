@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('rating')->nullable(); 
             $table->string('status')->nullable(); 
             $table->unsignedBigInteger('review_image_id')->nullable(); 
+            $table->unsignedBigInteger('product_id')->nullable(); 
 
             $table->timestamps();
         });

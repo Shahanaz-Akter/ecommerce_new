@@ -51,7 +51,13 @@ class RoleController extends Controller
 
             DB::commit();
 
-            return redirect()->back()->with('role_msg', "Successflly Role has been saved!");
+            // return redirect()->back()->with('role_msg', "Successflly Role has been saved!");
+            // $roles= Role::get();
+            // $permissions= Permission::get();
+            // return redirect()->back()->with(['rols'=> $roles, 'permissionss'=> $permissions]);
+
+            return redirect()->route('roles')->with('role_msg', "Successflly Role has been saved!");
+            
         } catch (Exception $error) {
 
             DB::rollBack();
@@ -94,4 +100,13 @@ class RoleController extends Controller
         }
         // dd($permissions);
     }
+
+    public function permissionList()
+    {
+        $roles =  Role::get();
+        
+        // dd($roles, $permissions );
+        return view('backend.permission.permission-list', compact('roles', 'permissions'));
+    }
+ 
 }

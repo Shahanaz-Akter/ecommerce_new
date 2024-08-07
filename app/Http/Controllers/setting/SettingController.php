@@ -148,6 +148,8 @@ class SettingController extends Controller
     public function customers()
     {
         $customers = User::where('role_id', null)->get();
+        // $customers=null;
+        // dd( $customers);
         return view('backend.customer.customers', compact('customers'));
     }
 

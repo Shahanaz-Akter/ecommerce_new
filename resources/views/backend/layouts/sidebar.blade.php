@@ -80,7 +80,7 @@
                               <!-- more inner pages-->
                             </li>
                             <li class="nav-item"><a class="nav-link" href="{{ route('role.permission') }}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text">RP Associate</span>
+                                <div class="d-flex align-items-center"><span class="nav-link-text">Role Permission</span>
                                 </div>
                               </a>
                               <!-- more inner pages-->
@@ -162,7 +162,7 @@
                             <!-- more inner pages-->
                           </li>
                           <li class="nav-item">
-                              <a class="nav-link" href="{{'add.unit' }}">
+                              <a class="nav-link" href="{{route('add.unit')}}">
                               <div class="d-flex align-items-center"><span class="nav-link-text">Add Unit</span>
                               </div>
                             </a>

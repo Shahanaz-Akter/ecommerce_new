@@ -3,6 +3,15 @@
 @section('content')
 
 <div class="content">
+
+    
+
+    @if(session('role_msg'))
+    <div class="alert alert-primary">
+            {{ session('role_msg') }}
+    </div>
+    @endif
+
     <nav class="mb-2" aria-label="breadcrumb">
       <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item"><a href="#!">Role</a></li>
@@ -96,18 +105,22 @@
                   <a class="fw-semibold line-clamp-3 mb-0" href="../../../apps/e-commerce/landing/product-details.html">
                      {{ $role->created_at }}            
                   </a>
-              </td>
+                 </td>
 
                     <td class="align-middle white-space-nowrap  ps-4 btn-reveal-trigger">
+
                       <div class="btn-reveal-trigger position-static">
+                        
                         <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs-10"></span></button>
   
                         <div class="dropdown-menu dropdown-menu-end py-2">
-                         
+                          <a class="dropdown-item" href="{{ route('permission.list', $role->id) }}">Permissions</a>
                           <a class="dropdown-item" href="">Edit</a>
                           <a class="dropdown-item text-danger" href="">Remove</a>
                         </div>
+
                       </div>
+
                     </td>
               </tr>
              @endforeach
