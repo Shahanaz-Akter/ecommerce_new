@@ -12,12 +12,16 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('image_files', function (Blueprint $table) {
+
             $table->id();
             $table->string('original_name')->nullable();
             $table->string('absolute_path')->nullable();
             $table->dateTime('date')->nullable();
             $table->string('file_size')->nullable();
             $table->string('extension')->nullable();
+            $table->boolean('is_images')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->boolean('is_variation')->nullable();
             $table->timestamps();
         });
     }

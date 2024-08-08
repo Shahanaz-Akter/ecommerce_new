@@ -15,11 +15,11 @@ return new class extends Migration
     {
         Schema::create('variants', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('attribute_id');
+            $table->unsignedBigInteger('attribute_id')->nullable();
             $table->string('attribute_value')->nullable();
-            $table->integer('quantity');
-            $table->unsignedBigInteger('image_id');
-            $table->unsignedBigInteger('product_id');
+            $table->integer('quantity')->nullable();
+            $table->unsignedBigInteger('image_id')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
             
             $table->timestamps();
         });
@@ -33,3 +33,10 @@ return new class extends Migration
         Schema::dropIfExists('variants');
     }
 };
+
+
+
+
+
+
+

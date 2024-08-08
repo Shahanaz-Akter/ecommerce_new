@@ -9,5 +9,9 @@ class Product extends Model
 {
     use HasFactory;
 
-     protected $fillable =['name', 'added_by', 'description','total_qty', 'discount_type', 'slug', 'collection', 'stock_status', 'status', 'discount_start_date', 'discount_end_date', 'discount', 'tags', 'min_qty' , 'featured', 'trendy', 'new_arrival', 'todays_deal', 'thumbnail_image_id', 'gallery_image_id', 'category_id', 'brand_id', 'review_id', 'vendor_id', 'meta_title', 'meta_description', 'image_link', 'shipping_type', 'shipping_cost', 'product_type'];
+
+    protected $fillable =['name', 'added_by', 'description','total_qty', 'discount_type', 'discount', 'slug', 'stock_status', 'status', 'discount_start_date', 'discount_end_date',  'tags', 'min_qty' , 'featured', 'trendy', 'new_arrival', 'todays_deal', 'category_id', 'brand_id',  'vendor_id', 'meta_title', 'meta_description', 'shipping_type', 'shipping_cost', ];
 }
+
+
+

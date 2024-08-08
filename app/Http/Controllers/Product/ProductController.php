@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Product;
 
 use Exception;
+use Carbon\Carbon;
 use App\Models\Unit;
 use App\Models\Brand;
 use App\Models\Color;
@@ -16,6 +17,7 @@ use App\Models\Attribute;
 use App\Models\ImageFiles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\ImageFile;
@@ -64,53 +66,48 @@ class ProductController extends Controller
 
         $all = $request->all();
         // dd($all);
-        try {
 
-            // DB::beginTransaction();
-            $product =  new Product();
+        try {
+            DB::beginTransaction();
+
+            $review = new Review();
+            $variant = new Variant();
+            $price =  new Price();
+
+            // product value stored
+            $product = new Product();
             $product->name = $request->product_name;
             $product->category_id = $request->parent_category_id;
-
             $product->total_qty = $request->total_qty;
             $product->brand_id = $request->brand_id;
-
             $product->discount_type = $request->discount_type;
             $product->discount = $request->discount;
             $product->stock_status = $request->stock_status;
             $product->status = $request->status;
-           
-            $product->discount_start_date = $request->start_date;
-            $product->discount_end_date = $request->end_date;
+            $product->discount_start_date = $request->start_date ? Carbon::createFromFormat('d/m/Y', $request->start_date)->format('Y-m-d H:i:s') : null;
+            $product->discount_end_date = $request->end_date ? Carbon::createFromFormat('d/m/Y', $request->end_date)->format('Y-m-d H:i:s') : null;
+
             $product->min_qty = $request->min_qty;
             $product->description = $request->product_description;
-         
             $product->shipping_type = $request->shipping_type;
             $product->shipping_cost = $request->shipping_cost;
-           
             $product->added_by = Auth::user()->username;
             $product->vendor_id = $request->vendor_id;
-            $product->slug = $request->slug;
+            $product->slug = $request->product_name . '_' . rand(10, 100);
             $product->tags = $request->tags;
-            
-            // $product->product_name = $request->attribute_ids;
-            // $product->product_name = $request->attribute_values;
-            // $product->product_name = $request->variant_images;
-            // $product->product_name = $request->buying_prices;
-            // $product->product_name = $request->sale_prices;
-            // $product->product_name = $request->quantity;
-
             $product->meta_title = $request->meta_title;
             $product->meta_description = $request->meta_description;
-            dd(500);
             $product->save();
 
-            $product_images_arr = [];
             $productImages = $request->file('product_images');
             // dd($productImages);
 
+            // products images storing into imagefiles model
             if ($productImages != null && count($productImages) > 0) {
 
-                foreach ($productImages as $image) {
+                $isFirstImage = true;
+
+                foreach ($productImages as $index => $image) {
 
                     $originalName = $image->getClientOriginalName();
                     $extension = $image->getClientOriginalExtension();
@@ -121,29 +118,54 @@ class ProductController extends Controller
 
                     $image->move(public_path('uploads'), $uniqueName);
 
-                    $image_model =  new ImageFiles();
-                    $image_model->original_name = $originalName;
-                    $image_model->absolute_path = $relativePath;
-                    $image_model->extension = $extension;
-                    $image_model->file_size = $file_size;
-                    $image_model->save();
+                    if ($isFirstImage) {
+                        $image_model =  new ImageFiles();
+                        $image_model->original_name = $originalName;
+                        $image_model->absolute_path = $relativePath;
+                        $image_model->extension = $extension;
+                        $image_model->file_size = $file_size;
 
-                    $product_images_arr[] = $image_model->id; ////here each of the product_images id will be stored
+                        // $image_model->is_images = 0;
+                        $image_model->is_images = ($index === 0) ? 0 : 1;
+
+                        $image_model->product_id = $product->id;
+                        $image_model->save();
+                        $isFirstImage = false;
+                    } else {
+                        $image_model =  new ImageFiles();
+                        $image_model->original_name = $originalName;
+                        $image_model->absolute_path = $relativePath;
+                        $image_model->extension = $extension;
+                        $image_model->file_size = $file_size;
+
+                        $image_model->is_images = 1;
+                        $image_model->product_id = $product->id;
+                        $image_model->save();
+                    }
                 }
             }
-            // dd( $product_images_arr);
 
-            $reviewNames = $request->review_name;
-            $ratings = $request->rating;
-            $hearts = $request->heart;
-            $statuses = $request->status;
-            $comments = $request->comments;
-            $thumps_ups = $request->thumps_up;
+            // price data stored for simple product
 
-            // $count = count($reviewNames);
-            $review_images = $request->file('review_img');
+            $price->purchase_price = $request->p_regular_price;
+            $price->regular_price = $request->p_purchase_price;
+            $price->sale_price = $request->p_sale_price;
 
-            $review_images_arr = [];
+            $price->unit_id = $request->unit_id;
+            $price->product_id = $product->id;
+            $price->save();
+
+            // review value stored
+            $reviewNames = $request->review_name ?? [];
+            $ratings = $request->review_rating ?? [];
+            $hearts = $request->review_heart ?? [];
+            $statuses = $request->review_status ?? [];
+            $comments = $request->comments ?? [];
+            $thumps_ups = $request->thumps_up ?? [];
+
+
+            $review_images = $request->file('review_images');
+            $reviews_img_arr = [];
 
             if ($review_images != null && count($review_images) > 0) {
 
@@ -157,7 +179,6 @@ class ProductController extends Controller
                     $relativePath = '/uploads/' . $uniqueName;
 
                     $image->move(public_path('uploads'), $uniqueName);
-
                     $image_model =  new ImageFiles();
                     $image_model->original_name = $originalName;
                     $image_model->absolute_path = $relativePath;
@@ -165,60 +186,53 @@ class ProductController extends Controller
                     $image_model->file_size = $file_size;
                     $image_model->save();
 
-                    $review_images_arr[] = $image_model->id;
+                    $reviews_img_arr[] = $image_model->id;
                 }
             }
 
-            $review_arr = []; //here each of the reviews id will be stored
+            dd(count($reviewNames) > 0 && count($reviewNames) === count($ratings) &&
+                count($ratings) === count($hearts) && count($hearts) === count($statuses) &&
+                count($statuses) === count($comments)
+                && count($comments) === count($thumps_ups));
 
-            for ($j = 0; $j < count($reviewNames); $j++) {
+            // Check if the arrays are not empty and have the same length
+            if (
+                count($reviewNames) > 0 && count($reviewNames) === count($ratings) &&
+                count($ratings) === count($hearts) && count($hearts) === count($statuses) &&
+                count($statuses) === count($comments)
+                && count($comments) === count($thumps_ups)
+            ) {
+                // Loop through each review
+                for ($j = 0; $j < count($reviewNames); $j++) {
 
-                $review = new Review();
+                    $review->name = $reviewNames[$j];
+                    $review->rating = $ratings[$j];
+                    $review->heart = $hearts[$j];
+                    $review->status = $statuses[$j];
+                    $review->comments = $comments[$j];
+                    $review->thumps_up = $thumps_ups[$j];
 
-                $review->name = $reviewNames[$j];
-                $review->rating = $ratings[$j];
-                $review->heart = $hearts[$j];
-                $review->status = $statuses[$j];
-                $review->comments = $comments[$j];
-                $review->thumps_up = $thumps_ups[$j];
-                $review->review_image_id = $review_images_arr[$j];
-                $review->product_id = $product->product_id;
+                    if (isset($reviews_img_arr[$j])) {
+                        $review->review_image_id = $reviews_img_arr[$j];
+                    }
 
+                    $review->product_id = $product->id;
 
-                $review->save();
-
-                $review_arr[] = $review->id;
-            }
-
-            dd($review_arr);
-
-            // $product->review_id = $review->id;
-            // $category =  new Category();
-            // $category->name = $request->sub_category;
-            // $category->parent_category_id = $request->parent_category;
-            // $category->category_level = rand(0, 100);
-            // $category->save();
-
-            $isFirstImage = true;
-            foreach ($product_images_arr  as $img) {
-
-                if ($isFirstImage) {
-
-                    $product->thumbnail_image_id =  $img->id;
-                    $isFirstImage = false;
-                } else {
-                    $product->gallery_image_id =  $img->id;
+                    $review->save();
                 }
-                // $product->save();
             }
 
-            $variant_images = $request->file('variant_images');
+            // variations stored model
+            $variant_images = $request->file('attribute_images');
 
-            $variant_images_arr = [];
+
+            $variations_img_arr = [];
 
             if ($variant_images != null && count($variant_images) > 0) {
 
                 foreach ($variant_images as $image) {
+
+                    $isFirstImage = true;
 
                     $originalName = $image->getClientOriginalName();
                     $extension = $image->getClientOriginalExtension();
@@ -229,56 +243,93 @@ class ProductController extends Controller
 
                     $image->move(public_path('uploads'), $uniqueName);
 
-                    $image_model =  new ImageFiles();
-                    $image_model->original_name = $originalName;
-                    $image_model->absolute_path = $relativePath;
-                    $image_model->extension = $extension;
-                    $image_model->file_size = $file_size;
-                    $image_model->save();
+                    if ($isFirstImage) {
+                        $image_model =  new ImageFiles();
+                        $image_model->original_name = $originalName;
+                        $image_model->absolute_path = $relativePath;
+                        $image_model->extension = $extension;
+                        $image_model->file_size = $file_size;
 
-                    $variant_images_arr[] = $image_model->id;
+                        $image_model->is_variation = 1;
+                        $image_model->is_images = 0;
+
+                        $image_model->product_id = $product->id;
+                        $image_model->save();
+
+                        $isFirstImage = false;
+
+                        $variations_img_arr[] = $image_model->id;
+                    } else {
+                        $image_model =  new ImageFiles();
+                        $image_model->original_name = $originalName;
+                        $image_model->absolute_path = $relativePath;
+                        $image_model->extension = $extension;
+                        $image_model->file_size = $file_size;
+
+                        $image_model->is_variation = 1;
+                        $image_model->is_images = 1;
+                        $image_model->product_id = $product->id;
+                        $image_model->save();
+                        $variations_img_arr[] = $image_model->id;
+                    }
+                }
+            }
+            $attribute_ids = $request->attribute_ids ?? [];
+            $attribute_values = $request->attribute_values ?? [];
+            $attribute_quantities = $request->attribute_quantities ?? [];
+
+            $attribute_purchase_prices = $request->attribute_Purchase_prices ?? [];
+            $attribute_regular_prices = $request->attribute_regular_prices ?? [];
+            $attribute_sale_prices = $request->attribute_sale_prices ?? [];
+
+
+            if (count($attribute_ids) > 0  && count($attribute_ids) === count($attribute_values) && count($attribute_values) === count($attribute_quantities)) {
+
+                for ($k = 0; $k < count($attribute_ids); $k++) {
+
+
+                    $variant->attribute_id = $attribute_ids[$k];
+                    $variant->attribute_value = $attribute_values[$k];
+                    $variant->quantity = $attribute_quantities[$k];
+
+                    if (isset($variations_img_arr[$k])) {
+                        $variant->image_id = $variations_img_arr[$k];
+                    }
+
+                    $variant->product_id = $product->id;
+
+                    // $variant->attribute_purchase_price = $attribute_purchase_price[$k];
+                    // $variant->attribute_sale_price = $attribute_sale_price[$k];
+                    // $variant->attribute_regular_price = $attribute_regular_price[$k];
+
+                    $variant->save();
                 }
             }
 
 
-            $variant_ids = $request->variant_ids;
-            $variant_values = $request->variant_values;
-            $variant_buying_price = $request->buying_prices;
-            $variant_sale_price = $request->sale_prices;
-            $variant_purchase_price = $request->purchase_prices;
-            $variant_quantities = $request->quantities;
+            // price data stored for variation products
+            // dd($attribute_purchase_prices, $attribute_regular_prices,   $attribute_sale_prices);
+            if (
+                count($attribute_purchase_prices) > 0 && count($attribute_purchase_prices) === count($attribute_regular_prices) &&
+                count($attribute_regular_prices) === count($attribute_sale_prices)
+            ) {
+                for ($l = 0; $l < count($attribute_purchase_prices); $l = $l + 1) {
 
 
-            $variant_ids = [];
+                    $price->purchase_price = $attribute_purchase_prices[$l];
+                    $price->regular_price = $attribute_regular_prices[$l];
+                    $price->sale_price = $attribute_sale_prices[$l];
 
-            for ($i = 0; $i < count($variant_ids); $i++) {
-
-                $variant = new Variant();
-
-                $variant->name = $variant_ids[$i];
-                $variant->rating = $variant_values[$i];
-                $variant->status = $variant_images_arr[$i];
-                $variant->image = $variant_buying_price[$i];
-                $variant->image = $variant_sale_price[$i];
-                $variant->image = $variant_purchase_price[$i];
-                $variant->image = $variant_quantities[$i];
-                $variant->save();
-
-                $variant_ids[] = $variant->id;
+                    $price->unit_id = $request->unit_id;
+                    $price->product_id = $product->id;
+                    $price->variation_id = $variant->id;
+                    $price->save();
+                }
             }
 
-
-            $price =  new Price();
-            $price->regular_price = $request->p_regular_price;
-            $price->sale_price = $request->p_sale_price;
-            $price->purchase_price = $request->p_purchase_price ? $request->p_purchase_price : 0.00;
-            $price->unit_id = $request->unit_id;
-            $price->product_id = $product->id;
-            // $price->variation_id = $variation->id;
-            $price->save();
-
-
             DB::commit();
+
+            return redirect()->route('products');
         } catch (Exception $ex) {
             // Rollback transaction in case of an error
             DB::rollBack();
@@ -289,6 +340,8 @@ class ProductController extends Controller
             ], 500);
         }
     }
+
+
 
     private function humanReadableFileSize($size, $precision = 2)
     {

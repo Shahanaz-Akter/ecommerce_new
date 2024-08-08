@@ -9,7 +9,7 @@ class ImageFiles extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['original_name', 'absolute_path', 'date', 'file_size', 'extension'];
+    protected $fillable = ['original_name', 'absolute_path', 'date', 'file_size', 'extension', 'is_images', 'product_id', 'is_variation'];
 
 
     public function user(){
@@ -29,4 +29,5 @@ class ImageFiles extends Model
         return $this->hasOne(Category::class);
 
     }
+
 }

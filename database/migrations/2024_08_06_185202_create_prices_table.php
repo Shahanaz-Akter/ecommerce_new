@@ -14,12 +14,12 @@ return new class extends Migration
     {
         Schema::create('prices', function (Blueprint $table) {
             $table->id();
-            $table->string('purchase_price')->nullable();
-            $table->integer('regular_price');
-            $table->integer('sale_price');
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('unit_id');
-            $table->unsignedBigInteger('variation_id');
+            $table->double('purchase_price')->nullable();
+            $table->double('regular_price')->nullable();
+            $table->double('sale_price')->nullable();
+            $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('unit_id')->nullable();
+            $table->unsignedBigInteger('variation_id')->nullable();
             
             $table->timestamps();
         });

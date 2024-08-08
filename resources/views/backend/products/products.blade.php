@@ -59,37 +59,25 @@
                   <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Last Name</th> --}}
                   <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Name</th>
                   <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Added By</th>
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">description</th>
+                  {{-- <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">description</th> --}}
                   <th class="sort align-middle ps-4" scope="col" data-sort="email" style="width:50px;">Total Qty</th>
                   <th class="sort align-middle ps-4" scope="col" data-sort="email" style="width:50px;">discount Type</th>
                   <th class="sort align-middle ps-4" scope="col" data-sort="email" style="width:50px;">Slug</th>
-                  <th class="sort align-middle ps-4" scope="col" data-sort="role" style="width:50px;">collection</th>
-                  <th class="sort align-middle ps-4" scope="col" data-sort="role" style="width:50px;">Product Id</th>
-                  <th class="sort align-middle ps-4" scope="col" data-sort="role" style="width:50px;">product_id_type</th>
                   <th class="sort align-middle ps-4" scope="col" data-sort="role" style="width:50px;">Stock Status</th>
-                  <th class="sort align-middle ps-4" scope="col" data-sort="role" style="width:50px;">Rating</th>
-                  
-                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Discount_start_date</th>
-                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Discount_end_date</th>
                   <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Tags</th>
                   <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Min_qty</th>
                   <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Featured</th>
                   <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Trendy</th>
                   <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">New_arrival</th>
                   <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Todays_deal</th>
-                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Thumbnail_image_id</th>
-                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Gallery_image_id</th>
-                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Category_id</th>
-                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Brand_id</th>
-                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Review_id</th>
-                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Vendor_name</th>
-                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Meta Title</th>
-                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Meta Description</th>
-                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Image_link</th>
-                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Shipping_type</th>
-                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Shipping_cost</th>
-                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Product_type</th>
-                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Date</th>
+                  {{-- <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Thumbnail_image_id</th>
+                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Gallery_image_id</th> --}}
+                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Category</th>
+                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Brand</th>
+
+                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Vendor Name</th>
+                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Shipping Type</th>
+                  <th class="sort align-middle text-end ps-4" scope="col" data-sort="date" style="width:150px;">Shipping Cost</th>
                   <th class="sort text-end align-middle pe-0 ps-4" scope="col">Actions</th>
                 </tr>
               </thead>
@@ -102,7 +90,6 @@
 
             @foreach ($products as $product)
 
-            
                 <tr class="position-static">
 
                     <td class="fs-9 align-middle">
@@ -123,9 +110,9 @@
                   <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
                     {{ $product->added_by }} 
                     </td>
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $product->description }} 
-                        </td>
+                    {{-- <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
+                        {!! $product->description !!}
+                    </td> --}}
                         <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
                             {{ $product->total_qty }} 
                         </td>
@@ -135,87 +122,58 @@
                         <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
                             {{ $product->slug }} 
                         </td>
-                        <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                            {{ $product->collection }} 
-                        </td>
-                        <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                            {{ $product->product_id }} 
-                        </td>
-                        <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                            {{ $product->product_id_type }} 
-                        </td>
-
-
-                   
+                        
                     <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
                         {{ $product->stock_status }} 
                     </td>
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $product->rating }} 
-                    </td>
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $product->discount_start_date }} 
-                    </td>
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $product->discount_end_date }} 
-                    </td>
+                   
                     <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
                         {{ $product->tags }} 
                     </td>
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $product->featured }} 
-                    </td>
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $product->trendy }} 
-                    </td>
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $product->new_arrival }} 
-                    </td>
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $product->todays_deal }} 
-                    </td>
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
+                   
+                    {{-- <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
                         {{ $product->thumbnail_image_id }} 
-                    </td>
+                    </td> --}}
                     {{-- will be froeach loop for miltiple images list --}}
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
+                    {{-- <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
                         {{ $product->gallery_image_id }} 
-                    </td>
+                    </td> --}}
                     <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
                         {{ $product->category_id }} 
                     </td>
                     <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
                         {{ $product->brand_id }} 
                     </td>
+                   
                     <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $product->review_id }} 
+                        {{ $product->vendor_id }} 
                     </td>
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $product->vendor_name }} 
-                    </td>
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $product->meta_title }} 
-                    </td>
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $product->meta_description }} 
-                    </td>
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $product->image_link }} 
-                    </td>
+                  
+
                     <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
                         {{ $product->shipping_type }} 
                     </td>
                     <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
                         {{ $product->shipping_cost }} 
                     </td>
-                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $product->product_type }} 
-                    </td>
+                   
 
                     <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $user->created_at }} 
+                        {{ $product->category_id }} 
                     </td>
-
+                     <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
+                        {{ $product->featured ? $product->featured : 0 }} 
+                    </td>
+                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
+                        {{ $product->trendy ? $product->trendy :0 }} 
+                    </td>
+                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
+                        {{ $product->new_arrival ? $product->new_arrival :0 }} 
+                    </td>
+                    <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
+                        {{ $product->todays_deal ? $product->todays_deal :0 }} 
+                    </td>
+                   
 
                      {{-- Name  Added By description  total_qty discount_type slug collection product_id product_id_type stock_status rating discount_start_date discount_end_date tags min_qty featured trendy new_arrival todays_deal thumbnail_image_id gallery_image_id category_id brand_id review_id vendor_name meta_title meta_description image_link shipping_type shipping_cost product_type date--}}
   

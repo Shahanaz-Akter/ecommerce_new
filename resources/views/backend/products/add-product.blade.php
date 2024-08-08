@@ -13,6 +13,7 @@
       </ol>
     </nav>
     <form class="mb-9" action="{{ route('post.product') }}" method="post" enctype="multipart/form-data">
+
         @csrf
 
       <div class="row g-3 flex-between-end mb-5">
@@ -25,6 +26,7 @@
           <button class="btn btn-primary mb-2 mb-sm-0" type="submit">Publish product</button>
         </div>
       </div>
+
       <div class="row g-5">
 
         <div class="col-12 col-xl-8">
@@ -66,10 +68,9 @@
                         @endforeach
                     </select>
                 </div>  
-                   </div>        
+                </div>        
                 </div>
                 
-
                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-2">
                     <div class="mb-3">Discount Type</div>
                     <input class="form-control mb-5" type="text" placeholder="Old dress" name="discount_type" />
@@ -85,7 +86,6 @@
                         <option value="">Select</option>
                         <option value="stock-in">Stock-in</option>
                         <option value="stock-out">Stock-out</option>
-                      
                     </select>
                 </div>
                 
@@ -104,16 +104,12 @@
                 <input class="form-control datetimepicker flatpickr-input" id="datepicker" name="end_date" type="text" placeholder="dd/mm/yyyy" data-options="{&quot;disableMobile&quot;:true,&quot;dateFormat&quot;:&quot;d/m/Y&quot;}" readonly="readonly">
             </div>
 
-           
-
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                 <div class="mb-3">Status</div>
-                <select class="form-select" aria-label="brand" name="status" >
-                    <option value=" ">Select</option>
-                    
+                <select class="form-select" aria-label="status" name="status" >
+                    <option value=" " selected>Select</option>
                     <option value="draft">Draft</option>
                     <option value="published">Published</option>
-                  
                 </select>
             </div>
           
@@ -121,7 +117,7 @@
                 <div class="mb-3">Select Images</div>
                 <div class="dropzone dropzone-multiple p-0 mb-5" id="my-awesome-dropzone" data-dropzone="data-dropzone">
                     <div class="fallback">
-                        <input type="file" name="array_img[]" multiple />
+                        <input type="file" name="array_img" multiple />
                     </div>
                     <div class="dz-preview d-flex flex-wrap">
                         <div class="border border-translucent bg-body-emphasis rounded-3 d-flex flex-center position-relative me-2 mb-2" style="height:80px;width:80px;">
@@ -309,10 +305,11 @@
                                         <input class="form-control mb-5" type="text"  name="" placeholder="Attribute Name"/>
                                     </div>
             
-                                    <div class="col-12 col-xl-8">
+                                    <d
+                                    iv class="col-12 col-xl-8">
                                         <h4 class="mb-2">Slug</h4>
                                         <input class="form-control mb-5" type="text"  name="" placeholder="Slug Name..."/>
-                                    </div>
+                                    </d>
                                     
                             </div>
                     </form>
@@ -357,24 +354,24 @@
 
                           <div class="col-12 col-lg-4">
                             <h5 class="mb-2 text-body-highlight">Rating</h5>
-                          <input class="form-control" type="integer" placeholder=""  name="rating[]"/>
+                          <input class="form-control" type="integer" placeholder=""  name="review_rating[]"/>
                         </div>
                         <div class="col-12 col-lg-4">
                           <h5 class="mb-2 text-body-highlight">Heart</h5>
-                            <input class="form-control" type="integer" placeholder=""  name="heart[]"/>
+                            <input class="form-control" type="integer" placeholder=""  name="review_heart[]"/>
                           </div>
                           <div class="col-12 col-lg-4">
                             <h5 class="mb-2 text-body-highlight">Status</h5>
-                            <input class="form-control" type="integer" placeholder=""  name="status[]"/>
+                            <input class="form-control" type="integer" placeholder=""  name="review_status[]"/>
                           </div>
                       
                           <div class="col-12 col-lg-4">
                             <h5 class="mb-2 text-body-highlight">Thumbps Up</h5>
-                            <input class="form-control" type="integer" placeholder=""  name="thumps_up[]"/>
+                            <input class="form-control" type="integer" placeholder=""  name="review_thumps_up[]"/>
                           </div>
                           <div class="col-12 col-lg-4">
                             <h5 class="mb-2 text-body-highlight">Image</h5>
-                            <input class="form-control" type="file" name="review_img[]"/>
+                            <input class="form-control" type="file" name="review_images[]"/>
                           </div>
 
                           <div class="col-12 col-lg-6">
@@ -437,25 +434,25 @@
                            
                             <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-2">
                               <div class="mb-3">Select Images</div>
-                              <input class="form-control" type="file" placeholder="" name="variant_images[]" multiple />
+                              <input class="form-control" type="file" placeholder="" name="attribute_images[]" multiple />
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-6 col-xl-6">
-                              <div class="mb-3">Buying Price</div>
-                              <input class="form-control" type="number" placeholder="200" name="buying_prices[]" />
+                              <div class="mb-3">Regular Price</div>
+                              <input class="form-control" type="number" placeholder="200" name="attribute_regular_prices[]" />
                             </div>
                             <div class="col-12 col-md-6 col-lg-6 col-xl-6">
                               <div class="mb-3">Sale Price</div>
-                              <input class="form-control" type="number" placeholder="200" name="sale_prices[]" />
+                              <input class="form-control" type="number" placeholder="200" name="attribute_sale_prices[]" />
                             </div>
 
                             <div class="col-12 col-md-6 col-lg-6 col-xl-6">
                               <div class="mb-3">Purchase Price</div>
-                              <input class="form-control" type="number" placeholder="100" name="Purchase_prices[]"/>
+                              <input class="form-control" type="number" placeholder="100" name="attribute_Purchase_prices[]"/>
                             </div>
                             <div class="col-12 col-md-6 col-lg-6 col-xl-6">
                               <div class="mb-3">Quantity</div>
-                              <input class="form-control" type="number" placeholder="10" name="quantities[]"/>
+                              <input class="form-control" type="number" placeholder="10" name="attribute_quantities[]"/>
                             </div>
 
                             <div class="col-12 col-md-1 col-lg-1 col-xl-1">
@@ -483,8 +480,8 @@
             </div>
           </div>
         </div>
-
        </div>
+
         <div class="col-12 col-xl-4">
           <div class="row g-2">
             <div class="col-12 col-xl-12">
@@ -582,15 +579,7 @@
                       </div>
                     </div>
 
-                
-                <div class="col-12 col-sm-6 col-xl-12">
-                    <div class="mb-4">
-                    <div class="mb-2 text-body-highlight">Slug</div>
-                    <input class="form-control mb-xl-3" type="text" placeholder="Slug" name="slug"/>
-                    </div>
-                </div>
 
-               
                 {{-- <div class="col-12 col-sm-6 col-xl-12">
                     <div class="d-flex flex-wrap mb-2">
                     <h5 class="mb-0 text-body-highlight me-2">Tags</h5><a class="fw-bold fs-9 lh-sm" href="#!">View all tags</a>
@@ -635,6 +624,8 @@
 
 @endsection() 
 
+
+
  {{-- custom js and cdn--}}
 @section('custom_js')
 
@@ -649,7 +640,6 @@
     dataType: 'json', 
 
     success: function(res) {
-      // `tag` is the select element that triggered the fetch
       let $containerVariant = $(tag).closest('.container-variant');
 
       let $attributeValuesSelect = $containerVariant.find('.attribute-values-select');
@@ -664,7 +654,7 @@
   });
 }
 
-    function addVariant() {
+function addVariant() {
     let wrapper = document.querySelector('.container-variant-wrapper');
     let firstChild = document.querySelector('.container-variant');
     let newVariant = firstChild.cloneNode(true);
@@ -718,9 +708,7 @@
       });
 
     }
-    
-  </script>  
-
+</script>  
 
 @endsection
 
