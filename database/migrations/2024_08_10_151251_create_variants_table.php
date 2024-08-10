@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    
-    // ['attr_name_id', 'attribute_value', 'quantity', 'image_id','product_id',  'variation_id']
     /**
      * Run the migrations.
      */
@@ -20,7 +18,7 @@ return new class extends Migration
             $table->integer('quantity')->nullable();
             $table->unsignedBigInteger('image_id')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
-            
+
             $table->timestamps();
         });
     }
@@ -33,10 +31,3 @@ return new class extends Migration
         Schema::dropIfExists('variants');
     }
 };
-
-
-
-
-
-
-

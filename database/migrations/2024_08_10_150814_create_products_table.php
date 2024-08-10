@@ -11,9 +11,6 @@ return new class extends Migration
      */
     public function up(): void
     {
-
-         // protected $fillable =['name', 'added_by', 'description','total_qty', 'discount_type', 'discount', 'slug', 'stock_status', 'status', 'discount_start_date', 'discount_end_date',  'tags', 'min_qty' , 'featured', 'trendy', 'new_arrival', 'todays_deal', 'category_id', 'brand_id',  'vendor_id', 'meta_title', 'meta_description', 'shipping_type', 'shipping_cost', ];
-
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
@@ -33,7 +30,7 @@ return new class extends Migration
             $table->boolean('trendy')->nullable();
             $table->boolean('new_arrival')->nullable();
             $table->boolean('todays_deal')->nullable();
-            
+
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->unsignedBigInteger('vendor_id')->nullable();
@@ -41,7 +38,7 @@ return new class extends Migration
             $table->text('meta_description')->nullable();
             $table->string('shipping_type')->nullable();
             $table->integer('shipping_cost')->nullable();
-            
+
             $table->timestamps();
         });
     }

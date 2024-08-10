@@ -70,7 +70,7 @@ class SettingController extends Controller
                 $brand_id = $image_model->id;
 
                 $brand = new Brand();
-                $brand->name = $request->brand;
+                $brand->name = $request->strtolower($request->brand);
                 $brand->description = $request->description;
                 $brand->brand_image_id = $brand_id;
                 $brand->save();
@@ -125,7 +125,7 @@ class SettingController extends Controller
             DB::beginTransaction();
 
             $color = new Color();
-            $color->name = $request->color;
+            $color->name = strtolower($request->color);
             $color->description = $request->description;
             $color->color_code = $request->color_code;
             $color->save();
@@ -174,9 +174,9 @@ class SettingController extends Controller
             DB::beginTransaction();
 
             $unit = new Unit();
-            $unit->unit_type = $request->unit_type;
-            $unit->base_unit_name = strtolower($request->base_unit_name); 
-            $unit->symbol = $request->symbol;
+            $unit->unit_type = strtolower($request->unit_type);
+            $unit->base_unit_name = strtolower($request->base_unit_name);
+            $unit->symbol = strtoupper($request->symbol);
             $unit->unit_conversion = $request->unit_conversion;
             $unit->save();
 
@@ -283,7 +283,7 @@ class SettingController extends Controller
     public function postVendor(Request $request)
     {
         $vendor = new Vendor();
-        $vendor->name = $request->vendor;
+        $vendor->name = strtolower($request->vendor);
         $vendor->description = $request->description;
         $vendor->save();
 
@@ -342,7 +342,7 @@ class SettingController extends Controller
             }
 
             $category = new Category();
-            $category->name = $request->category;
+            $category->name = strtolower($request->category);
             $category->parent_category_id = $request->parent_category;
             $category->category_level = rand(0, 100);
             $category->category_image_id = $image_id;

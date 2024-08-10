@@ -12,3 +12,6 @@ class Price extends Model
     protected $fillable = ['purchase_price', 'regular_price', 'sale_price','unit_id', 'product_id', 'variation_id'];
 
 }
+
+
+

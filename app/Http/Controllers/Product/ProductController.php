@@ -66,13 +66,33 @@ class ProductController extends Controller
 
         $all = $request->all();
         // dd($all);
-
+       
+        // $validData=  $request->validate([
+        //     'name' => 'required|string|max:255',
+        //     'total_qty' => 'required|integer',
+        //     'stock_status' => 'required|string',
+        //     'status' => 'required|string|max:255',
+        //     'min_qty' => 'required|integer',
+        //     'shipping_cost' => 'required|string',
+        //     'tags' => 'required|string|max:255',
+        //     'product_images' => 'required|file',
+        // ], [
+        //     'name.required' => 'Product Name is required.',
+        //     'total_qty.required' => 'Total Quantity is required.',
+        //     'total_qty.integer' => 'Total Quantity will be integer.',
+        //     'stock_status.required' => 'Stock Status is required.',
+        //     'status.required' => 'Status is required.',
+        //     'min_qty.required' => 'Minimum Quantity is required.',
+        //     'shipping_cost.required' => 'Shipping Cost is required.',
+        //     'tags.required' => 'Tags are required.',
+        //     'product_images.required' => 'Product Images are required.',
+        // ]);
+        
         try {
+
             DB::beginTransaction();
 
-            $review = new Review();
             $variant = new Variant();
-            $price =  new Price();
 
             // product value stored
             $product = new Product();
@@ -119,6 +139,7 @@ class ProductController extends Controller
                     $image->move(public_path('uploads'), $uniqueName);
 
                     if ($isFirstImage) {
+
                         $image_model =  new ImageFiles();
                         $image_model->original_name = $originalName;
                         $image_model->absolute_path = $relativePath;
@@ -145,24 +166,27 @@ class ProductController extends Controller
                 }
             }
 
-            // price data stored for simple product
+            // Price data stored for simple product
+            if (!is_null($request->p_purchase_price) || !is_null($request->p_regular_price)  || !is_null($request->p_sale_price)) {
 
-            $price->purchase_price = $request->p_regular_price;
-            $price->regular_price = $request->p_purchase_price;
-            $price->sale_price = $request->p_sale_price;
+                $price =  new Price();
+                $price->purchase_price = $request->p_purchase_price;
+                $price->regular_price = $request->p_regular_price;
+                $price->sale_price = $request->p_sale_price;
 
-            $price->unit_id = $request->unit_id;
-            $price->product_id = $product->id;
-            $price->save();
+                $price->unit_id = $request->unit_id;
+                $price->product_id = $product->id;
+                $price->save();
+            }
 
+            $review = new Review();
             // review value stored
             $reviewNames = $request->review_name ?? [];
             $ratings = $request->review_rating ?? [];
             $hearts = $request->review_heart ?? [];
             $statuses = $request->review_status ?? [];
             $comments = $request->comments ?? [];
-            $thumps_ups = $request->thumps_up ?? [];
-
+            $thumps_ups = $request->thump_ups ?? [];
 
             $review_images = $request->file('review_images');
             $reviews_img_arr = [];
@@ -190,41 +214,48 @@ class ProductController extends Controller
                 }
             }
 
-            dd(count($reviewNames) > 0 && count($reviewNames) === count($ratings) &&
-                count($ratings) === count($hearts) && count($hearts) === count($statuses) &&
-                count($statuses) === count($comments)
-                && count($comments) === count($thumps_ups));
+            $maxLength = max(
+                count($reviewNames),
+                count($ratings),
+                count($hearts),
+                count($statuses),
+                count($comments),
+                count($thumps_ups),
+                count($reviews_img_arr),
+            );
 
-            // Check if the arrays are not empty and have the same length
-            if (
-                count($reviewNames) > 0 && count($reviewNames) === count($ratings) &&
-                count($ratings) === count($hearts) && count($hearts) === count($statuses) &&
-                count($statuses) === count($comments)
-                && count($comments) === count($thumps_ups)
-            ) {
-                // Loop through each review
-                for ($j = 0; $j < count($reviewNames); $j++) {
+            // dd("Type Of: ", gettype($maxLength));
 
-                    $review->name = $reviewNames[$j];
-                    $review->rating = $ratings[$j];
-                    $review->heart = $hearts[$j];
-                    $review->status = $statuses[$j];
-                    $review->comments = $comments[$j];
-                    $review->thumps_up = $thumps_ups[$j];
+            for ($j = 0; $j < $maxLength; $j++) {
+
+                $isReviewProvided = $reviewNames[$j] || $ratings[$j] || $hearts[$j] ||
+                    $statuses[$j] || $comments[$j] || $thumps_ups[$j] ||
+                    isset($reviews_img_arr[$j]);
+
+                if (!$isReviewProvided) {
+                    continue; // Skip saving if no review data is provided
+                } else {
+                    $review->name = strtolower($reviewNames[$j]) ?? null;
+                    $review->rating = $ratings[$j] ?? null;
+                    $review->heart = $hearts[$j] ?? null;
+                    $review->status = $statuses[$j] ?? null;
+                    $review->comments = $comments[$j] ?? null;
+                    $review->thumps_up = $thumps_ups[$j] ?? null;
 
                     if (isset($reviews_img_arr[$j])) {
                         $review->review_image_id = $reviews_img_arr[$j];
+                    } else {
+                        $review->review_image_id = null;
                     }
 
                     $review->product_id = $product->id;
-
                     $review->save();
                 }
             }
 
+            // dd('review');
             // variations stored model
             $variant_images = $request->file('attribute_images');
-
 
             $variations_img_arr = [];
 
@@ -274,62 +305,79 @@ class ProductController extends Controller
                     }
                 }
             }
+
             $attribute_ids = $request->attribute_ids ?? [];
             $attribute_values = $request->attribute_values ?? [];
             $attribute_quantities = $request->attribute_quantities ?? [];
 
-            $attribute_purchase_prices = $request->attribute_Purchase_prices ?? [];
-            $attribute_regular_prices = $request->attribute_regular_prices ?? [];
-            $attribute_sale_prices = $request->attribute_sale_prices ?? [];
+            $maxVariation = max(
+                count($attribute_ids),
+                count($attribute_values),
+                count($attribute_quantities),
+            );
 
+            // if (count($attribute_ids) > 0  && count($attribute_ids) === count($attribute_values) && count($attribute_values) === count($attribute_quantities)) {
+            for ($k = 0; $k < $maxVariation; $k++) {
+                $isAvaialbeVariationData = $attribute_ids[$k] || $attribute_values[$k] || $attribute_quantities[$k];
 
-            if (count($attribute_ids) > 0  && count($attribute_ids) === count($attribute_values) && count($attribute_values) === count($attribute_quantities)) {
-
-                for ($k = 0; $k < count($attribute_ids); $k++) {
-
-
+                if ($isAvaialbeVariationData) {
                     $variant->attribute_id = $attribute_ids[$k];
                     $variant->attribute_value = $attribute_values[$k];
                     $variant->quantity = $attribute_quantities[$k];
 
                     if (isset($variations_img_arr[$k])) {
                         $variant->image_id = $variations_img_arr[$k];
+                    } else {
+                        $variant->image_id = null;
                     }
 
                     $variant->product_id = $product->id;
-
-                    // $variant->attribute_purchase_price = $attribute_purchase_price[$k];
-                    // $variant->attribute_sale_price = $attribute_sale_price[$k];
-                    // $variant->attribute_regular_price = $attribute_regular_price[$k];
-
                     $variant->save();
                 }
             }
 
-
             // price data stored for variation products
-            // dd($attribute_purchase_prices, $attribute_regular_prices,   $attribute_sale_prices);
-            if (
-                count($attribute_purchase_prices) > 0 && count($attribute_purchase_prices) === count($attribute_regular_prices) &&
-                count($attribute_regular_prices) === count($attribute_sale_prices)
-            ) {
-                for ($l = 0; $l < count($attribute_purchase_prices); $l = $l + 1) {
+            $attribute_purchase_prices = $request->attribute_Purchase_prices ?? [];
+            $attribute_regular_prices = $request->attribute_regular_prices ?? [];
+            $attribute_sale_prices = $request->attribute_sale_prices ?? [];
 
+            // dd($attribute_purchase_prices);
 
-                    $price->purchase_price = $attribute_purchase_prices[$l];
-                    $price->regular_price = $attribute_regular_prices[$l];
-                    $price->sale_price = $attribute_sale_prices[$l];
+            $maxPrice = max(
+                count($attribute_purchase_prices),
+                count($attribute_regular_prices),
+                count($attribute_sale_prices),
+            );
 
-                    $price->unit_id = $request->unit_id;
-                    $price->product_id = $product->id;
-                    $price->variation_id = $variant->id;
-                    $price->save();
+            // !is_null($attribute_purchase_prices) ||  !is_null($attribute_regular_prices) || !is_null($attribute_sale_prices)
+
+            for ($l = 0; $l < $maxPrice; $l++) {
+
+                $isVAritionPrice = $attribute_purchase_prices[$l] || $attribute_regular_prices[$l] || $attribute_sale_prices[$l];
+
+                if (!$isVAritionPrice) {
+                    continue;
+                } else {
+                    $price1 = new Price();
+
+                    $price1->purchase_price = $attribute_purchase_prices[$l] ?? null;
+                    $price1->regular_price = $attribute_regular_prices[$l] ?? null;
+                    $price1->sale_price = $attribute_sale_prices[$l] ?? null;
+
+                    $price1->unit_id = $request->unit_id;
+                    $price1->product_id = $product->id;
+                    $price1->variation_id = $variant->id;
+                    $price1->save();
                 }
             }
 
+            // dd('ddd');
+
+
             DB::commit();
 
-            return redirect()->route('products');
+            // return redirect()->route('products')->with(['success'=>'Successfully saved Product']);
+            return redirect()->back();
         } catch (Exception $ex) {
             // Rollback transaction in case of an error
             DB::rollBack();
@@ -340,8 +388,6 @@ class ProductController extends Controller
             ], 500);
         }
     }
-
-
 
     private function humanReadableFileSize($size, $precision = 2)
     {

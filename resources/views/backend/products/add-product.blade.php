@@ -12,9 +12,25 @@
         {{-- <li class="breadcrumb-item active">Default</li> --}}
       </ol>
     </nav>
+
+    @if($errors->any())
+    @foreach($errors->all() as $error)
+        @php
+            // Extract field name from the error message
+            $field = explode(' ', $error)[0];
+        @endphp
+        @if(in_array($field, [ 'name', 'total_qty', 'brand_id', 'unit_id', 'stock_status', 'status', 'min_qty', 'shipping_cost','vendor_id', 'tags', 'product_images'])) 
+
+            <div class="alert alert-secondary p-2">{{ $error }}</div>
+
+        @endif
+    @endforeach
+@endif
+
+
     <form class="mb-9" action="{{ route('post.product') }}" method="post" enctype="multipart/form-data">
 
-        @csrf
+     @csrf
 
       <div class="row g-3 flex-between-end mb-5">
         <div class="col-auto">
@@ -32,36 +48,42 @@
         <div class="col-12 col-xl-8">
 
           <div class="row">
+            {{-- @error('name')
+            <div class="alert alert-danger mb-2 p-1">{{ $message }}</div>
+           @enderror --}}
+
+         
 
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                 <div class="mb-2">Name</div>
-                <input class="form-control" type="text" placeholder="Saree" name="product_name" />
+                <input class="form-control" type="text" placeholder="Saree" name="product_name" {{ old('product_name') }} required/>
             </div>
            
+            
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                 <div class="mb-2">Total Qty</div>
-                <input class="form-control" type="text" placeholder="200" name="total_qty" />
+                <input class="form-control" type="number" placeholder="200" name="total_qty" required/>
             </div>
          
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                 <div class="mb-2"> Brand <span> <a class="fw-bold fs-9 text-end" data-bs-toggle="modal" data-bs-target="#brand">Add new brand</a></span></div> 
                 <div class="mb-0">
                  
-                  <select class="form-select" aria-label="brand" name="brand_id" >
+                <select class="form-select" aria-label="brand_id" name="brand_id" required>
                       <option value=" ">Select Brand</option>
                       @foreach($brands as $brand) 
                       <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                       @endforeach
-                  </select>
-                 </div>        
-              </div>
+                </select>
+                </div>        
+            </div>
   
               <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                 <div class="mb-2"> Unit <span> <a class="fw-bold fs-9 text-end" data-bs-toggle="modal" data-bs-target="#unit">Add new Unit</a></span></div> 
                   <div class="mb-0">
                     
                     <div class="mb-0">
-                    <select class="form-select" aria-label="brand" name="unit_id" >
+                    <select class="form-select" aria-label="unit" name="unit_id" required>
                         <option value=" ">Select unit</option>
                         @foreach($units as $unit) 
                         <option value="{{ $unit->id }}">{{ $unit->symbol }}</option>
@@ -82,7 +104,7 @@
                
                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                     <div class="mb-3">Stock Status</div>
-                    <select class="form-select" aria-label="brand" name="stock_status" >
+                    <select class="form-select" aria-label="stock_status" name="stock_status" >
                         <option value="">Select</option>
                         <option value="stock-in">Stock-in</option>
                         <option value="stock-out">Stock-out</option>
@@ -91,7 +113,7 @@
                 
                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                     <div class="mb-2">Min Qty</div>
-                    <input class="form-control" type="integer" placeholder="6" name="min_qty" />
+                    <input class="form-control" type="integer" placeholder="6" name="min_qty" required/>
                 </div>
                
                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
@@ -137,7 +159,7 @@
     
             <div class="col-12 mb-4">
                 <div class="mb-3">(First image will be displayed image left will be gallery images)</div>
-                <input class="form-control" type="file" placeholder="6" name="product_images[]" multiple  />
+                <input class="form-control" type="file" placeholder="6" name="product_images[]" multiple  required/>
             </div>
            
             {{-- <div class="col-12 mb-4 d-none">
@@ -210,17 +232,17 @@
                   <div class="row g-3">
                     <div class="col-12 col-lg-6">
                       <h5 class="mb-2 text-body-highlight">Regular price</h5>
-                      <input class="form-control" type="text" placeholder="$500"  name="p_regular_price"/>
+                      <input class="form-control" type="text" placeholder="$500"  name="p_regular_price" required/>
                     </div>
 
                     <div class="col-12 col-lg-6">
                       <h5 class="mb-2 text-body-highlight">Sale price</h5>
-                      <input class="form-control" type="text" placeholder="$400" name="p_sale_price"/>
+                      <input class="form-control" type="text" placeholder="$400" name="p_sale_price" required/>
                     </div>
 
                     <div class="col-12 col-lg-6">
                       <h5 class="mb-2 text-body-highlight">Purchase price</h5>
-                      <input class="form-control" type="text" placeholder="$200" name="p_purchase_price"/>
+                      <input class="form-control" type="text" placeholder="$200" name="p_purchase_price" required/>
                     </div>
 
                   </div>
@@ -275,7 +297,7 @@
                     <div class="flex-1">
                         
                       <div class="mb-4">
-                        <select class="form-select" aria-label="brand" name="shipping_type" >
+                        <select class="form-select" aria-label="brand" name="shipping_type" required>
                             <option value="">Select</option>
                             <option value="free">Free</option>
                             <option value="with pay">With Pay</option>
@@ -284,7 +306,7 @@
                      
                       <div class="mb-4">
                         <h5 class="mb-2 text-body-highlight">Shipping Cost</h5>
-                        <input class="form-control" type="text" placeholder="$200" name="shipping_cost"/>
+                        <input class="form-control" type="text" placeholder="$200" name="shipping_cost" required/>
                       </div>
 
                     </div>
@@ -349,25 +371,25 @@
                         
                         <div class="col-12 col-lg-4">
                             <h5 class="mb-2 text-body-highlight">Name</h5>
-                            <input class="form-control" type="text" placeholder=""  name="review_name[]"/>
+                            <input class="form-control" type="text" placeholder="Review Title"  name="review_name[]"/>
                           </div>
 
                           <div class="col-12 col-lg-4">
                             <h5 class="mb-2 text-body-highlight">Rating</h5>
-                          <input class="form-control" type="integer" placeholder=""  name="review_rating[]"/>
+                          <input class="form-control" type="number" placeholder="2"  name="review_rating[]"/>
                         </div>
                         <div class="col-12 col-lg-4">
                           <h5 class="mb-2 text-body-highlight">Heart</h5>
-                            <input class="form-control" type="integer" placeholder=""  name="review_heart[]"/>
+                            <input class="form-control" type="number" placeholder="4"  name="review_heart[]"/>
                           </div>
                           <div class="col-12 col-lg-4">
                             <h5 class="mb-2 text-body-highlight">Status</h5>
-                            <input class="form-control" type="integer" placeholder=""  name="review_status[]"/>
+                            <input class="form-control" type="text" placeholder="Best"  name="review_status[]"/>
                           </div>
                       
                           <div class="col-12 col-lg-4">
                             <h5 class="mb-2 text-body-highlight">Thumbps Up</h5>
-                            <input class="form-control" type="integer" placeholder=""  name="review_thumps_up[]"/>
+                            <input class="form-control" type="number" placeholder="5"  name="thump_ups[]"/>
                           </div>
                           <div class="col-12 col-lg-4">
                             <h5 class="mb-2 text-body-highlight">Image</h5>
@@ -503,7 +525,7 @@
                         
                         <div class="col-12">
                             <div class="mb-3">Parent</div>
-                              <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="parent_category_id" >
+                              <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="parent_category_id" required>
                                 <option selected value="0">Select Parent</option>
                                 @foreach ($parent_cate as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
