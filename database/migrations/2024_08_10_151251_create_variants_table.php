@@ -15,10 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('attribute_id')->nullable();
             $table->string('attribute_value')->nullable();
-            $table->integer('quantity')->nullable();
-            $table->unsignedBigInteger('image_id')->nullable();
+            $table->bigInteger('quantity')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
-
+            
             $table->timestamps();
         });
     }

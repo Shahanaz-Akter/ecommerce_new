@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('extension')->nullable();
             $table->boolean('is_images')->nullable();
             $table->unsignedBigInteger('product_id')->nullable();
+            $table->unsignedBigInteger('variant_id')->nullable();
             $table->boolean('is_variation')->nullable();
             $table->timestamps();
         });

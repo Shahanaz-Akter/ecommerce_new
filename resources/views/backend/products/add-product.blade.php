@@ -56,20 +56,20 @@
 
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                 <div class="mb-2">Name</div>
-                <input class="form-control" type="text" placeholder="Saree" name="product_name" {{ old('product_name') }} required/>
+                <input class="form-control" type="text" placeholder="Saree" name="product_name" {{ old('product_name') }} />
             </div>
            
             
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                 <div class="mb-2">Total Qty</div>
-                <input class="form-control" type="number" placeholder="200" name="total_qty" required/>
+                <input class="form-control" type="number" placeholder="200" name="total_qty" />
             </div>
          
             <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                 <div class="mb-2"> Brand <span> <a class="fw-bold fs-9 text-end" data-bs-toggle="modal" data-bs-target="#brand">Add new brand</a></span></div> 
                 <div class="mb-0">
                  
-                <select class="form-select" aria-label="brand_id" name="brand_id" required>
+                <select class="form-select" aria-label="brand_id" name="brand_id" >
                       <option value=" ">Select Brand</option>
                       @foreach($brands as $brand) 
                       <option value="{{ $brand->id }}">{{ $brand->name }}</option>
@@ -83,7 +83,7 @@
                   <div class="mb-0">
                     
                     <div class="mb-0">
-                    <select class="form-select" aria-label="unit" name="unit_id" required>
+                    <select class="form-select" aria-label="unit" name="unit_id" >
                         <option value=" ">Select unit</option>
                         @foreach($units as $unit) 
                         <option value="{{ $unit->id }}">{{ $unit->symbol }}</option>
@@ -113,7 +113,7 @@
                 
                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
                     <div class="mb-2">Min Qty</div>
-                    <input class="form-control" type="integer" placeholder="6" name="min_qty" required/>
+                    <input class="form-control" type="integer" placeholder="6" name="min_qty" />
                 </div>
                
                 <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-4">
@@ -159,7 +159,7 @@
     
             <div class="col-12 mb-4">
                 <div class="mb-3">(First image will be displayed image left will be gallery images)</div>
-                <input class="form-control" type="file" placeholder="6" name="product_images[]" multiple  required/>
+                <input class="form-control" type="file" placeholder="6" name="product_images[]" multiple  />
             </div>
            
             {{-- <div class="col-12 mb-4 d-none">
@@ -232,17 +232,17 @@
                   <div class="row g-3">
                     <div class="col-12 col-lg-6">
                       <h5 class="mb-2 text-body-highlight">Regular price</h5>
-                      <input class="form-control" type="text" placeholder="$500"  name="p_regular_price" required/>
+                      <input class="form-control" type="text" placeholder="$500"  name="p_regular_price" />
                     </div>
 
                     <div class="col-12 col-lg-6">
                       <h5 class="mb-2 text-body-highlight">Sale price</h5>
-                      <input class="form-control" type="text" placeholder="$400" name="p_sale_price" required/>
+                      <input class="form-control" type="text" placeholder="$400" name="p_sale_price" />
                     </div>
 
                     <div class="col-12 col-lg-6">
                       <h5 class="mb-2 text-body-highlight">Purchase price</h5>
-                      <input class="form-control" type="text" placeholder="$200" name="p_purchase_price" required/>
+                      <input class="form-control" type="text" placeholder="$200" name="p_purchase_price" />
                     </div>
 
                   </div>
@@ -297,7 +297,7 @@
                     <div class="flex-1">
                         
                       <div class="mb-4">
-                        <select class="form-select" aria-label="brand" name="shipping_type" required>
+                        <select class="form-select" aria-label="brand" name="shipping_type" >
                             <option value="">Select</option>
                             <option value="free">Free</option>
                             <option value="with pay">With Pay</option>
@@ -306,7 +306,7 @@
                      
                       <div class="mb-4">
                         <h5 class="mb-2 text-body-highlight">Shipping Cost</h5>
-                        <input class="form-control" type="text" placeholder="$200" name="shipping_cost" required/>
+                        <input class="form-control" type="text" placeholder="$200" name="shipping_cost" />
                       </div>
 
                     </div>
@@ -453,11 +453,14 @@
                             </div>
                             
   
-                           
+                         
                             <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-2">
                               <div class="mb-3">Select Images</div>
-                              <input class="form-control" type="file" placeholder="" name="attribute_images[]" multiple />
+                              <input class="form-control" type="file" placeholder="" name="variant_images[]" id="variants" multiple  onclick="imgV(this)"/>
                             </div>
+
+                            <input class="form-control" type="hidden" placeholder="" id="variantGroup" name="variant_group[]" />
+
 
                             <div class="col-12 col-md-6 col-lg-6 col-xl-6">
                               <div class="mb-3">Regular Price</div>
@@ -525,7 +528,7 @@
                         
                         <div class="col-12">
                             <div class="mb-3">Parent</div>
-                              <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="parent_category_id" required>
+                              <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="parent_category_id" >
                                 <option selected value="0">Select Parent</option>
                                 @foreach ($parent_cate as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -676,23 +679,29 @@
   });
 }
 
+
+
+
+
 function addVariant() {
+
     let wrapper = document.querySelector('.container-variant-wrapper');
     let firstChild = document.querySelector('.container-variant');
     let newVariant = firstChild.cloneNode(true);
-    
-    // Reset form values in the cloned variant
-    newVariant.querySelectorAll('input, select, textarea').forEach(input => {
+
+// Reset form values in the cloned variant
+newVariant.querySelectorAll('input, select, textarea').forEach(input => {
         if (input.type ==='file') {
           input.value = '';
         } else {
           input.value = '';
         }
-      });
+});
 
     wrapper.appendChild(newVariant);
+
     let remove_variants= document.querySelectorAll('.remove_variant'); 
-    console.log(remove_variants);
+    // console.log(remove_variants);
 
     remove_variants.forEach(button=>{
 
@@ -703,6 +712,42 @@ function addVariant() {
       });
 
     }
+
+
+let parentArr = [];
+
+function imgV(tag) {
+    let arr = [];
+    tag.addEventListener('change', function() {
+        let files = tag.files;
+
+        if (files.length > 0) {
+            // Clear the previous contents of arr if needed
+            arr = [];
+
+            for (let file of files) {
+                arr.push(file.name);
+            }
+        } else {
+            console.log('No files selected.');
+        }
+
+        // Push a copy of arr into parentArr
+        parentArr.push([...arr]);
+
+        console.log(`Array: ${JSON.stringify(parentArr)}`);
+
+        // id="variantGroup" name="variant_group[]"
+
+
+        let group = document.querySelector('#variantGroup');
+        group.setAttribute('value', JSON.stringify(parentArr));
+
+    });
+}
+
+
+    // Output: Array: [[apparel.jpg,fashion.jpg], [clothing.jpg,dress.jpg] ]
 
     function addReview() {
     let wrapper = document.querySelector('.container-review-wrapper');
@@ -732,6 +777,29 @@ function addVariant() {
     }
 </script>  
 
+
+<script>
+        let fileInputs = document.querySelectorAll('.selectedImages'); 
+        console.log(fileInputs);
+        
+        fileInputs.forEach(fileInput=>{
+            fileInput.addEventListener('change', function() {
+                        // Get the files from the input
+                        const files = fileInput.files;
+
+                        // Check if any files are selected
+                        if (files.length > 0) {
+                            console.log(`Selected files:`);
+                            // Loop through the FileList and log file names
+                            for (const file of files) {
+                                console.log(`${file.name}`);
+                            }
+                        } else {
+                            console.log('No files selected.');
+                        }
+                    });
+        });
+</script>
 @endsection
 
 

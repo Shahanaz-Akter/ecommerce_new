@@ -9,7 +9,7 @@ class ImageFiles extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['original_name', 'absolute_path', 'date', 'file_size', 'extension', 'is_images', 'product_id', 'is_variation'];
+    protected $fillable = ['original_name', 'absolute_path', 'date', 'file_size', 'extension', 'is_images', 'product_id', 'is_variation', 'variant_id'];
 
 
     public function user(){

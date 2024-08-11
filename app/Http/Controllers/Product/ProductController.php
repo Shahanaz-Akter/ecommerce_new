@@ -66,7 +66,7 @@ class ProductController extends Controller
 
         $all = $request->all();
         // dd($all);
-       
+
         // $validData=  $request->validate([
         //     'name' => 'required|string|max:255',
         //     'total_qty' => 'required|integer',
@@ -87,12 +87,12 @@ class ProductController extends Controller
         //     'tags.required' => 'Tags are required.',
         //     'product_images.required' => 'Product Images are required.',
         // ]);
-        
+
         try {
 
             DB::beginTransaction();
 
-            $variant = new Variant();
+
 
             // product value stored
             $product = new Product();
@@ -179,7 +179,6 @@ class ProductController extends Controller
                 $price->save();
             }
 
-            $review = new Review();
             // review value stored
             $reviewNames = $request->review_name ?? [];
             $ratings = $request->review_rating ?? [];
@@ -227,7 +226,6 @@ class ProductController extends Controller
             // dd("Type Of: ", gettype($maxLength));
 
             for ($j = 0; $j < $maxLength; $j++) {
-
                 $isReviewProvided = $reviewNames[$j] || $ratings[$j] || $hearts[$j] ||
                     $statuses[$j] || $comments[$j] || $thumps_ups[$j] ||
                     isset($reviews_img_arr[$j]);
@@ -235,6 +233,7 @@ class ProductController extends Controller
                 if (!$isReviewProvided) {
                     continue; // Skip saving if no review data is provided
                 } else {
+                    $review = new Review();
                     $review->name = strtolower($reviewNames[$j]) ?? null;
                     $review->rating = $ratings[$j] ?? null;
                     $review->heart = $hearts[$j] ?? null;
@@ -252,60 +251,10 @@ class ProductController extends Controller
                     $review->save();
                 }
             }
+            // end reviews
 
-            // dd('review');
-            // variations stored model
-            $variant_images = $request->file('attribute_images');
 
-            $variations_img_arr = [];
-
-            if ($variant_images != null && count($variant_images) > 0) {
-
-                foreach ($variant_images as $image) {
-
-                    $isFirstImage = true;
-
-                    $originalName = $image->getClientOriginalName();
-                    $extension = $image->getClientOriginalExtension();
-                    $uniqueName = uniqid() . '.' . $extension;
-                    $fileSizeInBytes = $image->getSize();
-                    $file_size = $this->humanReadableFileSize($fileSizeInBytes);
-                    $relativePath = '/uploads/' . $uniqueName;
-
-                    $image->move(public_path('uploads'), $uniqueName);
-
-                    if ($isFirstImage) {
-                        $image_model =  new ImageFiles();
-                        $image_model->original_name = $originalName;
-                        $image_model->absolute_path = $relativePath;
-                        $image_model->extension = $extension;
-                        $image_model->file_size = $file_size;
-
-                        $image_model->is_variation = 1;
-                        $image_model->is_images = 0;
-
-                        $image_model->product_id = $product->id;
-                        $image_model->save();
-
-                        $isFirstImage = false;
-
-                        $variations_img_arr[] = $image_model->id;
-                    } else {
-                        $image_model =  new ImageFiles();
-                        $image_model->original_name = $originalName;
-                        $image_model->absolute_path = $relativePath;
-                        $image_model->extension = $extension;
-                        $image_model->file_size = $file_size;
-
-                        $image_model->is_variation = 1;
-                        $image_model->is_images = 1;
-                        $image_model->product_id = $product->id;
-                        $image_model->save();
-                        $variations_img_arr[] = $image_model->id;
-                    }
-                }
-            }
-
+            // start variations stored model
             $attribute_ids = $request->attribute_ids ?? [];
             $attribute_values = $request->attribute_values ?? [];
             $attribute_quantities = $request->attribute_quantities ?? [];
@@ -316,25 +265,86 @@ class ProductController extends Controller
                 count($attribute_quantities),
             );
 
-            // if (count($attribute_ids) > 0  && count($attribute_ids) === count($attribute_values) && count($attribute_values) === count($attribute_quantities)) {
+
+            // Variation image storing
+            $variant_images = $request->file('variant_images');
+
+            $variant_group_array = $request->variant_group;
+            //  outout: 0 => "[["fashion.jpg"],["dress.jpg","fashion.jpg"],["dress.jpg","fashion.jpg"],["oill.jpg","perfume.jpg"],["lipstick.jpg"]]"
+            //1 => null
+            dd($variant_group_array);
+
+            $variantsArr = [];
+
             for ($k = 0; $k < $maxVariation; $k++) {
-                $isAvaialbeVariationData = $attribute_ids[$k] || $attribute_values[$k] || $attribute_quantities[$k];
+
+                $isAvaialbeVariationData = $attribute_ids[$k] || $attribute_values[$k] || $attribute_quantities[$k] ||  $variant_images[$k];
 
                 if ($isAvaialbeVariationData) {
+
+                    $variant = new Variant();
                     $variant->attribute_id = $attribute_ids[$k];
                     $variant->attribute_value = $attribute_values[$k];
                     $variant->quantity = $attribute_quantities[$k];
-
-                    if (isset($variations_img_arr[$k])) {
-                        $variant->image_id = $variations_img_arr[$k];
-                    } else {
-                        $variant->image_id = null;
-                    }
-
                     $variant->product_id = $product->id;
                     $variant->save();
+
+                    $variantsArr = $variant->id;
+
+                    if ($variant_group_array != null && count($variant_group_array) > 0) {
+
+                        for ($p = 0; $p < count($variant_group_array); $p++) {
+
+                            for ($t = 0; $t < count($variant_group_array[$t]); $t++) {
+
+                                $isFirstImage = true;
+
+                                $originalName = $variant_group_array[$t]->getClientOriginalName();
+                                $extension = $variant_group_array[$t]->getClientOriginalExtension();
+                                $uniqueName = uniqid() . '.' . $extension;
+                                $fileSizeInBytes = $variant_group_array[$t]->getSize();
+                                $file_size = $this->humanReadableFileSize($fileSizeInBytes);
+                                $relativePath = '/uploads/' .  $uniqueName;
+
+                                $image->move(public_path('uploads'), $uniqueName);
+                                
+                                if ($isFirstImage) {
+                                    $image_model =  new ImageFiles();
+                                    $image_model->original_name = $originalName;
+                                    $image_model->absolute_path = $relativePath;
+                                    $image_model->extension = $extension;
+                                    $image_model->file_size = $file_size;
+
+                                    $image_model->is_variation = 1;
+                                    $image_model->is_images = 0;
+
+                                    $image_model->product_id = $product->id;
+                                    $image_model->variant_id = $variant->id;
+
+                                    $image_model->save();
+
+                                    $isFirstImage = false;
+                                    
+                                } else {
+                                    $image_model =  new ImageFiles();
+                                    $image_model->original_name = $originalName;
+                                    $image_model->absolute_path = $relativePath;
+                                    $image_model->extension = $extension;
+                                    $image_model->file_size = $file_size;
+
+                                    $image_model->is_variation = 1;
+                                    $image_model->is_images = 1;
+                                    $image_model->product_id = $product->id;
+                                    $image_model->save();
+                                }
+                            }
+                        }
+                    }
                 }
             }
+
+            // end variantions
+
 
             // price data stored for variation products
             $attribute_purchase_prices = $request->attribute_Purchase_prices ?? [];
@@ -342,7 +352,6 @@ class ProductController extends Controller
             $attribute_sale_prices = $request->attribute_sale_prices ?? [];
 
             // dd($attribute_purchase_prices);
-
             $maxPrice = max(
                 count($attribute_purchase_prices),
                 count($attribute_regular_prices),
@@ -366,13 +375,10 @@ class ProductController extends Controller
 
                     $price1->unit_id = $request->unit_id;
                     $price1->product_id = $product->id;
-                    $price1->variation_id = $variant->id;
+                    $price1->variation_id = $variantsArr[$l];
                     $price1->save();
                 }
             }
-
-            // dd('ddd');
-
 
             DB::commit();
 
