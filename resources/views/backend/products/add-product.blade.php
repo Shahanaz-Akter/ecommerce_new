@@ -460,6 +460,7 @@
                             </div>
 
                             <input class="form-control" type="hidden" placeholder="" id="variantGroup" name="variant_group[]" />
+                            <input class="form-control" type="hidden" placeholder="" id="imageInput" name="imageFiles[]" />
 
 
                             <div class="col-12 col-md-6 col-lg-6 col-xl-6">
@@ -679,10 +680,6 @@
   });
 }
 
-
-
-
-
 function addVariant() {
 
     let wrapper = document.querySelector('.container-variant-wrapper');
@@ -713,41 +710,74 @@ newVariant.querySelectorAll('input, select, textarea').forEach(input => {
 
     }
 
-
+    
+ let imageFiles= [];
 let parentArr = [];
 
 function imgV(tag) {
-    let arr = [];
+   
     tag.addEventListener('change', function() {
+
         let files = tag.files;
+        console.log("List: " , files);
 
         if (files.length > 0) {
             // Clear the previous contents of arr if needed
             arr = [];
+            arr1 = [];
 
             for (let file of files) {
                 arr.push(file.name);
+
+                // arr1.push(file);
+                convertToBase64(file, (base64) => {
+                arr1.push({
+                    name: file.name,
+                    type: file.type,
+                    size: file.size,
+                    base64: base64
+                });
+
+            });
             }
-        } else {
+        }
+        else {
+
             console.log('No files selected.');
         }
 
-        // Push a copy of arr into parentArr
+        // Push a copy of arr and arr1 into parentArr
         parentArr.push([...arr]);
+        
+        imageFiles.push([...arr1]);
 
-        console.log(`Array: ${JSON.stringify(parentArr)}`);
-
-        // id="variantGroup" name="variant_group[]"
-
+        console.log( 'file Arr: ', imageFiles);
 
         let group = document.querySelector('#variantGroup');
         group.setAttribute('value', JSON.stringify(parentArr));
 
+        let inputFileImg = document.querySelector('#imageInput');
+        inputFileImg.setAttribute('value', JSON.stringify(imageFiles));
+
+
+        console.log(`Each File Name: ${JSON.stringify(parentArr)}`);
+ 
     });
+   
 }
 
+function convertToBase64(file, callback) {
+    let reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+        callback(reader.result);
+    };
+    reader.onerror = function (error) {
+        console.error('Error converting file to Base64:', error);
+    };
+}
 
-    // Output: Array: [[apparel.jpg,fashion.jpg], [clothing.jpg,dress.jpg] ]
+// Output: Array: [[apparel.jpg,fashion.jpg], [clothing.jpg,dress.jpg] ]
 
     function addReview() {
     let wrapper = document.querySelector('.container-review-wrapper');

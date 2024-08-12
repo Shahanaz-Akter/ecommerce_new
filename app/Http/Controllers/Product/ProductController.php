@@ -61,12 +61,8 @@ class ProductController extends Controller
     }
 
 
-    public function postProduct(Request $request)
+public function data()
     {
-
-        $all = $request->all();
-        // dd($all);
-
         // $validData=  $request->validate([
         //     'name' => 'required|string|max:255',
         //     'total_qty' => 'required|integer',
@@ -88,12 +84,229 @@ class ProductController extends Controller
         //     'product_images.required' => 'Product Images are required.',
         // ]);
 
+        // $variant_group_array = $request->variant_group;
+
+        // $variantsArr = [];
+
+        // for ($k = 0; $k < $maxVariation; $k++) {
+
+        //     $isAvaialbeVariationData = $attribute_ids[$k] || $attribute_values[$k] || $attribute_quantities[$k] ||  $variant_images[$k];
+
+        //     if ($isAvaialbeVariationData) {
+
+        //         $variant = new Variant();
+        //         $variant->attribute_id = $attribute_ids[$k];
+        //         $variant->attribute_value = $attribute_values[$k];
+        //         $variant->quantity = $attribute_quantities[$k];
+        //         $variant->product_id = $product->id;
+        //         $variant->save();
+
+        //         $variantsArr = $variant->id;
+
+        //         if ($variant_group_array != null && count($variant_group_array) > 0) {
+
+        //             for ($p = 0; $p < count($variant_group_array); $p++) {
+
+        //                 for ($t = 0; $t < count($variant_group_array[$t]); $t++) {
+
+        //                     $isFirstImage = true;
+
+        //                     $originalName = $variant_group_array[$t]->getClientOriginalName();
+        //                     $extension = $variant_group_array[$t]->getClientOriginalExtension();
+        //                     $uniqueName = uniqid() . '.' . $extension;
+        //                     $fileSizeInBytes = $variant_group_array[$t]->getSize();
+        //                     $file_size = $this->humanReadableFileSize($fileSizeInBytes);
+        //                     $relativePath = '/uploads/' .  $uniqueName;
+
+        //                     $image->move(public_path('uploads'), $uniqueName);
+
+        //                     if ($isFirstImage) {
+        //                         $image_model =  new ImageFiles();
+        //                         $image_model->original_name = $originalName;
+        //                         $image_model->absolute_path = $relativePath;
+        //                         $image_model->extension = $extension;
+        //                         $image_model->file_size = $file_size;
+
+        //                         $image_model->is_variation = 1;
+        //                         $image_model->is_images = 0;
+
+        //                         $image_model->product_id = $product->id;
+        //                         $image_model->variant_id = $variant->id;
+
+        //                         $image_model->save();
+
+        //                         $isFirstImage = false;
+        //                     } else {
+        //                         $image_model =  new ImageFiles();
+        //                         $image_model->original_name = $originalName;
+        //                         $image_model->absolute_path = $relativePath;
+        //                         $image_model->extension = $extension;
+        //                         $image_model->file_size = $file_size;
+
+        //                         $image_model->is_variation = 1;
+        //                         $image_model->is_images = 1;
+        //                         $image_model->product_id = $product->id;
+        //                         $image_model->save();
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+
+        // end variantions
+
+
+
+ //storing variation images
+            // dd('start');
+
+            // $variantImg = $request->variant_images;
+
+            // for ($k = 0; $k < $maxVariation; $k++) {
+
+            //     $isAvaialbeVariationData = $attribute_ids[$k] || $attribute_values[$k] || $attribute_quantities[$k] ||  $variantImg[$k];
+
+            //     if ($isAvaialbeVariationData) {
+
+            //         $variant = new Variant();
+            //         $variant->attribute_id = $attribute_ids[$k];
+            //         $variant->attribute_value = $attribute_values[$k];
+            //         $variant->quantity = $attribute_quantities[$k];
+            //         $variant->product_id = $product->id;
+            //         $variant->save();
+
+            //         // dd($variantImg[$i]);
+
+            //         if ($variantImg != null && count($variantImg) > 0) {
+
+            //             $originalName = $variantImg[$k];
+            //             $extension = $variantImg[$k]->getClientOriginalExtension();
+            //             $uniqueName = uniqid() . '.' . $extension;
+            //             $fileSizeInBytes = $variantImg[$k]->getSize();
+
+
+            //             $file_size = $this->humanReadableFileSize($fileSizeInBytes);
+            //             $relativePath = '/uploads/' . $uniqueName;
+
+            //             $variantImg[$k]->move(public_path('uploads'), $uniqueName);
+
+            //             $image_model =  new ImageFiles();
+            //             $image_model->original_name = $originalName;
+            //             $image_model->absolute_path = $relativePath;
+            //             $image_model->extension = $extension;
+            //             $image_model->file_size = $file_size;
+
+            //             $image_model->is_variation = 1;
+            //             $image_model->is_images = 0;
+
+            //             $image_model->product_id = $product->id;
+            //             $image_model->variant_id = $variant->id;
+            //             $image_model->save();
+            //         }
+            //     }
+            // }
+
+            // dd('end');
+            // end variations stored model
+
+        // $fileData = $request->variant_group; //variation images array here
+
+        // $Imagefiles = $request->filesInput; //variation images array here
+        // dd($Imagefiles);
+
+        // dd(json_decode($fileData));
+        // dd($fileData[0]);
+        // return json_decode($fileData[0]);
+
+        // $imgArr = json_decode($fileData[0], true);
+        // $TotalImg = count($imgArr);
+
+        // for ($k = 0; $k < $maxVariation; $k++) {
+
+        //     $isAvaialbeVariationData = $attribute_ids[$k] || $attribute_values[$k] || $attribute_quantities[$k] ||  $imgArr[$k];
+
+        //     if ($isAvaialbeVariationData) {
+
+        //         if ($imgArr != null && count($imgArr) > 0) {
+
+
+        //             for ($i = 0; $i < $TotalImg; $i++) {
+        //                 // dd(count($imgArr[$i]));
+
+        //                 $variant = new Variant();
+        //                 $variant->attribute_id = $attribute_ids[$k];
+        //                 $variant->attribute_value = $attribute_values[$k];
+        //                 $variant->quantity = $attribute_quantities[$k];
+        //                 $variant->product_id = $product->id;
+        //                 $variant->save();
+
+
+        //                 for ($t = 0; $t < count($imgArr[$i]); $t++) {
+
+        //                     // dd($imgArr[$i][$t]);
+
+        //                     $originalName = $imgArr[$i][$t];
+        //                     // $extension = $imgArr[$i][$t]->getClientOriginalExtension();
+        //                     $extension =  pathinfo($originalName, PATHINFO_EXTENSION);
+        //                     $uniqueName = uniqid() . '.' . $extension;
+        //                     // $fileSizeInBytes = $imgArr[$i][$t]->getSize();
+        //                     $fileSizeInBytes = 122;
+
+        //                     $file_size = $this->humanReadableFileSize($fileSizeInBytes);
+        //                     $relativePath = '/uploads/' . $uniqueName;
+
+        //                     $imgArr[$i][$t]->move(public_path('uploads'), $uniqueName);
+
+        //                     dd($fileSizeInBytes);
+        //                     $isImage = true;
+
+        //                     if ($isImage) {
+        //                         $image_model =  new ImageFiles();
+        //                         $image_model->original_name = $originalName;
+        //                         $image_model->absolute_path = $relativePath;
+        //                         $image_model->extension = $extension;
+        //                         $image_model->file_size = $file_size;
+
+        //                         // $image_model->is_images = 0;
+        //                         $image_model->is_images = 0;
+
+        //                         $image_model->product_id = $product->id;
+        //                         $image_model->variation_id = $variant->id;
+        //                         $image_model->save();
+        //                         $isImage = false;
+        //                     } else {
+
+        //                         $image_model =  new ImageFiles();
+        //                         $image_model->original_name = $originalName;
+        //                         $image_model->absolute_path = $relativePath;
+        //                         $image_model->extension = $extension;
+        //                         $image_model->file_size = $file_size;
+
+        //                         $image_model->is_images = 1;
+        //                         $image_model->product_id = $product->id;
+        //                         $image_model->variation_id = $variant->id;
+
+        //                         $image_model->save();
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
+        // end variation storing
+ }
+
+
+
+    public function postProduct(Request $request)
+    {
+
+        $all = $request->all();
+        // dd($all);
         try {
 
             DB::beginTransaction();
-
-
-
             // product value stored
             $product = new Product();
             $product->name = $request->product_name;
@@ -223,8 +436,6 @@ class ProductController extends Controller
                 count($reviews_img_arr),
             );
 
-            // dd("Type Of: ", gettype($maxLength));
-
             for ($j = 0; $j < $maxLength; $j++) {
                 $isReviewProvided = $reviewNames[$j] || $ratings[$j] || $hearts[$j] ||
                     $statuses[$j] || $comments[$j] || $thumps_ups[$j] ||
@@ -265,76 +476,84 @@ class ProductController extends Controller
                 count($attribute_quantities),
             );
 
+            // start  variation storing
+            $fileData = $request->variant_group; 
 
-            // Variation image storing
-            $variant_images = $request->file('variant_images');
+           $Files = $request->imageFiles;
+           dd($Files);
 
-            $variant_group_array = $request->variant_group;
-            //  outout: 0 => "[["fashion.jpg"],["dress.jpg","fashion.jpg"],["dress.jpg","fashion.jpg"],["oill.jpg","perfume.jpg"],["lipstick.jpg"]]"
-            //1 => null
-            dd($variant_group_array);
-
-            $variantsArr = [];
-
+            // dd(json_decode($fileData));
+            // dd($fileData[0]);
+            // return json_decode($fileData[0]);
+    
+            $imgArr = json_decode($fileData[0], true);
+            $TotalImg = count($imgArr);
+    
             for ($k = 0; $k < $maxVariation; $k++) {
-
-                $isAvaialbeVariationData = $attribute_ids[$k] || $attribute_values[$k] || $attribute_quantities[$k] ||  $variant_images[$k];
-
+    
+                $isAvaialbeVariationData = $attribute_ids[$k] || $attribute_values[$k] || $attribute_quantities[$k] ||  $imgArr[$k];
+    
                 if ($isAvaialbeVariationData) {
-
-                    $variant = new Variant();
-                    $variant->attribute_id = $attribute_ids[$k];
-                    $variant->attribute_value = $attribute_values[$k];
-                    $variant->quantity = $attribute_quantities[$k];
-                    $variant->product_id = $product->id;
-                    $variant->save();
-
-                    $variantsArr = $variant->id;
-
-                    if ($variant_group_array != null && count($variant_group_array) > 0) {
-
-                        for ($p = 0; $p < count($variant_group_array); $p++) {
-
-                            for ($t = 0; $t < count($variant_group_array[$t]); $t++) {
-
-                                $isFirstImage = true;
-
-                                $originalName = $variant_group_array[$t]->getClientOriginalName();
-                                $extension = $variant_group_array[$t]->getClientOriginalExtension();
+    
+                    if ($imgArr != null && count($imgArr) > 0) {
+    
+    
+                        for ($i = 0; $i < $TotalImg; $i++) {
+                            // dd(count($imgArr[$i]));
+    
+                            $variant = new Variant();
+                            $variant->attribute_id = $attribute_ids[$k];
+                            $variant->attribute_value = $attribute_values[$k];
+                            $variant->quantity = $attribute_quantities[$k];
+                            $variant->product_id = $product->id;
+                            $variant->save();
+    
+    
+                            for ($t = 0; $t < count($imgArr[$i]); $t++) {
+    
+                                // dd($imgArr[$i][$t]);
+    
+                                $originalName = $imgArr[$i][$t];
+                                // $extension = $imgArr[$i][$t]->getClientOriginalExtension();
+                                $extension =  pathinfo($originalName, PATHINFO_EXTENSION);
                                 $uniqueName = uniqid() . '.' . $extension;
-                                $fileSizeInBytes = $variant_group_array[$t]->getSize();
+                                // $fileSizeInBytes = $imgArr[$i][$t]->getSize();
+                                $fileSizeInBytes = 122;
+    
                                 $file_size = $this->humanReadableFileSize($fileSizeInBytes);
-                                $relativePath = '/uploads/' .  $uniqueName;
-
-                                $image->move(public_path('uploads'), $uniqueName);
-                                
-                                if ($isFirstImage) {
+                                $relativePath = '/uploads/' . $uniqueName;
+    
+                                $imgArr[$i][$t]->move(public_path('uploads'), $uniqueName);
+    
+                                dd($fileSizeInBytes);
+                                $isImage = true;
+    
+                                if ($isImage) {
                                     $image_model =  new ImageFiles();
                                     $image_model->original_name = $originalName;
                                     $image_model->absolute_path = $relativePath;
                                     $image_model->extension = $extension;
                                     $image_model->file_size = $file_size;
-
-                                    $image_model->is_variation = 1;
+    
+                                    // $image_model->is_images = 0;
                                     $image_model->is_images = 0;
-
+    
                                     $image_model->product_id = $product->id;
-                                    $image_model->variant_id = $variant->id;
-
+                                    $image_model->variation_id = $variant->id;
                                     $image_model->save();
-
-                                    $isFirstImage = false;
-                                    
+                                    $isImage = false;
                                 } else {
+    
                                     $image_model =  new ImageFiles();
                                     $image_model->original_name = $originalName;
                                     $image_model->absolute_path = $relativePath;
                                     $image_model->extension = $extension;
                                     $image_model->file_size = $file_size;
-
-                                    $image_model->is_variation = 1;
+    
                                     $image_model->is_images = 1;
                                     $image_model->product_id = $product->id;
+                                    $image_model->variation_id = $variant->id;
+    
                                     $image_model->save();
                                 }
                             }
@@ -342,8 +561,7 @@ class ProductController extends Controller
                     }
                 }
             }
-
-            // end variantions
+            // end variation storing
 
 
             // price data stored for variation products
@@ -385,6 +603,7 @@ class ProductController extends Controller
             // return redirect()->route('products')->with(['success'=>'Successfully saved Product']);
             return redirect()->back();
         } catch (Exception $ex) {
+
             // Rollback transaction in case of an error
             DB::rollBack();
 
@@ -394,6 +613,9 @@ class ProductController extends Controller
             ], 500);
         }
     }
+
+
+
 
     private function humanReadableFileSize($size, $precision = 2)
     {
