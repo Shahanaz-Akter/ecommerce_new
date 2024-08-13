@@ -70,7 +70,7 @@ class SettingController extends Controller
                 $brand_id = $image_model->id;
 
                 $brand = new Brand();
-                $brand->name = $request->strtolower($request->brand);
+                $brand->name = strtolower($request->brand);
                 $brand->description = $request->description;
                 $brand->brand_image_id = $brand_id;
                 $brand->save();
@@ -90,6 +90,64 @@ class SettingController extends Controller
             ], 500);
         }
     }
+
+    public function postBrand1(Request $request)
+    {
+        $all = $request->all();
+        // dd($all);
+        $brand_img = $request->file('brand_img');
+
+        $brand_id = null;
+
+        try {
+            // Start transaction
+            DB::beginTransaction();
+
+            if ($brand_img != null) {
+                $originalName = $brand_img->getClientOriginalName();
+                $extension = $brand_img->getClientOriginalExtension();
+                $uniqueName = uniqid() . '.' . $extension;
+                $fileSizeInBytes = $brand_img->getSize();
+                $file_size = $this->humanReadableFileSize($fileSizeInBytes);
+                $relativePath = '/uploads/' . $uniqueName;
+                // Move the uploaded file to the uploads directory
+                $brand_img->move(public_path('uploads'), $uniqueName);
+
+
+                $date = Carbon::now()->format('Y-m-d H:i:s');
+
+                $image_model =  new ImageFiles();
+                $image_model->original_name = $originalName;
+                $image_model->absolute_path = $relativePath;
+                $image_model->date = $date;
+                $image_model->extension = $extension;
+                $image_model->file_size = $file_size;
+                $image_model->save();
+
+                $brand_id = $image_model->id;
+
+                $brand = new Brand();
+                $brand->name = strtolower($request->brand);
+                $brand->description = $request->description;
+                $brand->brand_image_id = $brand_id;
+                $brand->save();
+
+                // Commit transaction
+                DB::commit();
+
+                return response()->json($brand);
+            }
+        } catch (Exception $ex) {
+            // Rollback transaction in case of an error
+            DB::rollBack();
+
+            return response([
+                'Failure' => 'Internal server Error',
+                'error' => $ex->getMessage(),
+            ], 500);
+        }
+    }
+           
 
     private function humanReadableFileSize($size, $precision = 2)
     {
@@ -194,7 +252,35 @@ class SettingController extends Controller
             ], 500);
         }
     }
+    public function postUnit1(Request $request)
+    {
+        $all = $request->all();
+        // dd($all);
+        try {
+            // Start transaction
+            DB::beginTransaction();
 
+            $unit = new Unit();
+            $unit->unit_type = strtolower($request->unit_type);
+            $unit->base_unit_name = strtolower($request->base_unit_name);
+            $unit->symbol = strtoupper($request->symbol);
+            $unit->unit_conversion = $request->unit_conversion;
+            $unit->save();
+
+            // Commit transaction
+            DB::commit();
+
+            return response()->json($unit);
+        } catch (Exception $ex) {
+            // Rollback transaction in case of an error
+            DB::rollBack();
+
+            return response([
+                'Failure' => 'Internal server Error',
+                'error' => $ex->getMessage(),
+            ], 500);
+        }
+    }
 
     public function attributes()
     {
@@ -224,6 +310,35 @@ class SettingController extends Controller
             DB::commit();
 
             return redirect()->route('attributes')->with('success', 'Successfully Saved Attribute!');
+        } catch (Exception $ex) {
+            // Rollback transaction in case of an error
+            DB::rollBack();
+
+            return response([
+                'Failure' => 'Internal server Error',
+                'error' => $ex->getMessage(),
+            ], 500);
+        }
+    }
+
+    public function postAttribute1(Request $request)
+    {
+        $all = $request->all();
+        // dd($all);
+        try {
+            // Start transaction
+            DB::beginTransaction();
+
+            $attribute = new Attribute();
+            $attribute->attribute_name = $request->attribute;
+            $attribute->slug = $request->slug;
+            $attribute->save();
+
+            // Commit transaction
+            DB::commit();
+
+            return response()->json($attribute);
+            
         } catch (Exception $ex) {
             // Rollback transaction in case of an error
             DB::rollBack();
@@ -288,6 +403,16 @@ class SettingController extends Controller
         $vendor->save();
 
         return redirect()->back();
+    }
+
+    public function postVendor1(Request $request)
+    {
+        $vendor = new Vendor();
+        $vendor->name = strtolower($request->vendor);
+        $vendor->description = $request->description;
+        $vendor->save();
+
+        return response()->json( $vendor );
     }
 
     public function categories()
@@ -364,6 +489,71 @@ class SettingController extends Controller
             ], 500);
         }
 
-        $category = new Category();
+       
     }
+
+    public function postCategory1(Request $request)
+    {
+
+        $all = $request->all();
+        try {
+
+            // dd($all );
+            $image_id = null;
+            $category_image = $request->file('category_image');
+
+            // Start transaction
+            DB::beginTransaction();
+
+            if ($category_image != null) {
+
+                $originalName = $category_image->getClientOriginalName();
+                $extension = $category_image->getClientOriginalExtension();
+                $uniqueName = uniqid() . '.' . $extension;
+                $fileSizeInBytes = $category_image->getSize();
+                $file_size = $this->humanReadableFileSize($fileSizeInBytes);
+                $relativePath = '/uploads/' . $uniqueName;
+                // Move the uploaded file to the uploads directory
+                $category_image->move(public_path('uploads'), $uniqueName);
+
+                $date = Carbon::now()->format('Y-m-d H:i:s');
+
+                $image_model =  new ImageFiles();
+                $image_model->original_name = $originalName;
+                $image_model->absolute_path = $relativePath;
+                $image_model->date = $date;
+                $image_model->extension = $extension;
+                $image_model->file_size = $file_size;
+                $image_model->save();
+
+                $image_id = $image_model->id;
+            }
+
+            $category = new Category();
+            $category->name = strtolower($request->category);
+            $category->parent_category_id = $request->parent_category;
+            $category->category_level = rand(0, 100);
+            $category->category_image_id = $image_id;
+            $category->save();
+
+            // dd( $category );
+            // Commit transaction
+            DB::commit();
+
+            //  return redirect()->route('categories')->with('success', 'Successfully Saved Category!');
+            return response()->json($category);
+
+        } catch (Exception $ex) {
+            // Rollback transaction in case of an error
+            DB::rollBack();
+
+            return response([
+                'Failure' => 'Internal server Error',
+                'error' => $ex->getMessage(),
+            ], 500);
+        }
+
+       
+    }
+    
 }

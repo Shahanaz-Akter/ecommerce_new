@@ -57,7 +57,6 @@ class RoleController extends Controller
             // return redirect()->back()->with(['rols'=> $roles, 'permissionss'=> $permissions]);
 
             return redirect()->route('roles')->with('role_msg', "Successflly Role has been saved!");
-            
         } catch (Exception $error) {
 
             DB::rollBack();
@@ -95,8 +94,6 @@ class RoleController extends Controller
         if ($permissions) {
             // return redirect()->route('users')->with('success', 'Successfully Associated Role and User User!');
             return redirect()->route('role.permission')->with('success', 'Successfully Associated Role and User User!');
-
-
         }
         // dd($permissions);
     }
@@ -104,9 +101,17 @@ class RoleController extends Controller
     public function permissionList()
     {
         $roles =  Role::get();
-        
+
         // dd($roles, $permissions );
         return view('backend.permission.permission-list', compact('roles', 'permissions'));
     }
- 
+
+
+    public function rolewisePermissionIndex()
+    {
+        $roles =  Role::with('permissions')->get();
+        // return  $roles;
+
+        return view('backend.permission.rolewise-permission', compact('roles'));
+    }
 }

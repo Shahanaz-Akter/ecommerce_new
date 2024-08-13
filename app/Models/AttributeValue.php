@@ -17,4 +17,10 @@ class AttributeValue extends Model
         return $this->belongsTo(Attribute::class);
 
     }
+
+
+    function variant()
+    {
+        return $this->hasOne(Variant::class);
+    }
 }

@@ -79,13 +79,21 @@
                               </a>
                               <!-- more inner pages-->
                             </li>
+
                             <li class="nav-item"><a class="nav-link" href="{{ route('role.permission') }}">
-                                <div class="d-flex align-items-center"><span class="nav-link-text">Role Permission</span>
+                                <div class="d-flex align-items-center"><span class="nav-link-text">Permission Association</span>
                                 </div>
                               </a>
                               <!-- more inner pages-->
                             </li>
-                           
+
+                            <li class="nav-item"><a class="nav-link" href="{{ route('rolewise.permission') }}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text">Permissions</span>
+                                </div>
+                              </a>
+                              <!-- more inner pages-->
+                            </li>
+
                           </ul>
 
                         </div>
@@ -115,6 +123,13 @@
                               </a>
                               <!-- more inner pages-->
                             </li>
+                            <li class="nav-item"><a class="nav-link" href="{{ route('variant.list') }}">
+                                <div class="d-flex align-items-center"><span class="nav-link-text">Variant List</span>
+                                </div>
+                              </a>
+                              <!-- more inner pages-->
+                            </li>
+
                           </ul>
 
                         </div>

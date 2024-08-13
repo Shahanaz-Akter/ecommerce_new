@@ -89,9 +89,10 @@ Route::middleware(['auth_user'])->group(function () {
         Route::post('post-role', [RoleController::class, 'postRole'])->name('post.role');
         Route::get('permission-list/{id}', [RoleController::class, 'permissionList'])->name('permission.list');
 
-
         Route::get('role-permission-index', [RoleController::class, 'rolePermissionIndex'])->name('role.permission');
         Route::post('post-role-permission-index', [RoleController::class, 'postRolePermissionIndex'])->name('post.role.permission');
+        Route::get('rolewise-permission-index', [RoleController::class, 'rolewisePermissionIndex'])->name('rolewise.permission');
+
     });
 
     // supplier routes
@@ -111,6 +112,7 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('brands', [SettingController::class, 'brands'])->name('brands');
         Route::get('add-brand', [SettingController::class, 'addBrand'])->name('add.brand');
         Route::post('post-brand', [SettingController::class, 'postBrand'])->name('post.brand');
+        Route::post('post-brand1', [SettingController::class, 'postBrand1'])->name('post.brand1');
     });
 
     // unit routes
@@ -119,6 +121,7 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('units', [SettingController::class, 'units'])->name('units');
         Route::get('add-unit', [SettingController::class, 'addUnit'])->name('add.unit');
         Route::post('post-unit', [SettingController::class, 'postUnit'])->name('post.unit');
+        Route::post('post-unit1', [SettingController::class, 'postUnit1'])->name('post.unit1');
     });
 
     // attribute routes
@@ -127,6 +130,7 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('attributes', [SettingController::class, 'attributes'])->name('attributes');
         Route::get('add-attribute', [SettingController::class, 'addAttribute'])->name('add.attribute');
         Route::post('post-attribute', [SettingController::class, 'postAttribute'])->name('post.attribute');
+        Route::post('post-attribute1', [SettingController::class, 'postAttribute1'])->name('post.attribute1');
 
         Route::get('set-attribute-value/{value}', [SettingController::class, 'setAttributeValue'])->name('set.attribute.value');
 
@@ -142,6 +146,7 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('categories', [SettingController::class, 'categories'])->name('categories');
         Route::get('add-category', [SettingController::class, 'addCategory'])->name('add.category');
         Route::post('post-category', [SettingController::class, 'postCategory'])->name('post.category');
+        Route::post('post-category1', [SettingController::class, 'postCategory1'])->name('post.category1');
     });
 
     // color routes
@@ -162,16 +167,24 @@ Route::middleware(['auth_user'])->group(function () {
             Route::get('customers', [SettingController::class, 'customers'])->name('customers');
     });
 
+
     // product routes
     Route::group(['prefix' => 'product'], function () {
         Route::get('products', [ProductController::class, 'products'])->name('products');
         Route::get('add-product', [ProductController::class, 'addProduct'])->name('add.product');
         Route::post('post-add-product', [ProductController::class, 'postProduct'])->name('post.product');
+
+        Route::get('variant-list', [ProductController::class, 'variantList'])->name('variant.list');
+
+        Route::get('variant-image/{variant_id}/{product_id}', [ProductController::class, 'variantImage'])->name('add.image');
+        Route::post('post-variant-image/{variant_id}/{product_id}', [ProductController::class, 'postImage'])->name('post.variant.Image');
+
     });
 
     // product routes
     Route::group(['prefix' => 'vendor'], function () {
         Route::post('post-add-vendor', [SettingController::class, 'postVendor'])->name('post.vendor');
+        Route::post('post-add-vendor1', [SettingController::class, 'postVendor1'])->name('post.vendor1');
     });
 });
 

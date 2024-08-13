@@ -1,34 +1,22 @@
-
 @extends('backend.layouts.master_page')
-
+@section('title')
+<title>Product Variants</title>
+@endsection
 @section('content')
 
+
 <div class="content">
-
-    
-
-    @if(session('role_msg'))
-    <div class="alert alert-primary">
-            {{ session('role_msg') }}
-    </div>
-    @endif
-
     <nav class="mb-2" aria-label="breadcrumb">
       <ol class="breadcrumb mb-0">
-        <li class="breadcrumb-item"><a href="#!">Role</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('roles') }}">Roles</a></li>
+        <li class="breadcrumb-item"><a href="#!">Product</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('products') }}">Products</a></li>
         {{-- <li class="breadcrumb-item active">Default</li> --}}
       </ol>
     </nav>
     <div class="mb-9">
       <div class="row g-3 mb-4">
         <div class="col-auto">
-          <h2 class="mb-2"></h2>
-          <h5 class="text-body-tertiary fw-semibold">List of Roles</h5>
-        </div>
-        <div class="col-auto">
-          <h2 class="mb-0"></h2>
-          
+          <div class="mb-0">Variants</div>
         </div>
       </div>
       <ul class="nav nav-links mb-3 mb-lg-2 mx-n3">
@@ -47,10 +35,7 @@
             </div>
 
             
-            <div class="ms-xxl-auto">
-              <button class="btn btn-link text-body me-4 px-0"><span class="fa-solid fa-file-export fs-9 me-2"></span>Export</button>
-              <a href="{{ route('add.role') }}"> <button class="btn btn-primary" id="addBtn"><span class="fas fa-plus me-2"></span>Add Role</button></a> 
-            </div>
+          
           </div>
         </div>
 
@@ -60,24 +45,29 @@
 
               <thead>
                 <tr>
-                  <th class="white-space-nowrap fs-9 align-middle ps-0" style="max-width:20px; width:18px;">
-                    <div class="form-check mb-0 fs-8">
-                      <input class="form-check-input" id="checkbox-bulk-products-select" type="checkbox" data-bulk-select='{"body":"products-table-body"}' />
-                    </div>
-                  </th>
-                  <th class="sort white-space-nowrap align-middle fs-10" scope="col" style="width:70px;"></th>
-                
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Name</th>
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Description</th>
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Date</th>
-                  <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Actions</th>
-                </tr>
+                    <th class="white-space-nowrap fs-9 align-middle ps-0" style="max-width:20px; width:18px;">
+                        <div class="form-check mb-0 fs-8">
+                          <input class="form-check-input" id="checkbox-bulk-products-select" type="checkbox" data-bulk-select='{"body":"products-table-body"}' />
+                        </div>
+                      </th>
+                    {{-- <th class="sort white-space-nowrap align-middle fs-10" scope="col" style="width:70px;">Image</th> --}}
+                    
+                    <th class="sort align-middle  white-space-nowrap ps-4" scope="col" data-sort="attribute_name">Attribute Name</th>
+                    <th class="sort align-middle  white-space-nowrap ps-4" scope="col" data-sort="attribute_value">Attribute Value</th>
+                    <th class="sort align-middle  white-space-nowrap ps-4" scope="col" data-sort="qty">Quantity</th>
+                    <th class="sort align-middle  white-space-nowrap ps-4" scope="col" data-sort="product_name">Product Name</th>
+                    <th class="sort align-middle  white-space-nowrap ps-4" scope="col" data-sort="date">Actions</th>
+                  </tr>
+                  {{-- <th class="sort white-space-nowrap align-middle ps-4" scope="col" style="width:350px;" data-sort="product">Name</th> --}}
+
+
               </thead>
 
-              <tbody class="list" id="products-table-body">
+            
+         <tbody class="list" id="products-table-body">
 
+            @foreach ($variants as $variant)
 
-            @foreach ($roles as $role)
                 <tr class="position-static">
 
                     <td class="fs-9 align-middle">
@@ -86,43 +76,79 @@
                       </div>
                     </td>
   
-                    <td class="align-middle white-space-nowrap py-0"><a class="d-block border border-translucent rounded-2" href="../../../apps/e-commerce/landing/product-details.html"><img src="../../../assets/img//products/2.png" alt="" width="53" /></a>
-                  </td>
-
-                <td class="product align-middle ps-4">
+                    {{-- <td class="align-middle white-space-nowrap py-0"><a class="d-block border border-translucent rounded-2" href="../../../apps/e-commerce/landing/product-details.html"><img src="../../../assets/img//products/2.png" alt="" width="53" /></a>
+                  </td> --}}
+  
+                  <td class="product align-middle ps-4">
                     <a class="fw-semibold line-clamp-3 mb-0" href="../../../apps/e-commerce/landing/product-details.html">
-                       {{ $role->name }}            
+                       {{ $variant->attribute ? $variant->attribute->attribute_name : 'N/A '}}                       
                     </a>
                 </td>
-
-              <td class="product align-middle ps-4">
-                <a class="fw-semibold line-clamp-3 mb-0" href="../../../apps/e-commerce/landing/product-details.html">
-                {!! $role->description !!}            
-                </a>
-            </td> 
-            
+             
                 <td class="product align-middle ps-4">
-                  <a class="fw-semibold line-clamp-3 mb-0" href="../../../apps/e-commerce/landing/product-details.html">
-                     {{ $role->created_at }}            
-                  </a>
-                 </td>
+                    {{ $variant->attributeValue ? $variant->attributeValue->value : 'N/A' }} 
+                </td>
+                   
+                <td class="product align-middle ps-4">
+                    {{ $variant->quantity }} 
+                </td>
+                <td class="product align-middle ps-4">
+                    {{ $variant->product ? $variant->product->name : 'Null' }} 
+                </td>
+                       
+                <td class="product align-middle ps-4">
+                    <div class="btn-reveal-trigger position-static">
+                    <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs-10"></span></button>
 
-                    <td class="align-middle white-space-nowrap  ps-4 btn-reveal-trigger">
+                    <div class="dropdown-menu dropdown-menu-end py-2">
+                        <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#variantImg_{{$variant->id}}">Add Images</a>
+                        <a class="dropdown-item" href="">Edit</a>
+                        <a class="dropdown-item text-danger" href="">Remove</a>
+                    </div>
 
-                      <div class="btn-reveal-trigger position-static">
+                    </div>
+                </td>
+              </tr>
+
+              {{-- Variant Image --}}
+                <div class="modal fade" id="variantImg_{{$variant->id}}" tabindex="-1" aria-labelledby="scrollingLongModalLabel2" style="display: none;" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="scrollingLongModalLabel2">Attribute Information</h5>
+                        <button class="btn p-1" type="button" data-bs-dismiss="modal" aria-label="Close"><svg class="svg-inline--fa fa-xmark fs-9" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="xmark" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" data-fa-i2svg=""><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"></path></svg>
+                        <!-- <span class="fas fa-times fs-9"></span> Font Awesome fontawesome.com -->
+                    </button>
+                    </div>
+
+                    <form id="variantImageForm_{{ $variant->id }}" enctype="multipart/form-data">
+                        @csrf
+
+                    <div class="modal-body">
+                        <div>      
+                            <div class="row g-5">
+ 
+                                <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-2">
+                                    <div class="mb-3">Select Images</div>
+                                    <input class="form-control" type="file" placeholder="" name="imgs[]" id="imgs" multiple/>
+                                  </div>
+                            </div>    
+                        </div>
+                        </div>
                         
-                        <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs-10"></span></button>
-  
-                        <div class="dropdown-menu dropdown-menu-end py-2">
-                          <a class="dropdown-item" href="{{ route('permission.list', $role->id) }}">Permissions</a>
-                          <a class="dropdown-item" href="">Edit</a>
-                          <a class="dropdown-item text-danger" href="">Remove</a>
+                        <div class="modal-footer">
+                            {{-- <button class="btn btn-primary" type="submit">Submit</button> --}}
+                            <button type="button" class="btn btn-primary submitVariantImage" data-variant-id="{{ $variant->id }}" data-product-id="{{ $variant->product_id }}">Submit</button>
+
+                            <button class="btn btn-outline-primary" type="button" data-bs-dismiss="modal">Cancel</button>
                         </div>
 
-                      </div>
+                        </form>
 
-                    </td>
-              </tr>
+                    </div>
+                    </div>
+                </div>
+
              @endforeach
 
               </tbody>
@@ -294,6 +320,61 @@
     </div>
   </div>
 
-  
 
+  {{-- Image Adding using ajax request  --}}
+  @section('custom_js')
+
+  <script>
+  $(document).ready(function() {
+    
+    $('.submitVariantImage').on('click', function(e) {
+        e.preventDefault();
+        
+        let variantId = $(this).data('variant-id');
+        console.log(variantId);
+
+      let productId= $(this).data('product-id');
+        console.log(productId);
+
+        let form = $('#variantImageForm_' + variantId)[0];
+        console.log(form);
+
+        let formData = new FormData(form);
+
+        $.ajax({
+            url: '/product/post-variant-image/' + variantId +'/'+ productId,
+            type: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+
+            success: function(response) {
+
+               console.log("Response: ", response);
+
+                $('#variantImg_' + variantId).modal('hide');
+
+                // Show success alert using SweetAlert
+                Swal.fire({
+                    title: 'Success!',
+                    text: 'Images uploaded successfully',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                })
+
+                
+            },
+
+            error: function(response) {
+               
+                alert('Error uploading images');
+            }
+        });
+    });
+});
+
+</script>
+
+  @endsection
+ 
 @endsection

@@ -69,7 +69,7 @@
                 <div class="mb-2"> Brand <span> <a class="fw-bold fs-9 text-end" data-bs-toggle="modal" data-bs-target="#brand">Add new brand</a></span></div> 
                 <div class="mb-0">
                  
-                <select class="form-select" aria-label="brand_id" name="brand_id" >
+                <select class="form-select" aria-label="brand_id"  name="brand_id" id="brandId">
                       <option value=" ">Select Brand</option>
                       @foreach($brands as $brand) 
                       <option value="{{ $brand->id }}">{{ $brand->name }}</option>
@@ -83,7 +83,7 @@
                   <div class="mb-0">
                     
                     <div class="mb-0">
-                    <select class="form-select" aria-label="unit" name="unit_id" >
+                    <select class="form-select" aria-label="unit" name="unit_id" id="unitId" >
                         <option value=" ">Select unit</option>
                         @foreach($units as $unit) 
                         <option value="{{ $unit->id }}">{{ $unit->symbol }}</option>
@@ -314,29 +314,7 @@
                   </div>
                 </div>
                 
-                <div class="tab-pane fade d-none" id="attributesTabContent" role="tabpanel" aria-labelledby="attributesTab">
-                  <div class="mb-3 text-body-highlight">Attributes</div>
-                  <div class="text-body-tertiary fw-semibold">Add Attribute</div>
-                  <form class="mb-9" method="post" action="{{route('post.attribute')}}">
-
-                    @csrf
-                            <div class="row g-5">
-            
-                                    <div class="col-12 col-xl-8">
-                                        <h4 class="mb-2">Name</h4>
-                                        <input class="form-control mb-5" type="text"  name="" placeholder="Attribute Name"/>
-                                    </div>
-            
-                                    <d
-                                    iv class="col-12 col-xl-8">
-                                        <h4 class="mb-2">Slug</h4>
-                                        <input class="form-control mb-5" type="text"  name="" placeholder="Slug Name..."/>
-                                    </d>
-                                    
-                            </div>
-                    </form>
-
-                </div>
+             
                
                
                 
@@ -435,7 +413,7 @@
                           
 
                             <div class="col-12 col-md-6 col-lg-6 col-xl-6">
-                              <select class="form-select mb-3 attribute_value" name="attribute_ids[]" onchange="fetchAttributeValues(this)">
+                              <select class="form-select mb-3 attribute_value" name="attribute_ids[]" onchange="fetchAttributeValues(this)" id="attributeId">
                                 <option value="" selected>Attribute</option>
                                 @foreach($attributes as $attribute) 
                                     <option value="{{ $attribute->id }}">{{ $attribute->attribute_name }}</option>
@@ -452,11 +430,9 @@
                               </div>
                             </div>
                             
-  
-                         
                             <div class="col-12 col-md-6 col-lg-6 col-xl-6 mb-2">
                               <div class="mb-3">Select Images</div>
-                              <input class="form-control" type="file" placeholder="" name="variant_images[]" id="variants" multiple  onclick="imgV(this)"/>
+                              <input class="form-control" type="file" placeholder="" name="variant_images[]" id="variants"  onclick="imgV1(this)"/>
                             </div>
 
                             <input class="form-control" type="hidden" placeholder="" id="variantGroup" name="variant_group[]" />
@@ -529,7 +505,7 @@
                         
                         <div class="col-12">
                             <div class="mb-3">Parent</div>
-                              <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="parent_category_id" >
+                              <select class="form-select form-select-sm" aria-label=".form-select-sm example"  name="parent_category_id" id="categoryId">
                                 <option selected value="0">Select Parent</option>
                                 @foreach ($parent_cate as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -588,23 +564,25 @@
                       </div>
                     </div> --}}
 
-                    
-
                     <div class="col-12 col-sm-6 col-xl-12">
                       <div class="mb-4">
                         <div class="d-flex flex-wrap mb-2">
                           <div class="mb-0 text-body-highlight me-2">Vendor</div>
                           <a class="fw-bold fs-9" href="#!" data-bs-toggle="modal" data-bs-target="#vendor">Add new vendor</a>
                         </div>
-                        <select class="form-select mb-3" aria-label="attribute" name="vendor_id">
+                        <select class="form-select mb-3" aria-label="attribute"  name="vendor_id" id="append_vendor">
                             <option value=" ">Select Vendor</option>
-                            @foreach($vendors as $vendor) 
-                            <option value="{{ $vendor->id }}">{{ $vendor->name }}</option>
-                            @endforeach
+                            
+                            @if(count($vendors) > 0)
+
+                                @foreach($vendors as $vendor) 
+                                   <option value="{{ $vendor->id }}">{{ $vendor->name }}</option>
+                                @endforeach
+
+                            @endif 
                         </select>
                       </div>
                     </div>
-
 
                 {{-- <div class="col-12 col-sm-6 col-xl-12">
                     <div class="d-flex flex-wrap mb-2">
@@ -650,13 +628,10 @@
 
 @endsection() 
 
-
-
  {{-- custom js and cdn--}}
 @section('custom_js')
 
  <script>
-  console.log('Script section');
 
   function fetchAttributeValues(tag) {
     // console.log(tag.value);
@@ -710,7 +685,6 @@ newVariant.querySelectorAll('input, select, textarea').forEach(input => {
 
     }
 
-    
  let imageFiles= [];
 let parentArr = [];
 
@@ -806,7 +780,6 @@ function convertToBase64(file, callback) {
 
     }
 </script>  
-
 
 <script>
         let fileInputs = document.querySelectorAll('.selectedImages'); 

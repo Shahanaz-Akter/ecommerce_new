@@ -32,6 +32,8 @@
 
     {{-- forntend js --}}
     <script src="{{ asset('vendors/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     
 
    
