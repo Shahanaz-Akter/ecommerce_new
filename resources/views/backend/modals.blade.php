@@ -15,11 +15,11 @@
             <div class="row g-5">
                 <div class="col-12">
 
-                    <h4 class="mb-3">Vendor Name</h4>
+                    <div class="mb-3">Vendor Name</div>
                     <input class="form-control mb-5" type="text"  name="vendor" placeholder="Vendor Name" />
                     
                     <div class="mb-6">
-                        <h4 class="mb-3"> Description</h4>
+                        <div class="mb-3"> Description</div>
                         <textarea class="form-control" rows="5" cols="" name="description" ></textarea>
                     </div>
                 </div>
@@ -108,7 +108,7 @@
         <div>      
             <div class="row g-5">
                         <div class="col-12">
-                            <h4 class="mb-2">Image</h4>
+                            <div class="mb-2">Image</div>
                           
                             <div class="mb-0">
                                 <input class="form-control mb-2" type="file"  name="brand_img" placeholder=""  required/>
@@ -116,11 +116,11 @@
                         </div>
 
                         <div class="col-12">
-                        <h4 class="mb-2">Name</h4>
+                        <div class="mb-2">Name</div>
                         <input class="form-control mb-5" type="text"  name="brand" placeholder="Write Name here..." required/>
                         
                         <div class="mb-4">
-                            <h4 class="mb-3"> Description</h4>
+                            <div class="mb-3"> Description</div>
                             <textarea class="form-control" name="description" rows="10" cols=""></textarea>
                         </div>
     
@@ -213,20 +213,20 @@
             <div class="row g-5">
 
                 <div class="col-12">
-                    <h4 class="mb-2">Unit Type </h4>
+                    <div class="mb-2">Unit Type </div>
                     <input class="form-control mb-2" type="text"  name="unit_type" placeholder="Liquid"/>
                 </div>
         
                 <div class="col-12">
-                    <h4 class="mb-2">Base Unit Name</h4>
+                    <div class="mb-2">Base Unit Name</div>
                     <input class="form-control mb-2" type="text"  name="base_unit_name" placeholder="Kilogram" />
                 </div>
                 <div class="col-12">
-                    <h4 class="mb-2">Symbol</h4>
+                    <div class="mb-2">Symbol</div>
                     <input class="form-control mb-2" type="text"  name="symbol" placeholder="Kg" />
                 </div>
                 <div class="col-12">
-                    <h4 class="mb-3">Unit Conversion</h4>
+                    <div class="mb-3">Unit Conversion</div>
                     <input class="form-control mb-5" type="text"  name="unit_conversion" placeholder="100"/>
                 </div>
                 
@@ -315,12 +315,12 @@
         <div>      
             <div class="row g-5">
                 <div class="col-12">
-                    <h4 class="mb-3">Name</h4>
+                    <div class="mb-3">Name</div>
                     <input class="form-control mb-0" type="text"  name="category" placeholder="Category Name" required/>
                 </div>
                 
                 <div class="col-12">
-                    <h4 class="mb-3">Parent</h4>
+                    <div class="mb-3">Parent</div>
                       <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="parent_category">
                         <option selected value="0">Select Parent</option>
                         @foreach ($parent_cate as $category)
@@ -330,7 +330,7 @@
                 </div>
                 
                 <div class="col-12">
-                    <h4 class="mb-3">Image</h4>
+                    <div class="mb-3">Image</div>
                     <input class="form-control mb-5" type="file"  name="category_image" placeholder="" />
                 </div>
             </div>    
@@ -420,12 +420,12 @@
             <div class="row g-5">
 
                 <div class="col-12 col-xl-8">
-                    <h4 class="mb-2">Name</h4>
+                    <div class="mb-2">Name</div>
                     <input class="form-control mb-5" type="text"  name="attribute" placeholder="Attribute Name"/>
                 </div>
                 
                 <div class="col-12 col-xl-8">
-                    <h4 class="mb-2">Slug</h4>
+                    <div class="mb-2">Slug</div>
                     <input class="form-control mb-5" type="text"  name="slug" placeholder="Slug Name..."/>
                 </div>
             </div>    

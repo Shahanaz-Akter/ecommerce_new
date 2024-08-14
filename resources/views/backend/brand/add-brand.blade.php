@@ -82,7 +82,7 @@
                     @endif
 
                     <div class="col-12 col-xl-8">
-                        <h4 class="mb-3">Image</h4>
+                        <div class="mb-3">Image</div>
                       
                         <div class="mb-2">
                             <input class="form-control mb-5" type="file"  name="brand_img" placeholder="Write Role here..."  required/>
@@ -90,12 +90,12 @@
                 
                     </div>
                     <div class="col-12 col-xl-8">
-                    <h4 class="mb-3">Name</h4>
+                    <div class="mb-3">Name</div>
                     <input class="form-control mb-5" type="text"  name="brand" placeholder="Write Role here..." required/>
                     
 
                     <div class="mb-6">
-                        <h4 class="mb-3"> Description</h4>
+                        <div class="mb-3"> Description</div>
                         <textarea class="tinymce" name="description" data-tinymce='{"height":"15rem","placeholder":"Write a description here..."}'></textarea>
                     </div>
 

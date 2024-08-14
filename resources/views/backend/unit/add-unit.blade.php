@@ -18,7 +18,7 @@
       </ol>
     </nav>
 
-    <form class="mb-9" method="post" action="{{ route('post.edit.unit', $unit->id) }}" enctype="multipart/form-data">
+    <form class="mb-9" method="post" action="{{ route('post.unit') }}" enctype="multipart/form-data">
 
         @csrf
 

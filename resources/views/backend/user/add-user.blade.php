@@ -46,25 +46,35 @@
 
         <div class="row g-3 mb-3">
             <div class="col-sm-6">
-                <label class="form-label" for="user_img">User Image</label>
+                <label class="" for="user_img">User Image</label>
                 <input class="form-control" id="user_img" type="file"  name="user_img" value="{{ old('user_img') }}"/>
             </div>
    
             <div class="col-sm-6">
-                <label class="form-label" for="datepicker"> Date</label>
-                <input class="form-control datetimepicker flatpickr-input" id="datepicker" name="date" type="text" placeholder="dd/mm/yyyy" data-options="{&quot;disableMobile&quot;:true,&quot;dateFormat&quot;:&quot;d/m/Y&quot;}" readonly="readonly">
+                <label class="" for="datepicker"> Date</label>
+                <input class="form-control datetimepicker flatpickr-input" id="datepicker" name="date" type="text" placeholder="dd/mm/yyyy" 
+                
+                {{-- data-options="{&quot;disableMobile&quot;:true,&quot;dateFormat&quot;:&quot;d/m/Y&quot;}" readonly="readonly"> --}}
+
+                data-options="{
+                  &quot;disableMobile&quot;:true,
+                  &quot;dateFormat&quot;:&quot;d/m/Y&quot;, 
+                  &quot;minDate&quot;: &quot;today&quot;
+              }"  readonly="readonly">
+
+                
             </div>
    
           </div>
 
           <div class="row g-3 mb-3">
             <div class="col-sm-6">
-                <label class="form-label" for="name">User Name</label>
+                <label class="" for="name">User Name</label>
          <input class="form-control" id="name" type="text" placeholder="User Name" name="user_name" value="{{ old('user_name') }}"/>
             </div>
    
             <div class="col-sm-6">
-                <label class="form-label" for="email">Email address</label>
+                <label class="" for="email">Email address</label>
                 <input class="form-control" id="email" type="email" placeholder="example@gmail.com" name="email" value="{{ old('email') }}" />
             </div>
    
@@ -72,12 +82,12 @@
 
        <div class="row g-3 mb-3">
          <div class="col-sm-6">
-           <label class="form-label" for="password">Password</label>
+           <label class="" for="password">Password</label>
            <input class="form-control form-icon-input" id="password" type="password" placeholder="Password"  name="password" value="{{ old('password') }}"/>
          </div>
 
          <div class="col-sm-6">
-           <label class="form-label" for="password_confirmation ">Confirm Password</label>
+           <label class="" for="password_confirmation ">Confirm Password</label>
            <input class="form-control form-icon-input" id="password_confirmation " type="password" placeholder="Confirm Password"  name="password_confirmation"/>
          </div>
 

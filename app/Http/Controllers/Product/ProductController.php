@@ -28,6 +28,7 @@ class ProductController extends Controller
     public function Products()
     {
         $products = Product::get();
+       
         // dd($products);
         return view('backend.products.products', compact('products'));
     }
@@ -412,6 +413,7 @@ class ProductController extends Controller
             $product->shipping_cost = $request->shipping_cost;
             $product->added_by = Auth::user()->username;
             $product->vendor_id = $request->vendor_id;
+            $product->unit_id = $request->unit_id;
             $product->slug = $request->product_name . '_' . rand(10, 100);
             $product->tags = $request->tags;
             $product->meta_title = $request->meta_title;
@@ -564,13 +566,19 @@ class ProductController extends Controller
 
 
             //storing variation images
-            // dd('start');
-
             $variantImg = $request->variant_images;
+            $variantsArr = [];
 
             for ($k = 0; $k < $maxVariation; $k++) {
 
-                $isAvaialbeVariationData = $attribute_ids[$k] || $attribute_values[$k] || $attribute_quantities[$k] ||  $variantImg[$k];
+                $ids= isset($attribute_ids[$k]) ? $attribute_ids[$k] : null;
+                $values= isset($attribute_values[$k]) ? $attribute_values[$k] : null;
+                $quantities= isset($attribute_quantities[$k]) ? $attribute_quantities[$k] : null;
+                $imagess= isset($variantImg[$k]) ? $variantImg[$k] : null;
+
+                $isAvaialbeVariationData = $ids || $values || $quantities ||  $imagess; //error is here
+
+                // dd($isAvaialbeVariationData);
 
                 if ($isAvaialbeVariationData) {
 
@@ -580,6 +588,8 @@ class ProductController extends Controller
                     $variant->quantity = $attribute_quantities[$k];
                     $variant->product_id = $product->id;
                     $variant->save();
+
+                    $variantsArr[] = $variant->id;
 
 
                     if ($variantImg != null && count($variantImg) > 0) {
@@ -652,7 +662,7 @@ class ProductController extends Controller
             DB::commit();
 
             // return redirect()->route('products')->with(['success'=>'Successfully saved Product']);
-            return redirect()->back();
+            return redirect()->route('products')->with(['success' => 'Successfully Stored Product!']);
         } catch (Exception $ex) {
 
             // Rollback transaction in case of an error
@@ -680,21 +690,19 @@ class ProductController extends Controller
     }
 
 
-public function removeProduct($id){
-   
+    public function removeProduct($id)
+    {
 
-    $record =  Product::where('id', $id)->first();
 
-    if ($record) {
-        $record->delete();
-        return redirect()->back()->with(['success' => 'Seccessfully Deleted the Record!']);
+        $record =  Product::where('id', $id)->first();
 
+        if ($record) {
+            $record->delete();
+            return redirect()->back()->with(['success' => 'Seccessfully Deleted the Record!']);
+        } else {
+            return redirect()->back()->with(['success' => 'Not Found the Record!']);
+        }
     }
-    else{
-        return redirect()->back()->with(['success' => 'Not Found the Record!']);
-
-    }
-}
 
     public function  variantList()
     {
@@ -759,19 +767,17 @@ public function removeProduct($id){
 
 
 
-    
-public function removeVariant($id){
-   
-    $record =  Variant::where('id', $id)->first();
 
-    if ($record) {
-        $record->delete();
-        return redirect()->back()->with(['success' => 'Seccessfully Deleted the Record!']);
+    public function removeVariant($id)
+    {
 
+        $record =  Variant::where('id', $id)->first();
+
+        if ($record) {
+            $record->delete();
+            return redirect()->back()->with(['success' => 'Seccessfully Deleted the Record!']);
+        } else {
+            return redirect()->back()->with(['success' => 'Not Found the Record!']);
+        }
     }
-    else{
-        return redirect()->back()->with(['success' => 'Not Found the Record!']);
-
-    }
-}
 }

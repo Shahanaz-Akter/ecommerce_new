@@ -112,6 +112,7 @@
                     <td class="align-middle white-space-nowrap py-0"><a class="d-block border border-translucent rounded-2" href="../../../apps/e-commerce/landing/product-details.html">
                       
                       @if($user->image_files_id)
+                     
                       <img src="{{$user->imageFiles->absolute_path}}" alt="" width="53" />
 
                         @else
@@ -140,7 +141,7 @@
                    <td class="product align-middle ps-4">
 
                     @if($user->role_id != null)
-                    {{ $user->role ? $user->role->name : '' }}
+                    {{ $user->role ? $user->role->name : 'Null' }}
 
                     @else
                     {{-- <select class="form-select form-select-sm" aria-label=".form-select-sm example" id="role_id">
@@ -149,10 +150,7 @@
                       <option value="{{$role->id}}">{{$role->name}}</option>
                       @endforeach
                     </select> --}}
-                    
-                    
                     @endif
-                        
 
                     </td>
 

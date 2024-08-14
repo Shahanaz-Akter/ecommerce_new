@@ -34,6 +34,8 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->unsignedBigInteger('brand_id')->nullable();
             $table->unsignedBigInteger('vendor_id')->nullable();
+            $table->unsignedBigInteger('unit_id')->nullable();
+
             $table->string('meta_title')->nullable();
             $table->text('meta_description')->nullable();
             $table->string('shipping_type')->nullable();

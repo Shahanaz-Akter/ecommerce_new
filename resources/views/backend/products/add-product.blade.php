@@ -8,7 +8,7 @@
     <nav class="mb-2" aria-label="breadcrumb">
       <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item"><a href="#!">Product</a></li>
-        <li class="breadcrumb-item active"><a href="{{ route('add.product') }}">Products</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('products') }}">Products</a></li>
         {{-- <li class="breadcrumb-item active">Default</li> --}}
       </ol>
     </nav>

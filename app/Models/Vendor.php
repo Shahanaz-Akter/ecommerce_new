@@ -10,4 +10,9 @@ class Vendor extends Model
     use HasFactory;
 
     protected $fillabale = ['name', 'description'];
+
+    public function product()
+    {
+        return $this->hasOne(Product::class);
+    }
 }

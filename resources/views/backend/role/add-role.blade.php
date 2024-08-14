@@ -79,12 +79,12 @@
 
 
         <div class="col-12 col-xl-8">
-          <h4 class="mb-3">Role Name</h4>
+          <div class="mb-3">Role Name</div>
           <input class="form-control mb-5" type="text"  name="role" placeholder="Write Role here..." />
          
 
           <div class="mb-6">
-            <h4 class="mb-3"> Role Description</h4>
+            <div class="mb-3"> Role Description</div>
             <textarea class="tinymce" name="description" data-tinymce='{"height":"15rem","placeholder":"Write a description here..."}'></textarea>
           </div>
 
