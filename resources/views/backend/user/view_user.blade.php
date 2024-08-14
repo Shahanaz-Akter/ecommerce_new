@@ -97,13 +97,15 @@
                         <input class="form-control" id="contact" type="text" placeholder="01*********" name="contact" value="{{ $user->contact_number }}" />
                     </div>
 
-                    <div class="col-sm-6">
-                        <label class="form-label" for="role">Role</label>
-                        <input class="form-control" id="role" type="text" placeholder="" name="role" value="{{ $role->name }}" />
-                    </div>
-        
-                   
-           
+                        @if(isset($role->name) && !empty($role->name) )
+                        <div class="col-sm-6">
+                            <label class="form-label" for="role">Role</label>
+                            <input class="form-control" id="role" type="text" placeholder="" name="role" value="{{ $role->name ?? 'Null' }}" />
+                        </div>
+                       
+                        @endif
+
+                       
                   </div>
             </div>
           </div>

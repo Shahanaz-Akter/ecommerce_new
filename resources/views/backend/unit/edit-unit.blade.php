@@ -4,7 +4,7 @@
 @extends('backend.layouts.master_page')
 
 @section('title')
-<title>Add Unit</title>
+<title>Edit Unit</title>
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
       </ol>
     </nav>
 
-    <form class="mb-9" method="post" action="{{ route('post.edit.unit', $unit->id) }}" enctype="multipart/form-data">
+    <form class="mb-9" method="post" action="{{ route('post.unit') }}" enctype="multipart/form-data">
 
         @csrf
 
@@ -46,20 +46,20 @@
 
          <div class="col-12 col-xl-6">
             <div class="mb-3">Unit Type </div>
-            <input class="form-control mb-5" type="text"  name="unit_type" placeholder="Unit Type" value=""/>
+            <input class="form-control mb-5" type="text"  name="unit_type" placeholder="Unit Type" value="{{ $unit->unit_type}}"/>
         </div>
 
         <div class="col-12 col-xl-6">
             <div class="mb-3">Base Unit Name</div>
-            <input class="form-control mb-5" type="text"  name="base_unit_name" placeholder="Base Unit Name" value=""/>
+            <input class="form-control mb-5" type="text"  name="base_unit_name" placeholder="Base Unit Name" value="{{ $unit->base_unit_name}}"/>
         </div>
         <div class="col-12 col-xl-6">
             <div class="mb-3">Symbol</div>
-            <input class="form-control mb-5" type="text"  name="symbol" placeholder="Symbol" value=""/>
+            <input class="form-control mb-5" type="text"  name="symbol" placeholder="Symbol" value="{{ $unit->symbol}}"/>
         </div>
         <div class="col-12 col-xl-6">
             <div class="mb-3">Unit Conversion</div>
-            <input class="form-control mb-5" type="number"  name="unit_conversion" placeholder="Unit Conversion" value=""/>
+            <input class="form-control mb-5" type="number"  name="unit_conversion" placeholder="Unit Conversion" value="{{ $unit->unit_conversion}}"/>
         </div>
 
     </div>

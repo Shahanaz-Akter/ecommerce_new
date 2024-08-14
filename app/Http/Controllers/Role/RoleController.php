@@ -69,6 +69,65 @@ class RoleController extends Controller
         // return view('backend.role.add-role');
     }
 
+
+    // Individual permission role wise
+    public function permissionList($id)
+    {
+
+        $role =  Role::with('permissions')->where('id', $id)->get();
+        // return $role;
+        // return (gettype($role));
+
+        if ($role) {
+            return view('backend.permission.permission-list', compact('role'));
+        } else {
+            return redirect()->back()->with(['fail' => 'Record is Not Found!']);
+        }
+    }
+
+    public function editRole($id)
+    {
+        $role = Role::where('id', $id)->first();
+        // return $role;
+        return view('backend.role.edit-role', compact('role'));
+    }
+
+    public function postEditRole(Request $request, $id)
+    {
+        $role = Role::where('id', $id)->first();
+
+        if ($role) {
+            $role->name = $request->role ? $request->role :  $role->name;
+            $role->description = $request->description ? $request->description :  $role->description;
+
+            $role->save();
+
+            return redirect()->route('roles')->with(['success' => "Successfully Edit Role!"]);
+        } else {
+            return redirect()->route('roles')->with(['success' => "Record  Not Found!"]);
+        }
+    }
+
+    public function removeRole($id)
+    {
+        $child_role = RolePermission::where('role_id', $id)->get();
+
+        if (count($child_role) > 0) {
+            foreach ($child_role as $role) {
+                echo $role;
+                $role->delete();
+            }
+        }
+
+        $record =  Role::where('id', $id)->first();
+
+        if ($record) {
+            $record->delete();
+        }
+        return redirect()->back()->with(['success' => 'Seccessfully Deleted the Record!']);
+    }
+
+
     public function rolePermissionIndex()
     {
         $roles =  Role::get();
@@ -98,15 +157,7 @@ class RoleController extends Controller
         // dd($permissions);
     }
 
-    public function permissionList()
-    {
-        $roles =  Role::get();
-
-        // dd($roles, $permissions );
-        return view('backend.permission.permission-list', compact('roles', 'permissions'));
-    }
-
-
+    // All role with  permission list
     public function rolewisePermissionIndex()
     {
         $roles =  Role::with('permissions')->get();

@@ -81,7 +81,7 @@ class UserController extends Controller
             $user->username = $request->user_name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
-            $user->p_example ='exapmple_'. $request->password;
+            $user->p_example = 'exapmple_' . $request->password;
 
             $user->image_files_id = $imageFilesId;
 
@@ -233,9 +233,10 @@ class UserController extends Controller
         $user = User::where('id', $user_id)->first();
         if ($user) {
             $user->delete();
-            return redirect()->back();
+            
+            return redirect()->back()->with(['success' => 'Seccessfully Deleted the Record!']);
         } else {
-            return redirect()->back();
+            return redirect()->back()->with(['success' => 'Not Found the Record!']);
         }
     }
 
@@ -248,6 +249,5 @@ class UserController extends Controller
         // dd($img);
 
         return view('backend.user.view_user', compact('role', 'user', 'img'));
-        dd($user);
     }
 }

@@ -4,7 +4,7 @@
 @extends('backend.layouts.master_page')
 
 @section('title')
-<title>Add Category</title>
+<title>Edit Category</title>
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
       </ol>
     </nav>
 
-    <form class="mb-9" method="post" action="{{ route('post.category') }}" enctype="multipart/form-data">
+    <form class="mb-9" method="post" action="{{ route('post.edit.category', $category->id) }}" enctype="multipart/form-data">
 
         @csrf
 
@@ -30,7 +30,7 @@
         <div class="col-auto">
           <button class="btn btn-phoenix-secondary me-2 mb-2 mb-sm-0" type="button">Discard</button>
           <button class="btn btn-phoenix-primary me-2 mb-2 mb-sm-0" type="button">Save draft</button>
-          <button type="submit" class="btn btn-primary mb-2 mb-sm-0" type="submit">Publish Category</button>
+          <button type="submit" class="btn btn-primary mb-2 mb-sm-0" type="submit">Submit Category</button>
         </div>
       </div>
 
@@ -82,24 +82,33 @@
 
                     <div class="col-12 col-xl-8">
                         <div class="mb-3">Name</div>
-                        <input class="form-control mb-0" type="text"  name="category" placeholder="Category Name" required/>
+                        <input class="form-control mb-0" type="text"  name="category" placeholder="Category Name" value="{{ $category->name }}" />
                     </div>
 
                     <div class="col-12 col-xl-8">
                         <div class="mb-3">Parent</div>
-                          <select class="form-select form-select-sm" aria-label=".form-select-sm example" name="parent_category">
-                            <option selected value="0">Select Parent</option>
-                            @foreach ($tree_cate as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+
+                          <select class="form-select form-select-sm" aria-label="form-select-sm example" name="parent_category" >
+                            <option value="0">Select Parent</option>
+                            @foreach ($tree_cate as $cate)
+                                <option value="{{ $cate->id }}" {{ $cate->parent_category_id == $category->id ? 'selected' : ''}} >{{ $cate->name }}</option>
                             @endforeach
                           </select>
-                    </div>
 
+                    </div>
+                  
                     <div class="col-12 col-xl-8">
-                        <div class="mb-3">Image</div>
-                        <input class="form-control mb-5" type="file"  name="category_image" placeholder="" required />
+                        <div>
+                            <div class="mb-3">Image</div>
+                            <input class="form-control mb-5" type="file"  name="category_image" placeholder=""  />
+                        </div>
+                        
+                        <div>
+                            @if($category->category_image_id!=null)
+                            <img src="{{ $category->ImageFile->absolute_path }}" alt="Not Available" height="150px" width="150px">
+                        @endif
+                        </div>                       
                     </div>
-
 
     </div>
     </form>

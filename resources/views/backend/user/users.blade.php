@@ -8,11 +8,34 @@
 
 <div class="content">
 
-        @if(session('success'))
-            <div class="alert alert-primary">
-              {{ session('success') }}
-            </div>
-        @endif
+    @if(session('success'))
+    <div  class="alert alert-primary success-alert">
+      {{ session('success') }}
+    </div>
+  @endif
+
+    <script>
+            let alerts = document.querySelectorAll('.success-alert');
+            // console.log("Alert: ", alerts);
+
+            alerts.forEach((alert)=>{
+
+                    setTimeout(function() {
+
+                            if (alert) {
+                                alert.style.transition = 'opacity 0.5s ease';
+                                alert.style.opacity = '0';
+
+                                setTimeout(function() {
+                                    alert.style.display = 'none';
+                                }, 500);
+                            }
+                        }, 1000); // 1 second delay
+                });
+            
+
+
+    </script>
 
     <nav class="mb-2" aria-label="breadcrumb">
       <ol class="breadcrumb mb-0">

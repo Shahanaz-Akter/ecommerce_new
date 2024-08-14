@@ -7,12 +7,33 @@
 <div class="content">
 
 
-    @if(session('success'))
-    <div class="alert alert-primary alert-dismissible fade show text-center" role="alert">
-            {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+@if(session('success'))
+    <div  class="alert alert-danger success-alert">
+      {{ session('success') }}
     </div>
-    @endif
+@endif
+
+
+  <script>
+    let alerts = document.querySelectorAll('.success-alert');
+    // console.log("Alert: ", alerts);
+
+    alerts.forEach((alert)=>{
+
+            setTimeout(function() {
+
+                    if (alert) {
+                        alert.style.transition = 'opacity 0.5s ease';
+                        alert.style.opacity = '0';
+
+                        setTimeout(function() {
+                            alert.style.display = 'none';
+                        }, 500);
+                    }
+                }, 1000); // 1 second delay
+        });
+      
+  </script>
 
     <nav class="mb-2" aria-label="breadcrumb">
       <ol class="breadcrumb mb-0">
@@ -126,8 +147,9 @@
   
                         <div class="dropdown-menu dropdown-menu-end py-2">
                          
-                          <a class="dropdown-item" href="">Edit</a>
-                          <a class="dropdown-item text-danger" href="">Remove</a>
+                          <a class="dropdown-item" href="{{ route('edit.color', $color->id) }}">Edit</a>
+                          <a class="dropdown-item text-danger" href="{{ route('remove.color', $color->id) }}">Remove</a>
+                          
                         </div>
                       </div>
                     </td>

@@ -91,6 +91,74 @@ class SettingController extends Controller
         }
     }
 
+    public function editBrand($id)
+    {
+        $brand = Brand::where('id', $id)->first();
+        return view('backend.brand.edit-brand', compact('brand'));
+    }
+
+
+
+    public function postEditBrand(Request $request, $id)
+    {
+        $brand = Brand::where('id', $id)->first();
+
+        $brand_img = $request->file('brand_img');
+        if ($brand) {
+
+            $setId = 0;
+
+            if ($brand_img != null) {
+                $originalName = $brand_img->getClientOriginalName();
+                $extension = $brand_img->getClientOriginalExtension();
+                $uniqueName = uniqid() . '.' . $extension;
+                $fileSizeInBytes = $brand_img->getSize();
+                $file_size = $this->humanReadableFileSize($fileSizeInBytes);
+                $relativePath = '/uploads/' . $uniqueName;
+                // Move the uploaded file to the uploads directory
+                $brand_img->move(public_path('uploads'), $uniqueName);
+
+                $date = Carbon::now()->format('Y-m-d H:i:s');
+
+                $image_model =  new ImageFiles();
+                $image_model->original_name = $originalName;
+                $image_model->absolute_path = $relativePath;
+                $image_model->date = $date;
+                $image_model->extension = $extension;
+                $image_model->file_size = $file_size;
+                $image_model->save();
+
+                $setId = $image_model->id;
+            }
+
+            $brand->name = $request->brand ? strtolower($request->brand) : $brand->name;
+            $brand->description = $request->description ? $request->description : $brand->description;
+            $brand->brand_image_id =  $brand_img ?  $setId : $brand->brand_image_id;
+            $brand->save();
+
+            return redirect()->route('brands')->with(['success' => 'Seccessfully Edit the Record!']);
+        } else {
+            return redirect()->route('brands')->with(['success' => 'Not Found the Record!']);
+        }
+    }
+
+
+    public function removeBrand($id)
+    {
+        $brand = Brand::where('id', $id)->first();
+        if ($brand) {
+            $brand->delete();
+
+            return redirect()->back()->with(['success' => 'Seccessfully Deleted the Record!']);
+        } else {
+            return redirect()->back()->with(['success' => 'Not Found the Record!']);
+        }
+    }
+
+
+
+
+
     public function postBrand1(Request $request)
     {
         $all = $request->all();
@@ -147,7 +215,7 @@ class SettingController extends Controller
             ], 500);
         }
     }
-           
+
 
     private function humanReadableFileSize($size, $precision = 2)
     {
@@ -203,6 +271,40 @@ class SettingController extends Controller
         }
     }
 
+    public function editColor($id)
+    {
+        $color = Color::where('id', $id)->first();
+        return view('backend.color.edit-color', compact('color'));
+    }
+    public function postEditColor(Request $request, $id)
+    {
+        $color = Color::where('id', $id)->first();
+        if ($color) {
+
+            $color->name = $request->name ? $request->name : $color->name;
+            $color->color_code = $request->color_code ? $request->color_code : $color->color_code;
+            $color->description = $request->description ? $request->description : $color->description;
+            $color->save();
+
+            return redirect()->route('colors')->with(['success' => 'Seccessfully Edit the Record!']);
+        } else {
+            return redirect()->route('colors')->with(['success' => 'Not Found the Record!']);
+        }
+    }
+
+    public function removeColor($id)
+    {
+        $color = Color::where('id', $id)->first();
+        if ($color) {
+            $color->delete();
+
+            return redirect()->back()->with(['success' => 'Seccessfully Deleted the Record!']);
+        } else {
+            return redirect()->back()->with(['success' => 'Not Found the Record!']);
+        }
+    }
+
+
     public function customers()
     {
         $customers = User::where('role_id', null)->get();
@@ -211,6 +313,17 @@ class SettingController extends Controller
         return view('backend.customer.customers', compact('customers'));
     }
 
+    public function removeCustomer($id)
+    {
+        $customer = User::where('id', $id)->first();
+        if ($customer) {
+            $customer->delete();
+
+            return redirect()->back()->with(['success' => 'Seccessfully Deleted the Record!']);
+        } else {
+            return redirect()->back()->with(['success' => 'Not Found the Record!']);
+        }
+    }
     public function units()
     {
         $units = Unit::get();
@@ -252,6 +365,42 @@ class SettingController extends Controller
             ], 500);
         }
     }
+
+    public function editUnit($id)
+    {
+        $unit = Unit::where('id', $id)->first();
+        return view('backend.unit.edit-unit', compact('unit'));
+    }
+
+    public function postEditUnit(Request $request, $id)
+    {
+        $unit = Unit::where('id', $id)->first();
+        if ($unit) {
+
+            $unit->unit_type = $request->unit_type ? $request->unit_type : $unit->unit_type;
+            $unit->base_unit_name = $request->base_unit_name ? $request->base_unit_name : $unit->base_unit_name;
+            $unit->symbol = $request->symbol ? $request->symbol : $unit->symbol;
+            $unit->unit_conversion = $request->unit_conversion ? $request->unit_conversion : $unit->unit_conversion;
+            $unit->save();
+
+            return redirect()->route('colors')->with(['success' => 'Seccessfully Edit the Record!']);
+        } else {
+            return redirect()->route('colors')->with(['success' => 'Not Found the Record!']);
+        }
+    }
+
+    public function removeUnit($id)
+    {
+        $unit = Unit::where('id', $id)->first();
+        if ($unit) {
+            $unit->delete();
+
+            return redirect()->back()->with(['success' => 'Seccessfully Deleted the Record!']);
+        } else {
+            return redirect()->back()->with(['success' => 'Not Found the Record!']);
+        }
+    }
+
     public function postUnit1(Request $request)
     {
         $all = $request->all();
@@ -321,6 +470,40 @@ class SettingController extends Controller
         }
     }
 
+    public function editAttribute($id)
+    {
+        $attribute = Attribute::where('id', $id)->first();
+        return view('backend.attribute.edit-attribute', compact('attribute'));
+    }
+
+    public function postEditAttribute(Request $request, $id)
+    {
+        // dd( $request->all());
+        $attribute = Attribute::where('id', $id)->first();
+        if ($attribute) {
+            $attribute->attribute_name = $request->attribute ? $request->attribute : $attribute->attribute_name;
+            $attribute->slug = $request->slug ? $request->slug : $attribute->slug;
+            $attribute->save();
+
+            return redirect()->route('attributes')->with(['success' => 'Seccessfully Edit the Record!']);
+        } else {
+            return redirect()->route('attributes')->with(['success' => 'Not Found the Record!']);
+        }
+    }
+
+    public function removeAttribute($id)
+    {
+        $attribute = Attribute::where('id', $id)->first();
+        if ($attribute) {
+            $attribute->delete();
+
+            return redirect()->back()->with(['success' => 'Seccessfully Deleted the Record!']);
+        } else {
+            return redirect()->back()->with(['success' => 'Not Found the Record!']);
+        }
+    }
+
+
     public function postAttribute1(Request $request)
     {
         $all = $request->all();
@@ -338,7 +521,6 @@ class SettingController extends Controller
             DB::commit();
 
             return response()->json($attribute);
-            
         } catch (Exception $ex) {
             // Rollback transaction in case of an error
             DB::rollBack();
@@ -412,7 +594,7 @@ class SettingController extends Controller
         $vendor->description = $request->description;
         $vendor->save();
 
-        return response()->json( $vendor );
+        return response()->json($vendor);
     }
 
     public function categories()
@@ -488,8 +670,74 @@ class SettingController extends Controller
                 'error' => $ex->getMessage(),
             ], 500);
         }
+    }
 
-       
+
+    public function editCategory($id)
+    {
+        $category = Category::where('id', $id)->first();
+
+        $tree_cate = Category::get();
+        // dd( $tree_cate);
+        return view('backend.category.edit-category', compact('tree_cate', 'category'));
+    }
+
+
+    public function postEditCategory(Request $request, $id)
+    {
+        
+        $category = Category::where('id', $id)->first();
+
+        $category_image =  $request->file('category_image');
+
+        if ($category) {
+
+            if ($category_image != null) {
+
+                $originalName = $category_image->getClientOriginalName();
+                $extension = $category_image->getClientOriginalExtension();
+                $uniqueName = uniqid() . '.' . $extension;
+                $fileSizeInBytes = $category_image->getSize();
+                $file_size = $this->humanReadableFileSize($fileSizeInBytes);
+                $relativePath = '/uploads/' . $uniqueName;
+                // Move the uploaded file to the uploads directory
+                $category_image->move(public_path('uploads'), $uniqueName);
+
+                $date = Carbon::now()->format('Y-m-d H:i:s');
+
+                $image_model =  new ImageFiles();
+                $image_model->original_name = $originalName;
+                $image_model->absolute_path = $relativePath;
+                $image_model->date = $date;
+                $image_model->extension = $extension;
+                $image_model->file_size = $file_size;
+                $image_model->save();
+
+            }
+
+            $category->name = $request->category? strtolower($request->category):  $category->name;
+            $category->parent_category_id = $request->parent_category ? $request->parent_category : $category->parent_category_id;
+            $category->category_level = rand(0, 100);
+            $category->category_image_id =   $category_image ? $image_model->id :  $category->category_image_id;
+            $category->save();
+
+            return redirect()->route('categories')->with(['success' => 'Seccessfully Edit the Record!']);
+        } else {
+            return redirect()->route('categories')->with(['success' => 'Not Found the Record!']);
+        
+        }
+    }
+    public function removeCategory($id)
+    {
+        $category = Category::where('id', $id)->first();
+
+        if ($category) {
+            $category->delete();
+
+            return redirect()->back()->with(['success' => 'Seccessfully Deleted the Record!']);
+        } else {
+            return redirect()->back()->with(['success' => 'Not Found the Record!']);
+        }
     }
 
     public function postCategory1(Request $request)
@@ -542,7 +790,6 @@ class SettingController extends Controller
 
             //  return redirect()->route('categories')->with('success', 'Successfully Saved Category!');
             return response()->json($category);
-
         } catch (Exception $ex) {
             // Rollback transaction in case of an error
             DB::rollBack();
@@ -552,8 +799,5 @@ class SettingController extends Controller
                 'error' => $ex->getMessage(),
             ], 500);
         }
-
-       
     }
-    
 }

@@ -88,6 +88,9 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('add-role', [RoleController::class, 'addRole'])->name('add.role');
         Route::post('post-role', [RoleController::class, 'postRole'])->name('post.role');
         Route::get('permission-list/{id}', [RoleController::class, 'permissionList'])->name('permission.list');
+        Route::get('edit-role/{id}', [RoleController::class,'editRole'])->name('edit.role');
+        Route::post('post-edit-role/{id}', [RoleController::class,'postEditRole'])->name('post.edit.role');
+        Route::get('remove-role/{id}', [RoleController::class,'removeRole'])->name('remove.role');
 
         Route::get('role-permission-index', [RoleController::class, 'rolePermissionIndex'])->name('role.permission');
         Route::post('post-role-permission-index', [RoleController::class, 'postRolePermissionIndex'])->name('post.role.permission');
@@ -113,6 +116,11 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('add-brand', [SettingController::class, 'addBrand'])->name('add.brand');
         Route::post('post-brand', [SettingController::class, 'postBrand'])->name('post.brand');
         Route::post('post-brand1', [SettingController::class, 'postBrand1'])->name('post.brand1');
+
+        Route::get('edit-brand/{id}', [SettingController::class, 'editBrand'])->name('edit.brand');
+        Route::post('post-edit-unit/{id}', [SettingController::class, 'postEditBrand'])->name('post.edit.brand');
+        Route::get('remove-brand/{id}', [SettingController::class, 'removeBrand'])->name('remove.brand');
+
     });
 
     // unit routes
@@ -122,6 +130,11 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('add-unit', [SettingController::class, 'addUnit'])->name('add.unit');
         Route::post('post-unit', [SettingController::class, 'postUnit'])->name('post.unit');
         Route::post('post-unit1', [SettingController::class, 'postUnit1'])->name('post.unit1');
+
+        Route::get('edit-unit/{id}', [SettingController::class, 'editUnit'])->name('edit.unit');
+        Route::post('post-edit-unit/{id}', [SettingController::class, 'postEditUnit'])->name('post.edit.unit');
+        Route::get('remove-unit/{id}', [SettingController::class, 'removeUnit'])->name('remove.unit');
+
     });
 
     // attribute routes
@@ -131,6 +144,11 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('add-attribute', [SettingController::class, 'addAttribute'])->name('add.attribute');
         Route::post('post-attribute', [SettingController::class, 'postAttribute'])->name('post.attribute');
         Route::post('post-attribute1', [SettingController::class, 'postAttribute1'])->name('post.attribute1');
+        Route::get('edit-attribute/{id}', [SettingController::class, 'editAttribute'])->name('edit.attribute');
+        Route::post('post-edit-attribute/{id}', [SettingController::class, 'postEditAttribute'])->name('post.edit.attribute');
+
+        Route::get('remove-attribute/{id}', [SettingController::class, 'removeAttribute'])->name('remove.attribute');
+
 
         Route::get('set-attribute-value/{value}', [SettingController::class, 'setAttributeValue'])->name('set.attribute.value');
 
@@ -147,6 +165,11 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('add-category', [SettingController::class, 'addCategory'])->name('add.category');
         Route::post('post-category', [SettingController::class, 'postCategory'])->name('post.category');
         Route::post('post-category1', [SettingController::class, 'postCategory1'])->name('post.category1');
+
+        Route::get('edit-category/{id}', [SettingController::class, 'editCategory'])->name('edit.category');
+        Route::post('post-edit-category/{id}', [SettingController::class, 'postEditCategory'])->name('post.edit.category');
+        Route::get('remove-category/{id}', [SettingController::class, 'removeCategory'])->name('remove.category');
+
     });
 
     // color routes
@@ -154,17 +177,20 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('colors', [SettingController::class, 'colors'])->name('colors');
         Route::get('add-color', [SettingController::class, 'addColor'])->name('add.color');
         Route::post('post-color', [SettingController::class, 'postColor'])->name('post.color');
+
+        Route::get('edit-color/{id}', [SettingController::class, 'editColor'])->name('edit.color');
+        Route::post('post-edit-color/{id}', [SettingController::class, 'postEditColor'])->name('post.edit.color');
+
+        Route::get('remove-color/{id}', [SettingController::class, 'removeColor'])->name('remove.color');
+
     });
 
-    // color routes
-    Route::group(['prefix' => 'color'], function () {
-        Route::get('colors', [SettingController::class, 'colors'])->name('colors');
-        Route::get('add-color', [SettingController::class, 'addColor'])->name('add.color');
-        Route::post('post-color', [SettingController::class, 'postColor'])->name('post.color');
-    });
+   
         // customer routes
     Route::group(['prefix' => 'customer'], function () {
             Route::get('customers', [SettingController::class, 'customers'])->name('customers');
+            Route::get('remove-customer/{id}', [SettingController::class, 'removeCustomer'])->name('remove.customer');
+
     });
 
 
@@ -174,10 +200,15 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('add-product', [ProductController::class, 'addProduct'])->name('add.product');
         Route::post('post-add-product', [ProductController::class, 'postProduct'])->name('post.product');
 
+        Route::get('add-product/{id}', [ProductController::class, 'removeProduct'])->name('remove.product');
+
         Route::get('variant-list', [ProductController::class, 'variantList'])->name('variant.list');
 
         Route::get('variant-image/{variant_id}/{product_id}', [ProductController::class, 'variantImage'])->name('add.image');
         Route::post('post-variant-image/{variant_id}/{product_id}', [ProductController::class, 'postImage'])->name('post.variant.Image');
+
+        Route::get('remove-variant-image/{id}', [ProductController::class, 'removeVariant'])->name('remove.variant');
+
 
     });
 
@@ -190,9 +221,13 @@ Route::middleware(['auth_user'])->group(function () {
 
 // middleware end
 
+
+
 Route::get('/home/index', function () {
     return view('frontend.home');
 });
+
+
 
 // Social Login GOOGLE 
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectGoogle'])->name('google.login');

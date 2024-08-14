@@ -6,6 +6,38 @@
 
 
 <div class="content">
+
+    @if(session('success'))
+    <div  class="alert alert-primary success-alert">
+      {{ session('success') }}
+    </div>
+  @endif
+
+    <script>
+            let alerts = document.querySelectorAll('.success-alert');
+            // console.log("Alert: ", alerts);
+
+            alerts.forEach((alert)=>{
+
+                    setTimeout(function() {
+
+                            if (alert) {
+                                alert.style.transition = 'opacity 0.5s ease';
+                                alert.style.opacity = '0';
+
+                                setTimeout(function() {
+                                    alert.style.display = 'none';
+                                }, 500);
+                            }
+                        }, 1000); // 1 second delay
+                });
+            
+
+
+    </script>
+
+
+
     <nav class="mb-2" aria-label="breadcrumb">
       <ol class="breadcrumb mb-0">
         <li class="breadcrumb-item"><a href="#!">Product</a></li>
@@ -103,7 +135,7 @@
                     <div class="dropdown-menu dropdown-menu-end py-2">
                         <a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#variantImg_{{$variant->id}}">Add Images</a>
                         <a class="dropdown-item" href="">Edit</a>
-                        <a class="dropdown-item text-danger" href="">Remove</a>
+                        <a class="dropdown-item text-danger" href="{{ route('remove.variant',$variant->id) }}">Remove</a>
                     </div>
 
                     </div>

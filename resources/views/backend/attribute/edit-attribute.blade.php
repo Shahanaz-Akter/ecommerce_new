@@ -4,7 +4,7 @@
 @extends('backend.layouts.master_page')
 
 @section('title')
-<title>Add Attribute</title>
+<title>Edit Attribute</title>
 @endsection
 
 @section('content')
@@ -18,7 +18,7 @@
       </ol>
     </nav>
 
-    <form class="mb-9" method="post" action="{{ route('post.attribute') }}" enctype="multipart/form-data">
+    <form class="mb-9" method="post" action="{{ route('post.edit.attribute', $attribute->id) }}" enctype="multipart/form-data">
 
         @csrf
 
@@ -30,26 +30,23 @@
         <div class="col-auto">
           <button class="btn btn-phoenix-secondary me-2 mb-2 mb-sm-0" type="button">Discard</button>
           <button class="btn btn-phoenix-primary me-2 mb-2 mb-sm-0" type="button">Save draft</button>
-          <button type="submit" class="btn btn-primary mb-2 mb-sm-0" type="submit">Publish Attribute</button>
+          <button type="submit" class="btn btn-primary mb-2 mb-sm-0" type="submit">Submit Attribute</button>
         </div>
       </div>
 
-                <div class="row g-5">
+        <div class="row g-5">
 
-                        <div class="col-12 col-xl-8">
-                            <div class="mb-2">Name</div>
-                            <input class="form-control mb-5" type="text"  name="attribute" placeholder="Attribute Name" required/>
-                        </div>
-
-                        <div class="col-12 col-xl-8">
-                            <div class="mb-2">Slug</div>
-                            <input class="form-control mb-5" type="text"  name="slug" placeholder="Slug Name..." required/>
-                        </div>
-                        
+                <div class="col-12 col-xl-8">
+                    <div class="mb-2">Name</div>
+                    <input class="form-control mb-5" type="text"  name="attribute" placeholder="Attribute Name" value="{{ $attribute->attribute_name }}" required/>
                 </div>
-        </form>
 
-   
+                <div class="col-12 col-xl-8">
+                    <div class="mb-2">Slug</div>
+                    <input class="form-control mb-5" type="text"  name="slug" placeholder="Slug Name..." value="{{ $attribute->slug }}" required/>
+                </div>
+        </div>
+        </form>
   </div>
 
 @endsection()

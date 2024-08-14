@@ -680,6 +680,22 @@ class ProductController extends Controller
     }
 
 
+public function removeProduct($id){
+   
+
+    $record =  Product::where('id', $id)->first();
+
+    if ($record) {
+        $record->delete();
+        return redirect()->back()->with(['success' => 'Seccessfully Deleted the Record!']);
+
+    }
+    else{
+        return redirect()->back()->with(['success' => 'Not Found the Record!']);
+
+    }
+}
+
     public function  variantList()
     {
 
@@ -740,4 +756,22 @@ class ProductController extends Controller
             ]);
         }
     }
+
+
+
+    
+public function removeVariant($id){
+   
+    $record =  Variant::where('id', $id)->first();
+
+    if ($record) {
+        $record->delete();
+        return redirect()->back()->with(['success' => 'Seccessfully Deleted the Record!']);
+
+    }
+    else{
+        return redirect()->back()->with(['success' => 'Not Found the Record!']);
+
+    }
+}
 }
