@@ -26,6 +26,7 @@ return new class extends Migration
             $table->dateTime('discount_end_date')->nullable();
             $table->string('tags')->nullable()->nullable();
             $table->integer('min_qty')->nullable();
+            
             $table->boolean('featured')->nullable();
             $table->boolean('trendy')->nullable();
             $table->boolean('new_arrival')->nullable();

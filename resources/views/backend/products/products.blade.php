@@ -4,69 +4,12 @@
 @endsection
 @section('content')
 
+
+@section('custom_css')
 <style>
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 34px;
-  }
-  
-  /* Hide default HTML checkbox */
-  .switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-  }
-  
-  /* The slider */
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  .slider:before {
-    position: absolute;
-    content: "";
-    height: 26px;
-    width: 26px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    -webkit-transition: .4s;
-    transition: .4s;
-  }
-  
-  input:checked + .slider {
-    background-color: #2196F3;
-  }
-  
-  input:focus + .slider {
-    box-shadow: 0 0 1px #2196F3;
-  }
-  
-  input:checked + .slider:before {
-    -webkit-transform: translateX(26px);
-    -ms-transform: translateX(26px);
-    transform: translateX(26px);
-  }
-  
-  /* Rounded sliders */
-  .slider.round {
-    border-radius: 34px;
-  }
-  
-  .slider.round:before {
-    border-radius: 50%;
-  }
-  </style>
+
+</style>
+@endsection
 
 <div class="content">
 
@@ -80,7 +23,6 @@
   <script>
           let alerts = document.querySelectorAll('.success-alert');
           // console.log("Alert: ", alerts);
-
           alerts.forEach((alert)=>{
 
                   setTimeout(function() {
@@ -96,33 +38,7 @@
                       }, 1000); // 1 second delay
               });
           
-
-
   </script>
-
-    <script>
-            let alerts = document.querySelectorAll('.success-alert');
-            // console.log("Alert: ", alerts);
-
-            alerts.forEach((alert)=>{
-
-                    setTimeout(function() {
-
-                            if (alert) {
-                                alert.style.transition = 'opacity 0.5s ease';
-                                alert.style.opacity = '0';
-
-                                setTimeout(function() {
-                                    alert.style.display = 'none';
-                                }, 500);
-                            }
-                        }, 1000); // 1 second delay
-                });
-            
-
-
-    </script>
-
 
 
     <nav class="mb-2" aria-label="breadcrumb">
@@ -244,9 +160,19 @@
                         <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
                             {{ $product->slug }} 
                         </td>
+                        {{-- {{ $product->stock_status }} --}}
+
                         
                     <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                        {{ $product->stock_status }} 
+                        <select class="form-control dropdown-toggle" name="status_type" id="changeStatus" onchange="changeStatus(this, {{ $product->id }})">
+
+                            <option value="">Select</option>
+
+                            <option value="stock-in" {{ $product->stock_status=='stock-in' ? 'selected' : '' }}> stock-in</option>
+
+                            <option value="stock-out" {{ $product->stock_status=='stock-out' ? 'selected' : '' }}> stock-out</option>
+
+                        </select>
                     </td>
                    
                     <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
@@ -271,7 +197,6 @@
                     {{ $product->vendor->name }} 
                 </td>
               
-
                 <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
                     {{ $product->shipping_type }} 
                 </td>
@@ -279,32 +204,39 @@
                     {{ $product->shipping_cost }} 
                 </td>
                
-
                      <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                     
-                      <label class="switch">
-                        <input type="checkbox" name="featured" id="featured" onclick="Val(this)">
-                        <span class="slider round"></span>
-                      </label>
+
+                      <div class="form-check form-switch">
+                      
+                        @if($product->featured !=null)
+                        
+                        <input class="form-check-input" id="flexSwitchCheckChecked" checked type="checkbox" name="featured" id="featured" onchange="featured(this, {{ $product->id }})" value="on"/>
+                        
+                        @else 
+                        <input class="form-check-input"  id="flexSwitchCheckChecked" type="checkbox" name="featured" id="featured" onchange="featured(this, {{ $product->id }})" value="off"/>
+
+                        @endif
+                      </div>
                     </td>
 
                     <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                      <label class="switch">
-                        <input type="checkbox" name="trendy" id="trendy" onclick="val(this)">
-                        <span class="slider round"></span>
-                      </label>
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox"  name="trendy" id="trendy" onchange="trendy(this,  {{ $product->id }} )"/>
+                     </div>
                     </td>
+
                     <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                      <label class="switch">
-                        <input type="checkbox" name="new_arrival" id="new_arrival" onclick="Val(this)">
-                        <span class="slider round"></span>
-                      </label>                  
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox"  name="new_arrival" id="new_arrival" onchage="arrival(this,  {{ $product->id }} )"/>
+                     </div>     
+
                      </td>
+
                     <td class="price align-middle white-space-nowrap text-end fw-bold text-body-tertiary ps-4">
-                      <label class="switch">
-                        <input type="checkbox" name="todays_deal" id="todays_deal" onclick="Val(this)">
-                        <span class="slider round"></span>
-                      </label>    
+                    
+                      <div class="form-check form-switch">
+                        <input class="form-check-input" id="flexSwitchCheckChecked" type="checkbox"  name="todays_deal" id="todays_deal" onchage="deal(this,  {{ $product->id }} )"/>
+                     </div>    
                     </td>
 
                    
@@ -316,7 +248,7 @@
                         <button class="btn btn-sm dropdown-toggle dropdown-caret-none transition-none btn-reveal fs-10" type="button" data-bs-toggle="dropdown" data-boundary="window" aria-haspopup="true" aria-expanded="false" data-bs-reference="parent"><span class="fas fa-ellipsis-h fs-10"></span></button>
   
                         <div class="dropdown-menu dropdown-menu-end py-2">
-                          <a class="dropdown-item" href="">Edit</a>
+                          <a class="dropdown-item" href="{{ route('edit.product', $product->id)}}">Edit</a>
                           <a class="dropdown-item text-danger" href="{{ route('remove.product', $product->id)}}">Remove</a>
                         </div>
                       </div>
@@ -494,5 +426,84 @@
   </div>
 
   
+
+  @section('custom_js')
+
+  <script>
+   function changeStatus(tag, id){
+        // console.log(id);
+       let statusValue =  tag.value;
+        console.log(statusValue);
+
+        $.ajax({
+
+        url: "{{ route('send.status',   ['status' => ':status', 'id' => ':id']) }}"
+        .replace(':status', encodeURIComponent(statusValue))
+        .replace(':id', id),
+        type: 'GET',
+        dataType: 'json', 
+
+        success: function(res) {
+            console.log('Response: ' + res);
+           
+            // $changeStatus.empty();
+            // $changeStatus.setAttribute('value', ${res.data});
+
+        }
+
+  });
+
+    }
+
+// featured, new_arrival, todays_deal, trendy
+
+    function featured(tag , id){
+
+       console.log('Checked Value');
+       let checkValue =  tag.value;
+        console.log(checkValue);
+
+        $.ajax({
+        url: "{{ route('send.featured',   ['featured' => ':featured', 'id' => ':id']) }}"
+        .replace(':featured', encodeURIComponent(checkValue))
+        .replace(':id', id),
+        type: 'GET',
+        dataType: 'json', 
+
+        success: function(res) {
+
+        console.log('Response: ' + res);
+
+        // $featured.empty();
+        if(checkValue == 'off'){
+
+            $('#featured').prop('checked', false);
+        }
+        else{
+            $('#featured').prop('checked', true);
+
+        }
+            
+           // $changeStatus.setAttribute('value', ${res.data});
+           }
+
+        });
+
+  }
+
+  function arrival(tag , id){
+
+  }
+
+  function deal(tag , id){
+
+}
+
+function trendy(tag , id){
+
+}
+    </script>
+
+  @endsection
 
 @endsection

@@ -55,7 +55,7 @@
          //pot.vendor
           $.ajax({
             //   url: '/vendor/post-add-vendor1',
-              url: '{{ route("post.vendor1") }}'
+              url: '{{ route("post.vendor1") }}',
               type: 'POST',
               data: formData,
               contentType: false,

@@ -25,10 +25,37 @@ use Illuminate\Validation\Rules\ImageFile;
 class ProductController extends Controller
 {
 
+    public function sendStatus($status, $id)
+    {
+        // $status, $id;
+        $product = Product::where('id', $id)->first();
+        $product->stock_status = $status;
+        $product->save();
+
+        return response()->json([
+            'success' => 'Status Updated Successfully!',
+            'data' => $product,
+        ]);
+    }
+    public function sendFeatured($featured, $id)
+    {
+        // $status, $id;
+        $product = Product::where('id', $id)->first();
+        $product->featured = $featured === 'off' ? 0 : 1;
+        $product->save();
+        // dd($product);
+
+        return response()->json([
+            'success' => true,
+            'data' => $product,
+        ]);
+    }
+
+
     public function Products()
     {
         $products = Product::get();
-       
+
         // dd($products);
         return view('backend.products.products', compact('products'));
     }
@@ -418,6 +445,12 @@ class ProductController extends Controller
             $product->tags = $request->tags;
             $product->meta_title = $request->meta_title;
             $product->meta_description = $request->meta_description;
+
+            $product->trendy = 0;
+            $product->todays_deal = 0;
+            $product->new_arrival = 0;
+            $product->featured = 0;
+
             $product->save();
 
             $productImages = $request->file('product_images');
@@ -571,10 +604,10 @@ class ProductController extends Controller
 
             for ($k = 0; $k < $maxVariation; $k++) {
 
-                $ids= isset($attribute_ids[$k]) ? $attribute_ids[$k] : null;
-                $values= isset($attribute_values[$k]) ? $attribute_values[$k] : null;
-                $quantities= isset($attribute_quantities[$k]) ? $attribute_quantities[$k] : null;
-                $imagess= isset($variantImg[$k]) ? $variantImg[$k] : null;
+                $ids = isset($attribute_ids[$k]) ? $attribute_ids[$k] : null;
+                $values = isset($attribute_values[$k]) ? $attribute_values[$k] : null;
+                $quantities = isset($attribute_quantities[$k]) ? $attribute_quantities[$k] : null;
+                $imagess = isset($variantImg[$k]) ? $variantImg[$k] : null;
 
                 $isAvaialbeVariationData = $ids || $values || $quantities ||  $imagess; //error is here
 
@@ -690,10 +723,17 @@ class ProductController extends Controller
     }
 
 
+
+
+    public function  editProduct($id)
+    {
+        dd($id);
+        $record =  Product::where('id', $id)->first();
+        $record->save();
+    }
+
     public function removeProduct($id)
     {
-
-
         $record =  Product::where('id', $id)->first();
 
         if ($record) {
@@ -765,9 +805,6 @@ class ProductController extends Controller
         }
     }
 
-
-
-
     public function removeVariant($id)
     {
 
@@ -780,4 +817,11 @@ class ProductController extends Controller
             return redirect()->back()->with(['success' => 'Not Found the Record!']);
         }
     }
+
+
+    public function campaigns(){
+        return view('backend.campaign.campaigns');
+
+    }
+
 }

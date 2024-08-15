@@ -13,12 +13,14 @@
       </ol>
     </nav>
 
+
     @if($errors->any())
     @foreach($errors->all() as $error)
         @php
             // Extract field name from the error message
             $field = explode(' ', $error)[0];
         @endphp
+
         @if(in_array($field, [ 'name', 'total_qty', 'brand_id', 'unit_id', 'stock_status', 'status', 'min_qty', 'shipping_cost','vendor_id', 'tags', 'product_images'])) 
 
             <div class="alert alert-secondary p-2">{{ $error }}</div>
@@ -457,10 +459,10 @@
                               <input class="form-control" type="number" placeholder="10" name="attribute_quantities[]"/>
                             </div>
 
-                            <div class="col-12 col-md-1 col-lg-1 col-xl-1">
+                            {{-- <div class="col-12 col-md-1 col-lg-1 col-xl-1">
                               <div class="mb-3"></div>
                               <div class="btn btn-danger mt-4 remove_variant">Remove</div>
-                            </div>
+                            </div> --}}
                         </div>
                         {{-- first child end--}}
 
@@ -632,7 +634,6 @@
 @section('custom_js')
 
  <script>
-
   function fetchAttributeValues(tag) {
     // console.log(tag.value);
   $.ajax({
@@ -670,7 +671,16 @@ newVariant.querySelectorAll('input, select, textarea').forEach(input => {
         }
 });
 
-    wrapper.appendChild(newVariant);
+// Create the delete button element
+let deleteBtn = document.createElement('div');
+deleteBtn.className = "col-12 col-md-1 col-lg-1 col-xl-1";
+
+deleteBtn.innerHTML = `
+    <div class="mb-3"></div>
+    <div class="btn btn-danger mt-4 remove_variant">Remove</div>`;
+                            
+newVariant.appendChild(deleteBtn);
+wrapper.appendChild(newVariant);
 
     let remove_variants= document.querySelectorAll('.remove_variant'); 
     // console.log(remove_variants);
@@ -803,6 +813,7 @@ function convertToBase64(file, callback) {
                     });
         });
 </script>
+
 @endsection
 
 

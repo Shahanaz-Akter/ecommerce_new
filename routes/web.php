@@ -196,11 +196,18 @@ Route::middleware(['auth_user'])->group(function () {
 
     // product routes
     Route::group(['prefix' => 'product'], function () {
+
+        Route::get('send-status/{status}/{id}', [ProductController::class, 'sendStatus'])->name('send.status');
+        Route::get('send-featured/{featured}/{id}', [ProductController::class, 'sendFeatured'])->name('send.featured');
+
         Route::get('products', [ProductController::class, 'products'])->name('products');
         Route::get('add-product', [ProductController::class, 'addProduct'])->name('add.product');
         Route::post('post-add-product', [ProductController::class, 'postProduct'])->name('post.product');
 
-        Route::get('add-product/{id}', [ProductController::class, 'removeProduct'])->name('remove.product');
+
+        Route::get('edit-product/{id}', [ProductController::class, 'editProduct'])->name('edit.product');
+        Route::get('remove-product/{id}', [ProductController::class, 'removeProduct'])->name('remove.product');
+
 
         Route::get('variant-list', [ProductController::class, 'variantList'])->name('variant.list');
 
@@ -210,7 +217,10 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('remove-variant-image/{id}', [ProductController::class, 'removeVariant'])->name('remove.variant');
 
 
+        Route::get('campaigns', [ProductController::class, 'campaigns'])->name('campaigns');
+        Route::post('post-campaigns', [ProductController::class, 'postCampaigns'])->name('post.campaigns');
     });
+
 
     // product routes
     Route::group(['prefix' => 'vendor'], function () {

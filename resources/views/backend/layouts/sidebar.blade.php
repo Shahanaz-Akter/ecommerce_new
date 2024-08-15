@@ -244,6 +244,28 @@
                         </div>
                       </li>
 
+                      <li class="nav-item"><a class="nav-link dropdown-indicator" href="#nv-campaign" data-bs-toggle="collapse" aria-expanded="true" aria-controls="nv-campaign">
+                        <div class="d-flex align-items-center">
+                          <div class="dropdown-indicator-icon"><span class="fas fa-caret-right"></span></div><span class="nav-link-text">Campaigns</span>
+                        </div>
+                      </a>
+
+                      <!-- more inner pages-->
+                      <div class="parent-wrapper">
+                        <ul class="nav collapse parent show" data-bs-parent="#e-commerce" id="nv-campaign">
+
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{ route('campaigns') }}">
+                            <div class="d-flex align-items-center"><span class="nav-link-text">Campaign</span>
+                            </div>
+                          </a>
+                          <!-- more inner pages-->
+                        </li>
+                        
+                        </ul>
+                      </div>
+                    </li>
+
                     </ul>
                   </div>
                 </div>
