@@ -8,6 +8,7 @@ use App\Models\Unit;
 use App\Models\User;
 use App\Models\Brand;
 use App\Models\Color;
+use App\Models\Images;
 use App\Models\Vendor;
 use App\Models\Category;
 use App\Models\Attribute;
@@ -59,7 +60,7 @@ class SettingController extends Controller
 
                 $date = Carbon::now()->format('Y-m-d H:i:s');
 
-                $image_model =  new ImageFiles();
+                $image_model =  new Images();
                 $image_model->original_name = $originalName;
                 $image_model->absolute_path = $relativePath;
                 $image_model->date = $date;
@@ -72,7 +73,7 @@ class SettingController extends Controller
                 $brand = new Brand();
                 $brand->name = strtolower($request->brand);
                 $brand->description = $request->description;
-                $brand->brand_image_id = $brand_id;
+                $brand->image_id = $brand_id;
                 $brand->save();
 
                 // Commit transaction
@@ -120,7 +121,7 @@ class SettingController extends Controller
 
                 $date = Carbon::now()->format('Y-m-d H:i:s');
 
-                $image_model =  new ImageFiles();
+                $image_model =  new Images();
                 $image_model->original_name = $originalName;
                 $image_model->absolute_path = $relativePath;
                 $image_model->date = $date;
@@ -133,7 +134,7 @@ class SettingController extends Controller
 
             $brand->name = $request->brand ? strtolower($request->brand) : $brand->name;
             $brand->description = $request->description ? $request->description : $brand->description;
-            $brand->brand_image_id =  $brand_img ?  $setId : $brand->brand_image_id;
+            $brand->image_id =  $brand_img ?  $setId : $brand->image_id;
             $brand->save();
 
             return redirect()->route('brands')->with(['success' => 'Seccessfully Edit the Record!']);
@@ -184,7 +185,7 @@ class SettingController extends Controller
 
                 $date = Carbon::now()->format('Y-m-d H:i:s');
 
-                $image_model =  new ImageFiles();
+                $image_model =  new Images();
                 $image_model->original_name = $originalName;
                 $image_model->absolute_path = $relativePath;
                 $image_model->date = $date;
@@ -197,7 +198,7 @@ class SettingController extends Controller
                 $brand = new Brand();
                 $brand->name = strtolower($request->brand);
                 $brand->description = $request->description;
-                $brand->brand_image_id = $brand_id;
+                $brand->image_id = $brand_id;
                 $brand->save();
 
                 // Commit transaction
@@ -637,7 +638,7 @@ class SettingController extends Controller
 
                 $date = Carbon::now()->format('Y-m-d H:i:s');
 
-                $image_model =  new ImageFiles();
+                $image_model =  new Images();
                 $image_model->original_name = $originalName;
                 $image_model->absolute_path = $relativePath;
                 $image_model->date = $date;
@@ -660,7 +661,8 @@ class SettingController extends Controller
             DB::commit();
 
             //  return redirect()->route('categories')->with('success', 'Successfully Saved Category!');
-            return redirect()->back();
+            return redirect()->route('categories')->with(['success' => 'Seccessfully Saved the  Record!']);
+
         } catch (Exception $ex) {
             // Rollback transaction in case of an error
             DB::rollBack();
@@ -705,7 +707,7 @@ class SettingController extends Controller
 
                 $date = Carbon::now()->format('Y-m-d H:i:s');
 
-                $image_model =  new ImageFiles();
+                $image_model =  new Images();
                 $image_model->original_name = $originalName;
                 $image_model->absolute_path = $relativePath;
                 $image_model->date = $date;
@@ -766,7 +768,7 @@ class SettingController extends Controller
 
                 $date = Carbon::now()->format('Y-m-d H:i:s');
 
-                $image_model =  new ImageFiles();
+                $image_model =  new Images();
                 $image_model->original_name = $originalName;
                 $image_model->absolute_path = $relativePath;
                 $image_model->date = $date;

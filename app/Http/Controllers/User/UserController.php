@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use Exception;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Images;
 use App\Models\ImageFiles;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -64,7 +65,7 @@ class UserController extends Controller
 
                 $date = \Carbon\Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d H:i:s');
 
-                $image_files = new ImageFiles();
+                $image_files = new Images();
                 $image_files->original_name = $originalName;
                 $image_files->absolute_path = $relativePath;
 
@@ -83,7 +84,7 @@ class UserController extends Controller
             $user->password = Hash::make($request->password);
             $user->p_example = 'exapmple_' . $request->password;
 
-            $user->image_files_id = $imageFilesId;
+            $user->image_id = $imageFilesId;
 
             $user->save();
 
@@ -137,7 +138,9 @@ class UserController extends Controller
     public function editUser($user_id)
     {
         $user = User::where('id', $user_id)->first();
-        $image = $user->imageFiles;
+        // dd($user);
+        $image = $user->imageFile;
+        // dd($image);
         return view('backend.user.edit-user', compact('user', 'image'));
     }
 
@@ -188,7 +191,7 @@ class UserController extends Controller
                 // $date = $request->has('date') ? \Carbon\Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d H:i:s') : $image->date;
 
                 // Update the image file record
-                $image =  new ImageFiles();
+                $image =  new Images();
                 $image->original_name = $originalName;
                 $image->absolute_path = $relativePath;
                 $image->extension = $extension;
@@ -205,7 +208,7 @@ class UserController extends Controller
             $user->contact_number = $request->contact ? $request->contact : $user->contact_number;
             $user->username = $request->user_name ? $request->user_name : $user->username;
             $user->email = $request->email ? $request->email : $user->email;
-            $user->image_files_id = $request->user_img ? $image->id : $user->image_files_id;
+            $user->image_id = $request->user_img ? $image->id : $user->image_id;
 
             $user->password = $request->filled('password') ? Hash::make($request->password) : $user->password;
             $user->p_example = $request->filled('password') ? 'example_' . $request->password : $user->p_example;
@@ -233,7 +236,7 @@ class UserController extends Controller
         $user = User::where('id', $user_id)->first();
         if ($user) {
             $user->delete();
-            
+
             return redirect()->back()->with(['success' => 'Seccessfully Deleted the Record!']);
         } else {
             return redirect()->back()->with(['success' => 'Not Found the Record!']);
@@ -244,7 +247,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($user_id);
         $role =  $user->role;
-        $img = $user->imageFiles;
+        $img = $user->imageFile;
 
         // dd($img);
 

@@ -49,8 +49,9 @@
             <div class="col-sm-12">
                 <label class="form-label" for="user_img">User Image</label>
                 <input class="form-control" id="user_img" type="file"  name="user_img" value=""/>
-                @if($user->image_files_id!=null)
-                <img src="{{ $image->absolute_path }}" alt="Not available" height="100" width="100">
+
+                @if($user->image_id!=null)
+                <img src="{{ $image->absolute_path}}" alt="Not available" height="100" width="100">
                 @else  
                 {{-- previous image --}}
                 <img src="" alt="Not available" height="100" width="100">

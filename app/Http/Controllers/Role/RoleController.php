@@ -161,7 +161,6 @@ class RoleController extends Controller
     public function rolewisePermissionIndex()
     {
         $roles =  Role::with('permissions')->get();
-        // return  $roles;
 
         return view('backend.permission.rolewise-permission', compact('roles'));
     }

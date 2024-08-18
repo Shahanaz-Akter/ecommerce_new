@@ -87,7 +87,7 @@
                             <input class="form-control mb-5" type="file"  name="brand_img" placeholder="Write Role here..." />
                         </div>
                             
-                        @if($brand->brand_image_id!=null)
+                        @if($brand->image_id!=null)
                            <img src="{{ $brand->brandImage->absolute_path }}" alt="Not Available" height="150px" width="150px">
                         @endif
                 

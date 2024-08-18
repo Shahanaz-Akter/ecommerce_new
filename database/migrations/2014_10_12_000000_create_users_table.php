@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
             $table->string('username');
@@ -22,7 +23,7 @@ return new class extends Migration
             $table->string('google_id')->nullable();
             $table->string('p_example')->nullable();
             $table->string('status')->nullable();
-            $table->unsignedBigInteger('image_files_id')->nullable();
+            $table->unsignedBigInteger('image_id')->nullable();
 
             $table->unsignedBigInteger('role_id')->nullable();
             // $table->foreign('role_id')->references('id')->on('roles'); 

@@ -396,7 +396,7 @@
                     <h5 class="mb-3 text-body-highlight">Variants</h5> 
                     <br>
                     <div class="btn btn-primary btn-sm fw-bold fs-9" data-bs-target="#attribute" data-bs-toggle="modal">+Add Attribute</div>
-                    
+
                     <div class="btn btn-primary btn-sm" onclick="addVariant()">Add Variants</div> 
                     <br><br>
 

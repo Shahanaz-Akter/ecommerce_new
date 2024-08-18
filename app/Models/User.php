@@ -3,10 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Images;
+use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -18,7 +19,21 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'first_name', 'last_name', 'username', 'email', 'password', 'google_id', 'p_example', 'status', 'image_files_id', 'role_id', 'zip_code', 'city', 'state', 'contact_number'
+        'name',
+        'first_name',
+        'last_name',
+        'username',
+        'email',
+        'password',
+        'google_id',
+        'p_example',
+        'status',
+        'image_id',
+        'role_id',
+        'zip_code',
+        'city',
+        'state',
+        'contact_number'
     ];
 
     /**
@@ -41,13 +56,14 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function imageFiles(){
-        
-         return $this->belongsTo(ImageFiles::class);
+    public function imageFile()
+    {
+
+        return $this->belongsTo(Images::class, 'image_id', 'id');
     }
 
-    public function role(){
+    public function role()
+    {
         return $this->belongsTo(Role::class);
     }
-
 }

@@ -72,7 +72,7 @@
           
             <ul>
                 @foreach ($role->permissions as $permission)
-                <li>{{$permission->name}}</li>
+                {{-- <li>{{$permission->name}}</li> --}}
                 <li>{{$permission->alias}}</li>
                 @endforeach
             </ul>

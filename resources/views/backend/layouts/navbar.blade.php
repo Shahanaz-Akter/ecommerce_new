@@ -344,8 +344,8 @@
          <li class="nav-item dropdown"><a class="nav-link lh-1 pe-0" id="navbarDropdownUser" href="#!" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-haspopup="true" aria-expanded="false">
              <div class="avatar avatar-l ">
 
-              @if(Auth::check() && Auth::user()->image_files_id)
-                <img src="{{Auth::user()->imageFiles->absolute_path}} " alt="" width="53" />
+              @if(Auth::check() && Auth::user()->image_id)
+                <img src="{{Auth::user()->imageFile->absolute_path}} " alt="" width="53" />
 
                 @else
                 <img class="rounded-circle " src="{{asset('assets/img/team/40x40/57.webp')}}" alt="" />

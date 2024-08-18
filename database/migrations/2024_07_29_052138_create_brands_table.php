@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable();
             $table->text('description')->nullable();
-            $table->unsignedBigInteger('brand_image_id')->nullable();
+            $table->unsignedBigInteger('image_id')->nullable();
             $table->timestamps();
         });
     }

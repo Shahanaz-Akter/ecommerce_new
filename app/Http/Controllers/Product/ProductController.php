@@ -8,6 +8,7 @@ use App\Models\Unit;
 use App\Models\Brand;
 use App\Models\Color;
 use App\Models\Price;
+use App\Models\Images;
 use App\Models\Review;
 use App\Models\Vendor;
 use App\Models\Product;
@@ -15,12 +16,14 @@ use App\Models\Variant;
 use App\Models\Category;
 use App\Models\Attribute;
 use App\Models\ImageFiles;
+use App\Models\ProductImage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rules\ImageFile;
+use App\Models\VariantImage;
 
 class ProductController extends Controller
 {
@@ -37,6 +40,7 @@ class ProductController extends Controller
             'data' => $product,
         ]);
     }
+
     public function sendFeatured($featured, $id)
     {
         // $status, $id;
@@ -89,7 +93,7 @@ class ProductController extends Controller
     }
 
 
-    public function data()
+    public function demodata()
     {
         // $validData=  $request->validate([
         //     'name' => 'required|string|max:255',
@@ -459,7 +463,7 @@ class ProductController extends Controller
             // products images storing into imagefiles model
             if ($productImages != null && count($productImages) > 0) {
 
-                $isFirstImage = true;
+                $imagelist = [];
 
                 foreach ($productImages as $index => $image) {
 
@@ -472,31 +476,17 @@ class ProductController extends Controller
 
                     $image->move(public_path('uploads'), $uniqueName);
 
-                    if ($isFirstImage) {
+                    $image_model =  new Images();
+                    $image_model->original_name = $originalName;
+                    $image_model->absolute_path = $relativePath;
+                    $image_model->extension = $extension;
+                    $image_model->file_size = $file_size;
+                    $image_model->save();
 
-                        $image_model =  new ImageFiles();
-                        $image_model->original_name = $originalName;
-                        $image_model->absolute_path = $relativePath;
-                        $image_model->extension = $extension;
-                        $image_model->file_size = $file_size;
-
-                        // $image_model->is_images = 0;
-                        $image_model->is_images = ($index === 0) ? 0 : 1;
-
-                        $image_model->product_id = $product->id;
-                        $image_model->save();
-                        $isFirstImage = false;
-                    } else {
-                        $image_model =  new ImageFiles();
-                        $image_model->original_name = $originalName;
-                        $image_model->absolute_path = $relativePath;
-                        $image_model->extension = $extension;
-                        $image_model->file_size = $file_size;
-
-                        $image_model->is_images = 1;
-                        $image_model->product_id = $product->id;
-                        $image_model->save();
-                    }
+                    $product_image = new ProductImage();
+                    $product_image ->product_id = $product->id;
+                    $product_image ->image_id = $image_model->id;
+                    $product_image->save();
                 }
             }
 
@@ -512,6 +502,7 @@ class ProductController extends Controller
                 $price->product_id = $product->id;
                 $price->save();
             }
+
 
             // review value stored
             $reviewNames = $request->review_name ?? [];
@@ -534,16 +525,17 @@ class ProductController extends Controller
                     $fileSizeInBytes = $image->getSize();
                     $file_size = $this->humanReadableFileSize($fileSizeInBytes);
                     $relativePath = '/uploads/' . $uniqueName;
-
                     $image->move(public_path('uploads'), $uniqueName);
-                    $image_model =  new ImageFiles();
+
+                    $image_model =  new Images();
                     $image_model->original_name = $originalName;
                     $image_model->absolute_path = $relativePath;
                     $image_model->extension = $extension;
                     $image_model->file_size = $file_size;
                     $image_model->save();
 
-                    $reviews_img_arr[] = $image_model->id;
+                    $reviews_img_arr[]=  $image_model->id;
+
                 }
             }
 
@@ -585,7 +577,7 @@ class ProductController extends Controller
             }
             // end reviews
 
-
+           
             // start variations stored model
             $attribute_ids = $request->attribute_ids ?? [];
             $attribute_values = $request->attribute_values ?? [];
@@ -624,7 +616,6 @@ class ProductController extends Controller
 
                     $variantsArr[] = $variant->id;
 
-
                     if ($variantImg != null && count($variantImg) > 0) {
 
                         $originalName = $variantImg[$k]->getClientOriginalName();
@@ -632,24 +623,22 @@ class ProductController extends Controller
                         $uniqueName = uniqid() . '.' . $extension;
                         $fileSizeInBytes = $variantImg[$k]->getSize();
 
-
                         $file_size = $this->humanReadableFileSize($fileSizeInBytes);
                         $relativePath = '/uploads/' . $uniqueName;
-
                         $variantImg[$k]->move(public_path('uploads'), $uniqueName);
 
-                        $image_model =  new ImageFiles();
+                        $image_model =  new Images();
                         $image_model->original_name = $originalName;
                         $image_model->absolute_path = $relativePath;
                         $image_model->extension = $extension;
                         $image_model->file_size = $file_size;
-
-                        $image_model->is_variation = 1;
-                        $image_model->is_images = 0;
-
-                        $image_model->product_id = $product->id;
-                        $image_model->variant_id = $variant->id;
                         $image_model->save();
+
+                        $variant_image = new VariantImage();
+                        $variant_image->variant_id =$variant->id;
+                        $variant_image->image_id =$image_model->id;
+                        $variant_image->save();
+                      
                     }
                 }
             }
@@ -722,9 +711,6 @@ class ProductController extends Controller
         return round($size, $precision) . ' ' . $units[$unitIndex];
     }
 
-
-
-
     public function  editProduct($id)
     {
         dd($id);
@@ -771,25 +757,21 @@ class ProductController extends Controller
                 $extension = $variantImg[$k]->getClientOriginalExtension();
                 $uniqueName = uniqid() . '.' . $extension;
                 $fileSizeInBytes = $variantImg[$k]->getSize();
-
-
                 $file_size = $this->humanReadableFileSize($fileSizeInBytes);
                 $relativePath = '/uploads/' . $uniqueName;
-
                 $variantImg[$k]->move(public_path('uploads'), $uniqueName);
 
-                $image_model =  new ImageFiles();
+                $image_model =  new Images();
                 $image_model->original_name = $originalName;
                 $image_model->absolute_path = $relativePath;
                 $image_model->extension = $extension;
                 $image_model->file_size = $file_size;
-
-                $image_model->is_variation = 1;
-                $image_model->is_images = 1;
-
-                $image_model->product_id = $product_id;
-                $image_model->variant_id = $variant_id;
                 $image_model->save();
+
+                $variant_image =  new VariantImage();
+                $variant_image->variant_id =$variant_id;
+                $variant_image->image_id = $image_model->id;
+                $variant_image->save();
             }
 
             return response()->json(
@@ -819,9 +801,8 @@ class ProductController extends Controller
     }
 
 
-    public function campaigns(){
+    public function campaigns()
+    {
         return view('backend.campaign.campaigns');
-
     }
-
 }

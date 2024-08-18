@@ -111,9 +111,9 @@
   
                     <td class="align-middle white-space-nowrap py-0"><a class="d-block border border-translucent rounded-2" href="../../../apps/e-commerce/landing/product-details.html">
                       
-                      @if($user->image_files_id)
+                      @if($user->image_id)
                      
-                      <img src="{{$user->imageFiles->absolute_path}}" alt="" width="53" />
+                      <img src="{{$user->imageFile->absolute_path}}" alt="" width="53" />
 
                         @else
                         <img src="../../../assets/img//products/2.png" alt="" width="53" />

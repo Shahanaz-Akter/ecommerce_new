@@ -113,7 +113,7 @@
   
                     <td class="align-middle white-space-nowrap py-0">
                         {{-- {{ $brand->brand_image_id }} --}}
-                        @if($brand->brand_image_id!=null)
+                        @if($brand->image_id!=null)
                         <a class="d-block border border-translucent rounded-2" href="../../../apps/e-commerce/landing/product-details.html">
                             <img src="{{$brand->brandImage->absolute_path}}" alt="" width="53" />
                         </a>

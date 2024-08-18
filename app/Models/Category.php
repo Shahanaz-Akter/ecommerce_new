@@ -13,7 +13,7 @@ class Category extends Model
 
     public function imagefile()
     {
-        return $this->belongsTo(ImageFiles::class, 'category_image_id', 'id');
+        return $this->belongsTo(Images::class, 'category_image_id', 'id');
     }
 
     // one to many main relation
