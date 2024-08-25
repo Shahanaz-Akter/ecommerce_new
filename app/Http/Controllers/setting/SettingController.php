@@ -802,4 +802,16 @@ class SettingController extends Controller
             ], 500);
         }
     }
+
+
+    public function logos()
+    {
+      
+        return view('backend.logo.logo');
+        
+    }
+    public function PostLogos()
+    {
+       dd('dsfdsf');
+    }
 }

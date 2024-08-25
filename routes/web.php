@@ -88,14 +88,13 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('add-role', [RoleController::class, 'addRole'])->name('add.role');
         Route::post('post-role', [RoleController::class, 'postRole'])->name('post.role');
         Route::get('permission-list/{id}', [RoleController::class, 'permissionList'])->name('permission.list');
-        Route::get('edit-role/{id}', [RoleController::class,'editRole'])->name('edit.role');
-        Route::post('post-edit-role/{id}', [RoleController::class,'postEditRole'])->name('post.edit.role');
-        Route::get('remove-role/{id}', [RoleController::class,'removeRole'])->name('remove.role');
+        Route::get('edit-role/{id}', [RoleController::class, 'editRole'])->name('edit.role');
+        Route::post('post-edit-role/{id}', [RoleController::class, 'postEditRole'])->name('post.edit.role');
+        Route::get('remove-role/{id}', [RoleController::class, 'removeRole'])->name('remove.role');
 
         Route::get('role-permission-index', [RoleController::class, 'rolePermissionIndex'])->name('role.permission');
         Route::post('post-role-permission-index', [RoleController::class, 'postRolePermissionIndex'])->name('post.role.permission');
         Route::get('rolewise-permission-index', [RoleController::class, 'rolewisePermissionIndex'])->name('rolewise.permission');
-
     });
 
     // supplier routes
@@ -120,7 +119,6 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('edit-brand/{id}', [SettingController::class, 'editBrand'])->name('edit.brand');
         Route::post('post-edit-unit/{id}', [SettingController::class, 'postEditBrand'])->name('post.edit.brand');
         Route::get('remove-brand/{id}', [SettingController::class, 'removeBrand'])->name('remove.brand');
-
     });
 
     // unit routes
@@ -134,7 +132,6 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('edit-unit/{id}', [SettingController::class, 'editUnit'])->name('edit.unit');
         Route::post('post-edit-unit/{id}', [SettingController::class, 'postEditUnit'])->name('post.edit.unit');
         Route::get('remove-unit/{id}', [SettingController::class, 'removeUnit'])->name('remove.unit');
-
     });
 
     // attribute routes
@@ -155,7 +152,6 @@ Route::middleware(['auth_user'])->group(function () {
         Route::post('post-set-attribute-value/{value}', [SettingController::class, 'postSetAttributeValue'])->name('post.set.attribute.value');
 
         Route::get('/attribute-values/{id}', [SettingController::class, 'getAttributeValues'])->name('attribute.value');
-
     });
 
     // category routes
@@ -169,7 +165,6 @@ Route::middleware(['auth_user'])->group(function () {
         Route::get('edit-category/{id}', [SettingController::class, 'editCategory'])->name('edit.category');
         Route::post('post-edit-category/{id}', [SettingController::class, 'postEditCategory'])->name('post.edit.category');
         Route::get('remove-category/{id}', [SettingController::class, 'removeCategory'])->name('remove.category');
-
     });
 
     // color routes
@@ -182,17 +177,22 @@ Route::middleware(['auth_user'])->group(function () {
         Route::post('post-edit-color/{id}', [SettingController::class, 'postEditColor'])->name('post.edit.color');
 
         Route::get('remove-color/{id}', [SettingController::class, 'removeColor'])->name('remove.color');
-
     });
 
-   
-        // customer routes
+
+    // customer routes
     Route::group(['prefix' => 'customer'], function () {
-            Route::get('customers', [SettingController::class, 'customers'])->name('customers');
-            Route::get('remove-customer/{id}', [SettingController::class, 'removeCustomer'])->name('remove.customer');
-
+        Route::get('customers', [SettingController::class, 'customers'])->name('customers');
+        Route::get('remove-customer/{id}', [SettingController::class, 'removeCustomer'])->name('remove.customer');
     });
 
+
+    // logo routes
+    Route::group(['prefix' => 'logo'], function () {
+    Route::get('logos', [SettingController::class, 'logos'])->name('logos');
+    Route::post('post-logos', [SettingController::class, 'postLogos'])->name('post.logos');
+
+    });
 
     // product routes
     Route::group(['prefix' => 'product'], function () {
@@ -216,9 +216,8 @@ Route::middleware(['auth_user'])->group(function () {
 
         Route::get('remove-variant-image/{id}', [ProductController::class, 'removeVariant'])->name('remove.variant');
 
-
-        Route::get('campaigns', [ProductController::class, 'campaigns'])->name('campaigns');
-        Route::post('post-campaigns', [ProductController::class, 'postCampaigns'])->name('post.campaigns');
+        Route::get('offers', [ProductController::class, 'offers'])->name('offers');
+        Route::post('post-offers', [ProductController::class, 'postOffers'])->name('post.offers');
     });
 
 
@@ -230,6 +229,7 @@ Route::middleware(['auth_user'])->group(function () {
 });
 
 // middleware end
+
 
 
 

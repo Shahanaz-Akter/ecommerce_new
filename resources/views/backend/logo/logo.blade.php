@@ -4,7 +4,7 @@
 @extends('backend.layouts.master_page')
 
 @section('title')
-<title>Offers</title>
+<title>logos</title>
 @endsection
 
 @section('content')
@@ -12,7 +12,7 @@
 <div class="content">
    
 
-    <form class="mb-9" method="post" action="{{ route('post.offers') }}" enctype="multipart/form-data">
+    <form class="mb-9" method="post" action="{{ route('post.logos') }}" enctype="multipart/form-data">
         @csrf
 
       <div class="row g-3 flex-between-end mb-5">
@@ -58,35 +58,40 @@
             });
         </script>
 
-        <div class="col-12 col-xl-8 col-md-8 col-lg-8">
-            <div class="">Logo Section</div>
+     <div>Logo (change)</div>
+
+        <div class="col-12 col-xl-4 col-md-4 col-lg-4 mb-2">
             <div class="">Text</div>
             <div class="">
                 <input class="form-control" type="text"   name="logo_text" placeholder="Logo Name" />
             </div>
         </div>  
 
-        <div class="col-12 col-xl-8 col-md-8 col-lg-8 mb-1">
+        <div class="col-12 col-xl-4 col-md-4 col-lg-4 mb-2">
             <div class="">Logo Image</div>
             <div class="">
                 <input class="form-control" type="file" name="logo_img"  required/>
             </div>
         </div>   
 
-        <div class="col-12 col-xl-8 col-md-8 col-lg-8 ">
-            <div class="">Banner Section</div>
+
+      <hr>
+        <span>Static Banner (Change)</span>
+
+        <div class="col-12 col-xl-4 col-md-4 col-lg-4 mb-2">
             <div class="">Text</div>
             <div class="">
                 <input class="form-control" type="text" name="banner_text" placeholder="Logo Name" />
             </div>
         </div> 
 
-        <div class="col-12 col-xl-8 col-md-8 col-lg-8 mb-1">
+        <div class="col-12 col-xl-4 col-md-4 col-lg-4 mb-2">
             <div class="">Banner Images</div>
             <div class="">
                 <input class="form-control" type="file" multiple  name="campaign_img[]"  required/>
             </div>
         </div>  
+        <hr>
 
     </div>
     </form>

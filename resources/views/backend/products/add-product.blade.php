@@ -463,7 +463,10 @@
                               <div class="mb-3"></div>
                               <div class="btn btn-danger mt-4 remove_variant">Remove</div>
                             </div> --}}
+                           <span class="mb-3"></span>
+
                         </div>
+                       
                         {{-- first child end--}}
 
                         {{-- append child here --}}

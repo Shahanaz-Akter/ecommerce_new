@@ -484,8 +484,8 @@ class ProductController extends Controller
                     $image_model->save();
 
                     $product_image = new ProductImage();
-                    $product_image ->product_id = $product->id;
-                    $product_image ->image_id = $image_model->id;
+                    $product_image->product_id = $product->id;
+                    $product_image->image_id = $image_model->id;
                     $product_image->save();
                 }
             }
@@ -534,8 +534,7 @@ class ProductController extends Controller
                     $image_model->file_size = $file_size;
                     $image_model->save();
 
-                    $reviews_img_arr[]=  $image_model->id;
-
+                    $reviews_img_arr[] =  $image_model->id;
                 }
             }
 
@@ -577,7 +576,7 @@ class ProductController extends Controller
             }
             // end reviews
 
-           
+
             // start variations stored model
             $attribute_ids = $request->attribute_ids ?? [];
             $attribute_values = $request->attribute_values ?? [];
@@ -635,10 +634,9 @@ class ProductController extends Controller
                         $image_model->save();
 
                         $variant_image = new VariantImage();
-                        $variant_image->variant_id =$variant->id;
-                        $variant_image->image_id =$image_model->id;
+                        $variant_image->variant_id = $variant->id;
+                        $variant_image->image_id = $image_model->id;
                         $variant_image->save();
-                      
                     }
                 }
             }
@@ -769,7 +767,7 @@ class ProductController extends Controller
                 $image_model->save();
 
                 $variant_image =  new VariantImage();
-                $variant_image->variant_id =$variant_id;
+                $variant_image->variant_id = $variant_id;
                 $variant_image->image_id = $image_model->id;
                 $variant_image->save();
             }
@@ -801,7 +799,12 @@ class ProductController extends Controller
     }
 
 
-    public function campaigns()
+    public function offers()
+    {
+        return view('backend.campaign.campaigns');
+    }
+
+    public function  postOffers()
     {
         return view('backend.campaign.campaigns');
     }
