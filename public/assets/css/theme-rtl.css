@@ -27389,6 +27389,7 @@ html:not(.navbar-vertical-collapsed) .navbar-vertical .navbar-vertical-content {
     height: calc(100vh - var(--phoenix-navbar-top-height) - 4rem);
   }
 }
+
 @media (min-width: 576px) {
   html:not(.navbar-vertical-collapsed) .navbar-vertical.navbar-expand-sm {
     height: calc(100vh - var(--phoenix-navbar-top-height));
@@ -27397,9 +27398,11 @@ html:not(.navbar-vertical-collapsed) .navbar-vertical .navbar-vertical-content {
     height: calc(100vh - var(--phoenix-navbar-top-height) - 4rem);
   }
 }
+
 html:not(.navbar-vertical-collapsed) .navbar-vertical.navbar-expand-xs {
   height: calc(100vh - var(--phoenix-navbar-top-height));
 }
+
 html:not(.navbar-vertical-collapsed) .navbar-vertical.navbar-expand-xs .navbar-vertical-content {
   height: calc(100vh - var(--phoenix-navbar-top-height) - 4rem);
 }
@@ -27413,23 +27416,30 @@ html:not(.navbar-vertical-collapsed) .navbar-vertical.navbar-expand-xs .navbar-v
   width: 100vw;
   background: var(--phoenix-navbar-vertical-bg-color);
 }
+
 .navbar-vertical .navbar-vertical-line {
   display: none;
 }
+
 .navbar-vertical + .navbar-top .navbar-logo {
+    
   height: var(--phoenix-navbar-top-height)0.0625rem;
+
 }
+
 .navbar-vertical + .navbar-top .navbar-toggler {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   margin-right: -0.5rem;
 }
+
 @media (min-width: 992px) {
   .navbar-vertical + .navbar-top .navbar-logo {
     width: 15.875rem;
   }
 }
+
 .navbar-vertical .navbar-collapse.collapsing .navbar-vertical-content, .navbar-vertical .navbar-collapse.show .navbar-vertical-content {
   max-height: calc(100vh - var(--phoenix-navbar-top-height));
 }
@@ -27836,7 +27846,8 @@ html:not(.navbar-vertical-collapsed) .navbar-vertical.navbar-expand-xs .navbar-v
     scroll-margin-top: 200px;
   }
   .navbar-vertical.navbar-expand-lg .navbar-vertical-content .navbar-nav .nav .nav-link .nav-link-text {
-    padding-right: 15px;
+    /* padding-right: 15px; */
+    padding-right: 0px;
   }
   .navbar-vertical.navbar-expand-lg .navbar-vertical-content .navbar-nav .nav .nav-link .dropdown-indicator-icon + .nav-link-text {
     padding-right: 3px;

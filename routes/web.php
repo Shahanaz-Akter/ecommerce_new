@@ -189,9 +189,8 @@ Route::middleware(['auth_user'])->group(function () {
 
     // logo routes
     Route::group(['prefix' => 'logo'], function () {
-    Route::get('logos', [SettingController::class, 'logos'])->name('logos');
-    Route::post('post-logos', [SettingController::class, 'postLogos'])->name('post.logos');
-
+        Route::get('logos', [SettingController::class, 'logos'])->name('logos');
+        Route::post('post-logos', [SettingController::class, 'postLogos'])->name('post.logos');
     });
 
     // product routes
@@ -226,12 +225,37 @@ Route::middleware(['auth_user'])->group(function () {
         Route::post('post-add-vendor', [SettingController::class, 'postVendor'])->name('post.vendor');
         Route::post('post-add-vendor1', [SettingController::class, 'postVendor1'])->name('post.vendor1');
     });
+
+    // order routes
+    Route::group(['prefix' => 'order'], function () {
+        Route::get('orders', [SettingController::class, 'orders'])->name('orders');
+        Route::get('add/order', [SettingController::class, 'addOrder'])->name('add.order');
+
+    });
+
+    // order routes
+    Route::group(['prefix' => 'general'], function () {
+
+        Route::get('general-setting', [SettingController::class, 'generalSetting'])->name('general.setting');
+        Route::get('email-setting', [SettingController::class, 'emailSetting'])->name('email.setting');
+        Route::get('language-setting', [SettingController::class, 'socialLogin'])->name('language.setting');
+        Route::get('social-login', [SettingController::class, 'socialLogin'])->name('social.login');
+        Route::get('campaigns', [SettingController::class, 'campaigns'])->name('campaigns');
+        Route::get('message', [SettingController::class, 'message'])->name('message');
+        Route::get('support', [SettingController::class, 'support'])->name('support');
+
+    });
+
+      // order routes
+      Route::group(['prefix' => 'report'], function () {
+
+        Route::get('product-report', [SettingController::class, 'productReport'])->name('report.product');
+        Route::get('order-report', [SettingController::class, 'orderReport'])->name('report.order');
+        Route::get('stock-report', [SettingController::class, 'stockReport'])->name('report.stock');
+    });
 });
 
 // middleware end
-
-
-
 
 Route::get('/home/index', function () {
     return view('frontend.home');
