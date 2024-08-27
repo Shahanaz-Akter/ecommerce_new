@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\setting;
 
+use app;
 use Exception;
 use Carbon\Carbon;
 use App\Models\Unit;
@@ -15,12 +16,106 @@ use App\Models\Attribute;
 use App\Models\ImageFiles;
 use Illuminate\Http\Request;
 use App\Models\AttributeValue;
+use App\Models\AppInfo;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Validation\Rules\ImageFile;
 
 class SettingController extends Controller
 {
+
+    public function appInfo()
+    {
+        return view('backend.app_info.app-info');
+    }
+    public function PostAppInfo(Request $request)
+    {
+        $logoImage =  $request->file('system_img');
+
+        $anyRecord = AppInfo::first();
+
+        if ($anyRecord) {
+            if ($logoImage) {
+
+                $originalName = $logoImage->getClientOriginalName();
+                $extension = $logoImage->getClientOriginalExtension();
+                $uniqueName = uniqid() . '.' . $extension;
+                $fileSizeInBytes = $logoImage->getSize();
+                $file_size = $this->humanReadableFileSize($fileSizeInBytes);
+                $relativePath = '/uploads/' .  $uniqueName;
+
+                $logoImage->move(public_path('uploads'), $uniqueName);
+
+                $image_model =  new Images();
+                $image_model->original_name = $originalName;
+                $image_model->absolute_path = $relativePath;
+                $image_model->extension = $extension;
+                $image_model->file_size = $file_size;
+                $image_model->save();
+
+                $anyRecord->logo_img_id = $image_model->id;
+            }
+
+            $anyRecord->title = $request->system_name;
+            $anyRecord->phone = $request->system_phone;
+            $anyRecord->email = $request->system_email;
+            $anyRecord->short_description = $request->system_description;
+            $anyRecord->save();
+            return redirect()->route('app.view')->with(['success' => "Successfully Updated!"]);
+        } else {
+            if ($logoImage) {
+                $originalName = $logoImage->getClientOriginalName();
+                $extension = $logoImage->getClientOriginalExtension();
+                $uniqueName = uniqid() . '.' . $extension;
+                $fileSizeInBytes = $logoImage->getSize();
+                $file_size = $this->humanReadableFileSize($fileSizeInBytes);
+                $relativePath = '/uploads/' .  $uniqueName;
+
+                $logoImage->move(public_path('uploads'), $uniqueName);
+
+                $image_model =  new Images();
+                $image_model->original_name = $originalName;
+                $image_model->absolute_path = $relativePath;
+                $image_model->extension = $extension;
+                $image_model->file_size = $file_size;
+                $image_model->save();
+            }
+
+            $app = new AppInfo();
+            $app->title = $request->system_name;
+            $app->logo_img_id = $image_model->id;
+            $app->phone = $request->system_phone;
+            $app->email = $request->system_email;
+            $app->short_description = $request->system_description;
+            $app->save();
+
+            return redirect()->route('app.view')->with(['success' => "Successfully Created!"]);
+        }
+    }
+
+    public function  appView()
+    {
+
+        $records = AppInfo::get();
+        // dd($records);
+
+        return view('backend.app_info.app-view', compact('records'));
+    }
+
+
+    public function removeApp($id)
+    {
+
+        $record = AppInfo::where('id', $id)->first();
+
+        if ($record) {
+            $record->delete();
+            return redirect()->back()->with(['success' => 'Seccessfully Deleted the Record!']);
+        } else {
+            return redirect()->back()->with(['success' => 'Not Found the Record!']);
+        }
+    }
+
     public function brands()
     {
 
@@ -155,10 +250,6 @@ class SettingController extends Controller
             return redirect()->back()->with(['success' => 'Not Found the Record!']);
         }
     }
-
-
-
-
 
     public function postBrand1(Request $request)
     {
@@ -304,7 +395,6 @@ class SettingController extends Controller
             return redirect()->back()->with(['success' => 'Not Found the Record!']);
         }
     }
-
 
     public function customers()
     {
@@ -662,7 +752,6 @@ class SettingController extends Controller
 
             //  return redirect()->route('categories')->with('success', 'Successfully Saved Category!');
             return redirect()->route('categories')->with(['success' => 'Seccessfully Saved the  Record!']);
-
         } catch (Exception $ex) {
             // Rollback transaction in case of an error
             DB::rollBack();
@@ -673,7 +762,6 @@ class SettingController extends Controller
             ], 500);
         }
     }
-
 
     public function editCategory($id)
     {
@@ -687,7 +775,7 @@ class SettingController extends Controller
 
     public function postEditCategory(Request $request, $id)
     {
-        
+
         $category = Category::where('id', $id)->first();
 
         $category_image =  $request->file('category_image');
@@ -714,10 +802,9 @@ class SettingController extends Controller
                 $image_model->extension = $extension;
                 $image_model->file_size = $file_size;
                 $image_model->save();
-
             }
 
-            $category->name = $request->category? strtolower($request->category):  $category->name;
+            $category->name = $request->category ? strtolower($request->category) :  $category->name;
             $category->parent_category_id = $request->parent_category ? $request->parent_category : $category->parent_category_id;
             $category->category_level = rand(0, 100);
             $category->category_image_id =   $category_image ? $image_model->id :  $category->category_image_id;
@@ -726,9 +813,9 @@ class SettingController extends Controller
             return redirect()->route('categories')->with(['success' => 'Seccessfully Edit the Record!']);
         } else {
             return redirect()->route('categories')->with(['success' => 'Not Found the Record!']);
-        
         }
     }
+
     public function removeCategory($id)
     {
         $category = Category::where('id', $id)->first();
@@ -803,15 +890,8 @@ class SettingController extends Controller
         }
     }
 
-
-    public function logos()
+    public function campaigns()
     {
-      
-        return view('backend.logo.logo');
-        
-    }
-    public function PostLogos()
-    {
-       dd('dsfdsf');
+        return view('backend.marketing.campaign');
     }
 }

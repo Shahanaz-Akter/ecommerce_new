@@ -9,7 +9,6 @@ use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\Product\ProductController;
 use App\Http\Controllers\setting\SettingController;
 
-
 // Route::group(['namespace' => 'App\Http\Controllers\UserController'], function() {}); 
 //if use this line then dont need to import class direct can write the controller name with function like this "Route::post('login', 'LoginController@login');"
 
@@ -187,12 +186,6 @@ Route::middleware(['auth_user'])->group(function () {
     });
 
 
-    // logo routes
-    Route::group(['prefix' => 'logo'], function () {
-        Route::get('logos', [SettingController::class, 'logos'])->name('logos');
-        Route::post('post-logos', [SettingController::class, 'postLogos'])->name('post.logos');
-    });
-
     // product routes
     Route::group(['prefix' => 'product'], function () {
 
@@ -219,7 +212,6 @@ Route::middleware(['auth_user'])->group(function () {
         Route::post('post-offers', [ProductController::class, 'postOffers'])->name('post.offers');
     });
 
-
     // product routes
     Route::group(['prefix' => 'vendor'], function () {
         Route::post('post-add-vendor', [SettingController::class, 'postVendor'])->name('post.vendor');
@@ -230,24 +222,29 @@ Route::middleware(['auth_user'])->group(function () {
     Route::group(['prefix' => 'order'], function () {
         Route::get('orders', [SettingController::class, 'orders'])->name('orders');
         Route::get('add/order', [SettingController::class, 'addOrder'])->name('add.order');
-
     });
 
-    // order routes
-    Route::group(['prefix' => 'general'], function () {
+    // app routes
+    Route::group(['prefix' => 'app'], function () {
+        Route::get('app-info', [SettingController::class, 'appInfo'])->name('app.info');
+        Route::post('post-app-info', [SettingController::class, 'postAppInfo'])->name('post.app.info');
+        Route::get('app-view', [SettingController::class, 'appView'])->name('app.view');
 
-        Route::get('general-setting', [SettingController::class, 'generalSetting'])->name('general.setting');
+        // Route::get('edit-app', [SettingController::class, 'EditApp'])->name('edit.app');
+        Route::get('remove-app/{id}', [SettingController::class, 'removeApp'])->name('remove.app');
+        
+        Route::get('campaigns', [SettingController::class, 'campaigns'])->name('campaigns');
+
         Route::get('email-setting', [SettingController::class, 'emailSetting'])->name('email.setting');
         Route::get('language-setting', [SettingController::class, 'socialLogin'])->name('language.setting');
         Route::get('social-login', [SettingController::class, 'socialLogin'])->name('social.login');
-        Route::get('campaigns', [SettingController::class, 'campaigns'])->name('campaigns');
         Route::get('message', [SettingController::class, 'message'])->name('message');
         Route::get('support', [SettingController::class, 'support'])->name('support');
-
     });
 
-      // order routes
-      Route::group(['prefix' => 'report'], function () {
+
+    // report routes
+    Route::group(['prefix' => 'report'], function () {
 
         Route::get('product-report', [SettingController::class, 'productReport'])->name('report.product');
         Route::get('order-report', [SettingController::class, 'orderReport'])->name('report.order');
@@ -260,8 +257,6 @@ Route::middleware(['auth_user'])->group(function () {
 Route::get('/home/index', function () {
     return view('frontend.home');
 });
-
-
 
 // Social Login GOOGLE 
 Route::get('/auth/google', [GoogleAuthController::class, 'redirectGoogle'])->name('google.login');

@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CampaignImage extends Model
+class Campaign extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['campaign_id', 'image_id'];
+    protected $fillable = ['title', 'discount_start_date', 'discount_end_date'];
 
 }

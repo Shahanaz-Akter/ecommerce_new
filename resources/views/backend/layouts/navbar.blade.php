@@ -345,7 +345,7 @@
              <div class="avatar avatar-l ">
 
               @if(Auth::check() && Auth::user()->image_id)
-                <img src="{{Auth::user()->imageFile->absolute_path}} " alt="" width="53" />
+                <img src="{{Auth::user()->imageFile->absolute_path}}" class="rounded-circle" alt="" width="53" />
 
                 @else
                 <img class="rounded-circle " src="{{asset('assets/img/team/40x40/57.webp')}}" alt="" />

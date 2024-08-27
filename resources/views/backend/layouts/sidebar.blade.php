@@ -159,9 +159,9 @@
         </div>
     </a>
     </li>
-
     
     </ul>
+
     </div>
 
 </div>
@@ -454,9 +454,16 @@
           <li class="collapsed-nav-item-title d-none">System Setup
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('general.setting') }}">
+            <a class="nav-link" href="{{ route('app.info') }}">
             <div class="d-flex align-items-center"><span class="nav-link-text">
                 <i class="fa-solid fa-circle me-1 mb-1 bullet-items"></i>General Setting</span>
+            </div>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('app.view') }}">
+            <div class="d-flex align-items-center"><span class="nav-link-text">
+                <i class="fa-solid fa-circle me-1 mb-1 bullet-items"></i>General View</span>
             </div>
             </a>
         </li>
@@ -657,7 +664,7 @@
                 // Check if textParent or any of its children contains the 'nav-link-text' class
                 if (textParent.querySelector('.nav-link-text')) {
                     // If found, apply the desired styles or class
-                    textParent.querySelector('.nav-link-text').style.color = 'white'; // Example: make it blue
+                    textParent.querySelector('.nav-link-text').style.color = 'blue'; // Example: make it blue
                     textParent.querySelector('.nav-link-text').classList.add('active');
                     // console.log('dfgdg');
                 } else {
